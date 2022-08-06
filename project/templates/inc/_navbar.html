@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home_route' %}">Главная</a>
+                </li>
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_news_route' %}">Добавить новость</a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="http://127.0.0.1:8000/admin/">Перейти в админку</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <span class="navbar-text ">
+
+            {% if request.user.is_authenticated %}
+                {{ user.username }}, добро пожаловать <a href="{% url 'logout_route' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'register_route' %}">Зарегистрироваться</a>
+                <a href="{% url 'login_route' %}">Войти</a>
+            {% endif %}
+
+        </span>
+
+    </div>
+</nav>

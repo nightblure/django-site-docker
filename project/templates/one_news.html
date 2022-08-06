@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+<! -- выводим тайтл из передаваемой в контексте переменной title
+и тайтл из базового темплейта -->
+
+{% block title %}
+{{ news_item.title }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<div class="card mb-3">
+
+    <div class="card-header">
+        <a href="{{ item.category.get_absolute_url }}" class="list-group-item list-group-item-action"> Категория: {{ news_item.category }} </a>
+    </div>
+
+    <div class="card-body">
+
+        {# <div class="media d-flex"> #}
+
+        {% if news_item.image %}
+        <img src="{{ news_item.image.url }}" alt="" height="300" width="300" class="float-start me-3">
+        {% else %}
+
+        {% endif %}
+
+        {# <div class="media-body"> #}
+            <h5 class="card-title"> {{ news_item.title|safe }} </h5>
+            <p class="card-text"> {{ news_item.content|safe }} </p>
+        {# </div> #}
+
+        {# </div> #}
+
+    </div>
+
+    <div class="card-footer text-muted">
+        {{ news_item.created_at|date:"Y-m-d H:i" }}
+    </div>
+
+</div>
+
+{% endblock %}

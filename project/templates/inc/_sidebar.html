@@ -1,0 +1,18 @@
+{% load news_tags %}
+
+{% comment %}
+
+<div class="list-group">
+    {% get_categories as categories %}
+    {% for category in categories %}
+    <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action"> {{ category.title }} </a>
+    {# {% url 'category_route' category.title %} #}
+    {% endfor %}
+</div>
+
+<br>
+
+{% endcomment %}
+
+{# см. show_categories в news_tags.py, который подключен в 1-ой строке #}
+{% show_categories %}

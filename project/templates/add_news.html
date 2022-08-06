@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<h1> Добавление новости </h1>
+
+{# ФОРМА И СПОСОБЫ ЕЕ РЕНДЕРИНГА #}
+<form action="{% url 'add_news_route' %}" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {# СПОСОБ 1. АВТОРЕНДЕРИНГ #}
+    {{ form.as_p }}
+
+    {% comment %}
+    {# СПОСОБ 2. РЕНДЕРИНГ КАЖДОГО ОТДЕЛЬНОГО ПОЛЯ ВРУЧНУЮ. нужен, если надо задать уникальную разметку для полей #}
+    {{ form.non_field.errors }}
+    <div class="form-group">
+
+        <label for="{{ form.title.id_for_label }}">Название</label>
+        {{ form.title }}
+
+        <div class="invalid-feedback">
+            {{ form.title.errors }}
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="{{ form.content.id_for_label }}">Текст</label>
+        {{ form.content }}
+
+        <div class="invalid-feedback">
+            {{ form.content.errors }}
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="{{ form.is_published.id_for_label }}">Опубликовано?</label>
+        {{ form.is_published }}
+
+        <div class="invalid-feedback">
+            {{ form.is_published.errors }}
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="{{ form.category.id_for_label }}">Категория</label>
+        {{ form.category }}
+
+        <div class="invalid-feedback">
+            {{ form.category.errors }}
+        </div>
+
+    </div>
+    {% endcomment %}
+
+    {% comment %}
+    {# СПОСОБ 3. ПОЛУАВТОМАТИЧЕСКИЙ РЕНДЕР #}
+    {% for field in form %}
+    <div class="form-group">
+
+        {{ field.label_tag }}
+        {{ field }}
+
+        <div class="invalid-feedback">
+            {{ field.errors }}
+        </div>
+
+    </div>
+    {% endfor %}
+    {% endcomment %}
+
+    <button type="submit" class="btn btn-primary btn-block">
+        Добавить новость
+    </button>
+
+</form>
+
+{% endblock %}

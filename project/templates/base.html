@@ -1,0 +1,59 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> {% block title %} BASE TITLE {% endblock %} </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body>
+
+{% include 'inc/_navbar.html' %}
+
+<div class="container mt-3">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            {% block sidebar %} NOT IMPLEMENTED SIDEBAR BLOCK {% endblock %}
+        </div>
+
+        <div class="col-md-9">
+
+            {% if messages %}
+
+            {% for msg in messages %}
+
+                {% if msg.tags == 'error' %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ msg }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-{{ msg.tags }}" role="alert">
+                        {{ msg }}
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+            {% endif %}
+
+            {% block content %} NOT IMPLEMENTED CONTENT BLOCK {% endblock %}
+
+            {% if page_obj.has_other_pages %}
+                {% include 'inc/_paginator.html' %}
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

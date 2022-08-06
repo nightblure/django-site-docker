@@ -10,11 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
-from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
-from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,8 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     # регистрация приложения newsapp
-    'newsapp.apps.RegisterNewsapp',
-    'django_celery_beat'
+    'newsapp.apps.RegisterNewsapp'
 ]
 
 MIDDLEWARE = [
@@ -65,7 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'newsapp.middleware.logout_on_timeout',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -96,15 +92,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': 'localhost',
-        'PORT': os.environ.get('PG_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -156,48 +145,6 @@ INTERNAL_IPS = [
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads'
-
-# порты смотреть в докере!
-REDIS_PORT = os.environ.get('REDIS_PORT')
-RABBITMQ_PORT = os.environ.get('RMQ_PORT')
-
-RABBITMQ_USER = os.environ.get('RMQ_USER')
-RABBITMQ_PASS = os.environ.get('RMQ_PASS')
-
-REDIS_BROKER_URL = f'redis://localhost:{REDIS_PORT}'
-RABBITMQ_BROKER_URL = f'amqp://{RABBITMQ_USER}:{RABBITMQ_PASS}@localhost:{RABBITMQ_PORT}'
-# RABBITMQ_BROKER_URL = 'amqp://localhost'
-
-CELERY_BROKER_URL = RABBITMQ_BROKER_URL
-
-# в качестве бэкенда используем redis
-CELERY_RESULT_BACKEND = 'redis://'  # f'redis://localhost:{REDIS_PORT}'
-
-# настройка redis
-
-CACHE_TTL = 60 * 1500
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'redis://localhost:{REDIS_PORT}',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient'
-        }
-    }
-}
-
-# CELERY_BEAT_SCHEDULE = {
-#     # наименование элемента расписания
-#     'test_delayed_task_name': {
-#         # путь к задаче
-#         'task': 'newsapp.tasks.test_task',
-#         # кулдаун выполнения (минимальный - 1 минута)
-#         #'schedule': crontab(minute=1)
-#         # по секундам можно выполнять с помощью timedelta
-#         'schedule': timedelta(seconds=3)
-#     }
-# }
 
 # замена для моей кастомной миддлвейр для разлогирования
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True

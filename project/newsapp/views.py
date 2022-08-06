@@ -10,9 +10,6 @@ from django.contrib.auth import login, logout
 from .models import News, Category
 from .forms import NewsForm, UserRegisterForm, UserLoginForm
 
-from django.core.cache import cache
-from .tasks import send_tg_message
-
 
 def register(request):
     if request.method == 'POST':
@@ -186,17 +183,7 @@ class OneNews(DetailView):
 
     def get_queryset(self):
         news_id = self.kwargs['news_id']
-        cache_key = f'news_by_id_{news_id}'
-        news_item = cache.get(cache_key)
-
-        # чекаем наличие новости в кэше
-        if news_item:
-            print('news from cache')
-        else:
-            news_item = get_object_or_404(News, pk=news_id)
-            cache.set(cache_key, news_item)
-            print('news from DB')
-
+        news_item = get_object_or_404(News, pk=news_id)
         return News.objects.filter(pk=news_id)
 
 

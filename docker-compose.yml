@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+
+  db:
+    container_name: django_site_pg
+    image: postgres
+    environment:
+      POSTGRES_DB: "django_site_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      # PGDATA: "/var/lib/postgresql/data/pgdata"
+      # POSTGRES_HOST_AUTH_METHOD: "trust"
+    ports:
+      - 5433:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/dat
+      # специальная директория для автовыполнения .sql скриптов
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.yml
+
+    command: bash -c "
+        cd project
+        && python manage.py runserver 0.0.0.0:8000
+      "
+
+    container_name: django_web_app
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - db

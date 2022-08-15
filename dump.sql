@@ -22,8 +22,6 @@ SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
--- CREATE DATABASE IF NOT EXISTS django_site_db;
-
 --
 -- TOC entry 207 (class 1259 OID 16964)
 -- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres

@@ -99,11 +99,11 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': os.environ.get('HOST'),
+        'HOST': os.environ.get('DOCKER_IMAGE_HOST') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get('HOST'),
         'PORT': os.environ.get('PG_PORT'),     
     }
 }
-
+# print(DATABASES['default']['HOST'])
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 

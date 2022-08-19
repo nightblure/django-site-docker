@@ -21,6 +21,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.yml
+    environment:
+      FROM_DOCKER_IMAGE: "True"
     # если бы не было дампа, то нужно было бы дописать python manage.py migrate
     command: bash -c "
         cd project

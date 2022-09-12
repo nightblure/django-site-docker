@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     # регистрация приложения newsapp
-    'newsapp.apps.RegisterNewsapp'
+    'newsapp.apps.RegisterNewsapp',
+    # регистрация DRF
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

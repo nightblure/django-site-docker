@@ -23,22 +23,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nightblure\Desktop\dev\django site\project\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\newsapp\API" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
       <recent name="C:\Users\nightblure\Desktop\dev\django site\project\templates" />
       <recent name="C:\Users\nightblure\Desktop\dev\django site\project\templates\inc" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django site\project" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django site" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django site\project\templates\newsapp" />
     </key>
   </component>
   <component name="RunManager" selected="Python.tasks">

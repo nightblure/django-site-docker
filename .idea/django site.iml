@@ -2,6 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/project" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/project/newsapp" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (django-site-docker)" jdkType="Python SDK" />

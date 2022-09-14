@@ -23,12 +23,11 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     # воспользуемся include, чтобы определить вложенные маршруты приложения newsapp
-    # для этого нужно создать в приложении новый файл urls.py
-    # с маршрутами конкретного приложения
+    # для этого нужно создать в приложении новый файл urls.py с маршрутами конкретного приложения
     path('', include('newsapp.urls')),
 
     # подключаем маршруты DRF API
-    path('', include('API.urls'))
+    path('', include('api.urls'))
 ]
 
 if settings.DEBUG:

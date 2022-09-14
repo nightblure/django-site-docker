@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'newsapp.apps.RegisterNewsapp',
     # регистрация DRF
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -102,7 +104,7 @@ DATABASES = {
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': os.environ.get('DOCKER_IMAGE_HOST') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get('HOST'),
-        'PORT': os.environ.get('PG_PORT'),     
+        'PORT': os.environ.get('PG_PORT'),
     }
 }
 # print(DATABASES['default']['HOST'])
@@ -154,6 +156,26 @@ INTERNAL_IPS = [
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        # включает генерацию UI DRF в браузере
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+
+    # дефолтные классы для ограничения прав.
+    # отрабатывают, когда в View не определен атрибут permission_classes
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 # замена для моей кастомной миддлвейр для разлогирования
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True

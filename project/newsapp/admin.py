@@ -37,8 +37,6 @@ class CategoryAdmin(admin.ModelAdmin):
     }
 
 
-# http://127.0.0.1:8000/admin/
-
 # Register your models here.
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(News, NewsAdmin)

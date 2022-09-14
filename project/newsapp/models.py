@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from django.contrib.auth.models import User
 
 # http://127.0.0.1:8000/admin/
 
@@ -14,7 +14,7 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         kwargs = {
-            #'category_id': self.id,
+            # 'category_id': self.id,
             'category_slug': self.slug
         }
 
@@ -31,7 +31,7 @@ class Category(models.Model):
 
 class News(models.Model):
     # db_column - переопределяем имя поля в БД
-    #id = models.IntegerField(primary_key=True, db_column='id', verbose_name='Идентификатор')
+    # id = models.IntegerField(primary_key=True, db_column='id', verbose_name='Идентификатор')
     title = models.CharField(max_length=150)
     # blank = True - может принимать пустое значение
     content = models.TextField()
@@ -44,6 +44,7 @@ class News(models.Model):
     is_published = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, db_column='category_id')
     views_count = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     # строковое представление для корректного отображения в админке
     def __str__(self):

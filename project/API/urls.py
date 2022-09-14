@@ -1,10 +1,9 @@
 from rest_framework import routers
 
 from django.urls import path, include, re_path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from api.views import *
-
-BASE_API_URL = 'api/v1'
 
 router = routers.SimpleRouter()
 router.register(r'news', NewsViewSet, basename='news')
@@ -12,9 +11,9 @@ router.register(r'news', NewsViewSet, basename='news')
 # print(router.urls)
 
 urlpatterns = [
-    path(f'{BASE_API_URL}/news/', NewsAPIList.as_view()),
-    path(f'{BASE_API_URL}/news/<int:pk>/', NewsAPIUpdate.as_view()),
-    path(f'{BASE_API_URL}/news_delete/<int:pk>/', NewsAPIDelete.as_view()),
+    path('api/v1/news/', NewsAPIList.as_view()),
+    path('api/v1/ews/<int:pk>/', NewsAPIUpdate.as_view()),
+    path('api/v1/news_delete/<int:pk>/', NewsAPIDelete.as_view()),
 
     # маршруты, сгенерированные роутером
     # path(f'{BASE_API_URL}/', include(router.urls)),
@@ -23,13 +22,29 @@ urlpatterns = [
     # также в UI появляется кнопка login/logout
     path('api-auth/', include('rest_framework.urls')),
 
-    # аутентификация по токену. генерация токена осуществляется
-    # post-запросом на эндпоинт http://127.0.0.1:8000/auth/token/login
-    # пример запроса:
+
+    # маршруты для работы аутентификации на базе обычных токенов
+    # для авторизации в Postman нужно добавить заголовок Authorization со значением "Token <token>"
+    # токен генерируется на странице http://127.0.0.1:8000/auth/token/login
+    # также для генерации токена на адрес выше можно отправить post-запрос:
     # {
     #     "username": "tokenuser",
     #     "password": "1234user"
     # }
-    path(f'{BASE_API_URL}/auth/', include('djoser.urls')),
+
+    path('api/v1/auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
+
+    # маршруты для работы аутентификации на базе JWT-токенов (Json Web Tokens)
+    # для авторизации в Postman нужно добавить заголовок Authorization со значением "Bearer <token>"
+    # токен генерируется на странице http://127.0.0.1:8000/api/v1/jwt_auth/
+    # также для генерации токена на адрес выше можно отправить post-запрос (нужно использовать access-часть токена!):
+    # {
+    #     "username": "tokenuser",
+    #     "password": "1234user"
+    # }
+    # https://www.youtube.com/watch?v=b4C6UTlSC-o&t=4s&ab_channel=selfedu
+    path('api/v1/jwt_auth/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/v1/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]

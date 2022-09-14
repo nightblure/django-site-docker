@@ -74,6 +74,7 @@ class NewsAPIUpdate(generics.RetrieveUpdateAPIView):
     permission_classes = (IsOwnerOrAdminOrAuthenticated, )
     # authentication_classes = (TokenAuthentication, )
 
+
 class NewsAPIDelete(generics.RetrieveDestroyAPIView):
     queryset = News.objects.filter(is_published=True)
     serializer_class = NewsSerializer

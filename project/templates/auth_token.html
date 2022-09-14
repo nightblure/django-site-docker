@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Auth token generate
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+
+<h1> Auth token generate </h1>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    {# авторендеринг формы #}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary btn-block">
+        Generate
+    </button>
+
+</form>
+
+{% endblock %}

@@ -18,4 +18,6 @@ urlpatterns = [
     path('register/', register, name='register_route'),
     path('login/', user_login, name='login_route'),
     path('logout/', user_logout, name='logout_route'),
+
+    path('get_auth_token/', auth_token_view, name='token_route'),
 ]

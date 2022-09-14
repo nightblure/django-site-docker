@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
@@ -8,7 +9,43 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 
 from .models import News, Category
-from .forms import NewsForm, UserRegisterForm, UserLoginForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm
+
+
+def get_auth_token_message(login, password):
+
+    data = {
+        "username": f"{login}",
+        "password": f"{password}"
+    }
+
+    response = requests.post('http://127.0.0.1:8000/auth/token/login', data=data)
+    response = response.json()
+    return response['non_field_errors'][0] if 'non_field_errors' in response else f"token: {response['auth_token']}"
+
+
+def auth_token_view(request):
+
+    if request.method == 'POST':
+
+        # вытаскиваем значения текстовых полей по html-атрибуту name
+        login = request.POST['login']
+        password = request.POST['password']
+
+        message = get_auth_token_message(login, password)
+
+        if 'token' in message:
+            messages.info(request, message)
+        else:
+            messages.error(request, message)
+
+        return redirect('token_route')
+
+    context = {
+        'form': AuthTokenForm()
+    }
+
+    return render(request, 'auth_token.html', context)
 
 
 def register(request):

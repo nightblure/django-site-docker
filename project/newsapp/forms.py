@@ -7,8 +7,21 @@ from django.contrib.auth.models import User
 import re
 
 
+class AuthTokenForm(forms.Form):
+    login = forms.CharField(label='Login', widget=forms.TextInput(
+        attrs={
+            'class': 'form-control'
+        }))
+
+    password = forms.CharField(label='Password', widget=forms.TextInput(
+        attrs={
+            'class': 'form-control'
+        }))
+
+
 # примеры формы НЕ СВЯЗАННОЙ с моделью. тут приходится по сути дублировать свойства полей из модели
-# формы, не связанные с моделью, нужны, когда нужно совершить действие, не связанное напрямую с моделью. например отправить что-то на почту и т.д.
+# формы, не связанные с моделью, нужны, когда нужно совершить действие, не связанное ни с одной из моделей
+# например отправить что-то на почту и т.д.
 # class NewsForm(forms.Form):
 #
 #     title = forms.CharField(max_length=150, label='Название', widget=forms.TextInput(

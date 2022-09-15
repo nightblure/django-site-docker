@@ -176,7 +176,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+
+    # дефолтная пагинация. работает глобально для любых запросов к api
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 5,
+
+    # кастомный класс для пагинации. можно применять к отдельным вьюхам
+    'DEFAULT_PAGINATION_CLASS': 'api.pagination.StandardPagination',
 }
 
 SIMPLE_JWT = {

@@ -1,3 +1,5 @@
+import json
+
 import requests
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
@@ -12,20 +14,29 @@ from .models import News, Category
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm
 
 
-def get_auth_token_message(login, password):
-
+def get_auth_token_message(login, password, type='token'):
     data = {
         "username": f"{login}",
         "password": f"{password}"
     }
 
-    response = requests.post('http://127.0.0.1:8000/auth/token/login', data=data)
+    if type == 'token':
+        url = 'http://127.0.0.1:8000/auth/token/login'
+    else:
+        url = 'http://127.0.0.1:8000/api/v1/jwt_auth/'
+
+    response = requests.post(url, data=data)
     response = response.json()
-    return response['non_field_errors'][0] if 'non_field_errors' in response else f"token: {response['auth_token']}"
+    print(response)
+
+    # if type == 'jwt' and 'detail' in response:
+    #     response = json.loads('{"non_field_errors": ["Невозможно войти с предоставленными учетными данными."]}')
+
+    # return response['non_field_errors'][0] if 'non_field_errors' in response else f"token: {response['auth_token']}"
+    return response
 
 
 def auth_token_view(request):
-
     if request.method == 'POST':
 
         # вытаскиваем значения текстовых полей по html-атрибуту name
@@ -34,7 +45,7 @@ def auth_token_view(request):
 
         message = get_auth_token_message(login, password)
 
-        if 'token' in message:
+        if 'auth_token' in message:
             messages.info(request, message)
         else:
             messages.error(request, message)
@@ -46,6 +57,29 @@ def auth_token_view(request):
     }
 
     return render(request, 'auth_token.html', context)
+
+
+def jwt_auth_token_view(request):
+    if request.method == 'POST':
+
+        # вытаскиваем значения текстовых полей по html-атрибуту name
+        login = request.POST['login']
+        password = request.POST['password']
+
+        message = get_auth_token_message(login, password, 'jwt')
+
+        if 'refresh' in message:
+            messages.info(request, message)
+        else:
+            messages.error(request, message)
+
+        return redirect('jwt_token_route')
+
+    context = {
+        'form': AuthTokenForm()
+    }
+
+    return render(request, 'jwt_token.html', context)
 
 
 def register(request):

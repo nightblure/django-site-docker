@@ -7,21 +7,23 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from api.pagination import StandardPagination
 from api.permissions import IsAdmin, IsOwnerOrAdminOrAuthenticated
 from newsapp.models import News, Category
 from api.serializers import NewsSerializer
 
+"""
+http://127.0.0.1:8000/api/v1/newslist/
 
-# http://127.0.0.1:8000/api/v1/newslist/
-
-# APIView - базовый класс для всех представлений DRF
-# ниже представлена типа ручная реализация того, как под капотом работает класс ListAPIView
-# post-запрос для проверки:
-# {
-#     "title": "Новость api test",
-#     "content": "test",
-#     "category": 5
-# }
+APIView - базовый класс для всех представлений DRF
+ниже представлена типа ручная реализация того, как под капотом работает класс ListAPIView
+post-запрос для проверки:
+{
+    "title": "Новость api test",
+    "content": "test",
+    "category": 5
+}
+"""
 class NewsAPIView(APIView):
     def get(self, request):
         objects = News.objects.all().values()
@@ -66,6 +68,7 @@ class NewsAPIList(generics.ListCreateAPIView):
     serializer_class = NewsSerializer
     # вместо permission_classes отработает класс
     # IsAuthenticated, определенный в settings как пермишн по умолчанию
+    pagination_class = StandardPagination
 
 
 class NewsAPIUpdate(generics.RetrieveUpdateAPIView):
@@ -81,9 +84,11 @@ class NewsAPIDelete(generics.RetrieveDestroyAPIView):
     permission_classes = (IsAdmin, )
 
 
-# замена классов NewsAPI...
-# все перечисленные наследники есть в классе viewsets.ModelViewSet
-# меняя набор миксинов можно легко менять поведение API с точки зрения поддержки CRUD-операций
+"""
+замена классов NewsAPI...
+все перечисленные наследники есть в классе viewsets.ModelViewSet
+меняя набор миксинов можно легко менять поведение API с точки зрения поддержки CRUD-операций
+"""
 class NewsViewSet(mixins.CreateModelMixin,
                   # read-операции
                   mixins.RetrieveModelMixin,
@@ -100,17 +105,21 @@ class NewsViewSet(mixins.CreateModelMixin,
     def get_queryset(self):
         return News.objects.filter(is_published=True)
 
-    # определение метода с декоратором action добавляет
-    # к маршрутам роутера новый маршрут с именем метода
-    # detail=False означает, что возвращаться должен список
-    # маршрут: http://127.0.0.1:8000/api/v1/news/categories/
+    """ 
+    определение метода с декоратором action добавляет
+    к маршрутам роутера новый маршрут с именем метода
+    detail=False означает, что возвращаться должен список
+    маршрут: http://127.0.0.1:8000/api/v1/news/categories/
+    """
     @action(methods=['get'], detail=False)
     def categories(self, request):
         categories = Category.objects.all()
         return Response({'categories': [c.title for c in categories]})
 
-    # получение определенной категории (благодаря параметру detail=True)
-    # по маршруту вида http://127.0.0.1:8000/api/v1/news/<key>/category/, где key - pk категории
+    """
+    получение определенной категории (благодаря параметру detail=True)
+    по маршруту вида http://127.0.0.1:8000/api/v1/news/<key>/category/, где key - pk категории
+    """
     @action(methods=['get'], detail=True)
     def category(self, request, pk):
         category = Category.objects.get(pk=pk)

@@ -20,4 +20,5 @@ urlpatterns = [
     path('logout/', user_logout, name='logout_route'),
 
     path('get_auth_token/', auth_token_view, name='token_route'),
+    path('get_jwt_auth_token/', jwt_auth_token_view, name='jwt_token_route'),
 ]

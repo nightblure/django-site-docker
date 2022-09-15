@@ -1,0 +1,16 @@
+общая команда дампа: pg_dump -U postgres [--encoding=utf-8] [-F c] "ACRF" > "C:\DB backups\ACRF dump (8 dec)"
+
+
+// скопировать файл из контейнера
+docker cp <id контейнера>:<путь и файл> <имя копии>
+пример: docker cp pgadmin:/tmp/dump dump
+
+// скопировать файл в контейнер
+docker cp <имя файла> container_id:/<путь и имя копии>
+пример: docker cp r.txt pgadmin:/tmp/r.txt
+
+----------------------------------------------------------------------
+
+pg_dump -U postgres --encoding=utf-8 "django_site_db" > tmp/dump.sql
+
+docker cp django_site_pg:/tmp/dump.sql dump.sql

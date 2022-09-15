@@ -19,8 +19,18 @@
                     <a class="nav-link" target="_blank" href="http://127.0.0.1:8000/admin/">Перейти в админку</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'token_route' %}">Получить токен</a>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="{% url 'token_route' %}">Получить токен</a>-->
+<!--                </li>-->
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        API auth tokens
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'token_route' %}">Token</a></li>
+                        <li><a class="dropdown-item" href="{% url 'jwt_token_route' %}">JWT</a></li>
+                    </ul>
                 </li>
 
             </ul>

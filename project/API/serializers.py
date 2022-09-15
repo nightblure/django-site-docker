@@ -30,7 +30,25 @@ class NewsSerializer(serializers.ModelSerializer):
     # скрытое автогенерируемое поле
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
+    """
+    SerializerMethodField определяет поле только для чтения,
+    значение которого определяется с помощью указанного метода 
+    """
+    user_str = serializers.SerializerMethodField(method_name='get_user')
+    image_path = serializers.SerializerMethodField(method_name='get_photo_url')
+
+    def get_user(self, obj):
+        return f'{obj.user}'
+
+    def get_photo_url(self, obj):
+        # request = self.context.get('request')
+        if obj.image:
+            photo_url = obj.image.url
+        else:
+            photo_url = ''
+        return photo_url
+
     class Meta:
         model = News
         # fields = '__all__' # ('title', 'content', 'category_id') # '__all__'
-        exclude = ('is_published', )
+        exclude = ('is_published', 'image', )

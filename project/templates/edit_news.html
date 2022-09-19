@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<h1> Редактирование новости </h1>
+
+{# ФОРМА И СПОСОБЫ ЕЕ РЕНДЕРИНГА #}
+<form action="{% url 'home_route' %}" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {# СПОСОБ 1. АВТОРЕНДЕРИНГ #}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary btn-block">
+        Сохранить
+    </button>
+
+</form>
+
+{% endblock %}

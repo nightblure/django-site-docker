@@ -21,4 +21,7 @@ urlpatterns = [
 
     path('get_auth_token/', auth_token_view, name='token_route'),
     path('get_jwt_auth_token/', jwt_auth_token_view, name='jwt_token_route'),
+
+    path('delete_news/<int:pk>/', DeleteNews.as_view(), name='delete_news_route'),
+    path('edit_news/<int:pk>/', EditNews.as_view(), name='edit_news_route'),
 ]

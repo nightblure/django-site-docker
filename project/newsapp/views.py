@@ -1,9 +1,10 @@
 import json
 
 import requests
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView
-from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
@@ -249,7 +250,7 @@ class NewsByCategory(ListView):
 class OneNews(DetailView):
     model = News
     pk_url_kwarg = 'news_id'
-    template_name = 'one_news.html'
+    template_name = 'news_page.html'
     context_object_name = 'news_item'
 
     def get_queryset(self):
@@ -262,6 +263,11 @@ class OneNews(DetailView):
 class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
     template_name = 'add_news.html'
+
+    # записываем в атрибут юзер текущего пользователя при создании новости
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
     # используем свойства миксина, чтобы запретить добавление новостей для неавторизованного пользователя
     # login_url = reverse_lazy('home_route')
@@ -289,3 +295,23 @@ class CreateNews(LoginRequiredMixin, CreateView):
 #     }
 #
 #     return render(request, 'add_news.html', context)
+
+
+class DeleteNews(SuccessMessageMixin, DeleteView):
+    model = News
+
+    def get_success_url(self):
+        messages.success(self.request, f'Новость успешно удалена')
+        return reverse('home_route')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        name = self.object.name
+        request.session['name'] = name  # name will be change according to your need
+        return super(DeleteView, self).delete(request, *args, **kwargs)
+
+
+class EditNews(UpdateView):
+    model = News
+    template_name = 'edit_news.html'
+    fields = '__all__'

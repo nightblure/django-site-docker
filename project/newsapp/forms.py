@@ -8,14 +8,16 @@ import re
 
 
 class AuthTokenForm(forms.Form):
-    login = forms.CharField(label='Login', widget=forms.TextInput(
+    login = forms.CharField(label='', widget=forms.TextInput(
         attrs={
-            'class': 'form-control'
+            'class': 'form-control',
+            'placeholder': 'Username'
         }))
 
-    password = forms.CharField(label='Password', widget=forms.TextInput(
+    password = forms.CharField(label='', widget=forms.TextInput(
         attrs={
-            'class': 'form-control'
+            'class': 'form-control',
+            'placeholder': 'Password',
         }))
 
 

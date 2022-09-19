@@ -42,11 +42,7 @@ class NewsSerializer(serializers.ModelSerializer):
 
     def get_photo_url(self, obj):
         # request = self.context.get('request')
-        if obj.image:
-            photo_url = obj.image.url
-        else:
-            photo_url = ''
-        return photo_url
+        return obj.image.url if obj.image else ''
 
     class Meta:
         model = News

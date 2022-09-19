@@ -16,7 +16,7 @@
 <div class="card mb-3">
 
     <div class="card-header">
-        <a href="{{ item.category.get_absolute_url }}" class="list-group-item list-group-item-action"> Категория: {{ news_item.category }} </a>
+        <a href="{{ news_item.category.get_absolute_url }}" class="list-group-item list-group-item-action"> Категория: {{ news_item.category }} </a>
     </div>
 
     <div class="card-body">
@@ -32,15 +32,30 @@
         {# <div class="media-body"> #}
             <h5 class="card-title"> {{ news_item.title|safe }} </h5>
             <p class="card-text"> {{ news_item.content|safe }} </p>
-        {# </div> #}
+            {# </div> #}
 
         {# </div> #}
+
+        {% if request.user == news_item.user or user.is_staff %}
+
+        <form action="{% url 'delete_news_route' pk=news_item.pk %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger float-end">Удалить новость</button>
+        </form>
+
+        <form action="{% url 'edit_news_route' pk=news_item.pk %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Редактировать новость</button>
+        </form>
+
+        {% endif %}
 
     </div>
 
     <div class="card-footer text-muted">
         {{ news_item.user }}, {{ news_item.created_at|date:"Y-m-d H:i" }}
     </div>
+
 
 </div>
 

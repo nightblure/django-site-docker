@@ -1,7 +1,7 @@
-venv
-postgres
+venv/
+postgres/
 celerybeat-schedule.bak
 celerybeat-schedule.dat
 celerybeat-schedule.dir
 tasks_log.txt
-__pycache__
+__pycache__/

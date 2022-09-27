@@ -29,7 +29,7 @@
 
                 <div class="media-body">
                     <h5 class="card-title"> {{ news_item.title|safe }} </h5>
-                    <p class="card-text"> {{ news_item.content|safe|truncatewords:30 }} </p>
+                    <p class="card-text"> {{ news_item.content|safe|truncatewords:50 }} </p>
                     <a href="{{ news_item.get_absolute_url }}" class="btn btn-primary"> Read more... </a>
                 </div>
 
@@ -40,6 +40,7 @@
 
         <div class="card-footer text-muted">
             {{ news_item.user }}, {{ news_item.created_at|date:"Y-m-d H:i" }}
+            <span style="float:right" class="badge rounded-pill text-bg-primary"> {{ news_item.views_count }} views </span>
         </div>
 
     </div>

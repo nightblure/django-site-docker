@@ -3,7 +3,7 @@ import json
 import requests
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -256,6 +256,8 @@ class OneNews(DetailView):
     def get_queryset(self):
         news_id = self.kwargs['news_id']
         news_item = get_object_or_404(News, pk=news_id)
+        news_item.views_count += 1
+        news_item.save()
         return News.objects.filter(pk=news_id)
 
 
@@ -274,6 +276,7 @@ class CreateNews(LoginRequiredMixin, CreateView):
     raise_exception = True
     # редирект после отработки формы. по умолчанию редиректит на созданный объект
     # success_url = reverse_lazy('home_route')
+
 
 # def add_news(request):
 #
@@ -312,6 +315,16 @@ class DeleteNews(SuccessMessageMixin, DeleteView):
 
 
 class EditNews(UpdateView):
+    form_class = NewsForm
     model = News
     template_name = 'edit_news.html'
-    fields = '__all__'
+    # fields = ['title', 'content', 'image', 'category']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['obj'] = News.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    # def get_object(self, queryset=None):
+    #     print(self.kwargs['pk'])
+    #     return News.objects.get(pk=self.kwargs['pk'])

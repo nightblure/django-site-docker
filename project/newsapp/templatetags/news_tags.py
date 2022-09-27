@@ -1,7 +1,7 @@
 from django import template
 from django.db.models import Count, F
 
-from ..models import Category
+from ..models import Category, News
 
 register = template.Library()
 
@@ -11,8 +11,12 @@ def get_categories():
     return Category.objects.all()
 
 
+# отбираем только категории, у которых имеется хотя бы одна опубликованная новость
 @register.inclusion_tag('categories_list.html')
 def show_categories():
-    # categories = get_categories()
-    categories = Category.objects.annotate(count=Count('news'), filter=F('news__is_published')).filter(count__gt=0)
+    categories = get_categories() \
+        .filter(news__is_published=True) \
+        .annotate(count=Count('news')) \
+        .filter(count__gt=0)
+
     return {"categories": categories}

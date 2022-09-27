@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python
 ENV PYTHONUNBUFFERED 1
 # RUN echo "python -V"
 RUN mkdir /code

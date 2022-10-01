@@ -314,17 +314,28 @@ class DeleteNews(SuccessMessageMixin, DeleteView):
         return super(DeleteView, self).delete(request, *args, **kwargs)
 
 
-class EditNews(UpdateView):
-    form_class = NewsForm
-    model = News
-    template_name = 'edit_news.html'
-    # fields = ['title', 'content', 'image', 'category']
+def edit_news(request, pk):
+    news_obj = News.objects.get(pk=pk)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['obj'] = News.objects.get(pk=self.kwargs['pk'])
-        return context
+    if request.method == 'POST':
+        form = NewsForm(request.POST, request.FILES)
 
-    # def get_object(self, queryset=None):
-    #     print(self.kwargs['pk'])
-    #     return News.objects.get(pk=self.kwargs['pk'])
+        if form.is_valid():
+            data = form.cleaned_data
+            data['user'] = request.user
+            data['image'] = news_obj.image
+            news_obj.__dict__.update(data)
+            news_obj.category = Category.objects.get(title=data['category'])
+            news_obj.save()
+            messages.success(request, f'Новость успешно отредактирована')
+            return redirect(news_obj)
+    else:
+        form = NewsForm()
+
+    context = {
+        'form': form,
+        'categories': Category.objects.all(),
+        'news_obj': news_obj,
+        'title': f'Edit {news_obj.title}'
+    }
+    return render(request, 'edit_news.html', context)

@@ -12,13 +12,49 @@
 
 <h1> Редактирование новости </h1>
 
-{# ФОРМА И СПОСОБЫ ЕЕ РЕНДЕРИНГА #}
 <form action="" method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
 
-    {# СПОСОБ 1. АВТОРЕНДЕРИНГ #}
-    {{ form.as_p }}
+    <input type="hidden" name="csrfmiddlewaretoken" value="p8geqPqCqoF6qPo9T6u3wZ3jSaJEMbJUB2Ys1Yp3M42cG2ERsiDzky3itarHNlWq">
+
+    <p>
+        <label for="id_title">Название:</label>
+        <input type="text" name="title" class="form-control" maxlength="150" required="" id="id_title" value="{{ news_obj.title }}">
+    </p>
+
+    <p>
+        <label for="id_content">Текст новости:</label>
+        <textarea name="content" cols="40" rows="5" class="form-control" required="" id="id_content">
+            {{ news_obj.content }}
+        </textarea>
+    </p>
+
+
+    <p>
+        <label for="id_is_published">Опубликовано?</label>
+        <input type="checkbox" name="is_published" id="id_is_published"
+               {% if news_obj.is_published %}
+               checked="checked"
+               {% endif %}
+        />
+    </p>
+
+    <p>
+        <label for="id_category">Категория:</label>
+
+        <select name="category" class="form-control" id="id_category">
+            {% for category in categories %}
+            <option {% if news_obj.category == category %} selected {% endif %} value="{{ category.pk }}">{{ category.title }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+
+    <p>
+        <label for="id_image">Image:</label>
+        <input type="file" name="image" accept="image/*" id="id_image">
+    </p>
 
     <button type="submit" class="btn btn-primary btn-block">
         Сохранить

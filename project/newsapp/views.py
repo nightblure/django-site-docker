@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.db.models import F
 
 from .models import News, Category
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm
@@ -255,10 +256,17 @@ class OneNews(DetailView):
 
     def get_queryset(self):
         news_id = self.kwargs['news_id']
+        news_obj = News.objects.filter(pk=news_id)
+
+        """
         news_item = get_object_or_404(News, pk=news_id)
-        news_item.views_count += 1
+        # корректный вариант с точки зрения concurrency. += 1 было бы некорректно
+        news_item.views_count = F('views_count') + 1
         news_item.save()
-        return News.objects.filter(pk=news_id)
+        """
+        # выполняем запрос update для увеличения счетчика просмотров, если пользователь читает новость
+        news_obj.update(views_count=F('views_count') + 1)
+        return news_obj
 
 
 # замена для функции add_news

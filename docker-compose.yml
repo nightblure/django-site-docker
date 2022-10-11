@@ -3,10 +3,10 @@ version: "3.8"
 services:
 
   db:
-    container_name: django_site_pg
+    container_name: django_site_container
     image: postgres
     environment:
-      POSTGRES_DB: "django_site_db"
+      POSTGRES_DB: "django_site_db_"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
       # POSTGRES_HOST_AUTH_METHOD: "trust"

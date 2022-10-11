@@ -12,9 +12,10 @@
 
 <h1> Редактирование новости </h1>
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="" method="POST" enctype="multipart/form-data">
 
     {% csrf_token %}
+<!--    {{ form.as_p }}-->
 
     <input type="hidden" name="csrfmiddlewaretoken" value="p8geqPqCqoF6qPo9T6u3wZ3jSaJEMbJUB2Ys1Yp3M42cG2ERsiDzky3itarHNlWq">
 

@@ -322,6 +322,14 @@ class DeleteNews(SuccessMessageMixin, DeleteView):
         return super(DeleteView, self).delete(request, *args, **kwargs)
 
 
+# почему-то не работает :с
+# class edit_news(LoginRequiredMixin, UpdateView):
+#     fields = ['title', 'content']
+#     model = News
+#     # fields = '__all__'
+#     success_url = reverse_lazy('news_by_category_route')
+#     template_name = 'edit_news.html'
+
 def edit_news(request, pk):
     news_obj = News.objects.get(pk=pk)
 

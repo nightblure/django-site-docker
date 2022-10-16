@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import *
+from .views import NewsList, NewsByCategory, OneNews, \
+    CreateNews, register, user_login, user_logout, \
+    auth_token_view, jwt_auth_token_view, DeleteNews, \
+    edit_news, like_view, unlike_view
 
 urlpatterns = [
     # path('', index, name='home_route'),
-    path('', HomeNews.as_view(), name='home_route'),
+    path('', NewsList.as_view(), name='home_route'),
 
     # path('news_by_category/<int:category_id>/', get_news_by_category, name='news_by_category_route'),
     # path('news_by_category/<int:category_id>/', NewsByCategory.as_view(), name='news_by_category_route'),
@@ -24,4 +27,7 @@ urlpatterns = [
 
     path('delete_news/<int:pk>/', DeleteNews.as_view(), name='delete_news_route'),
     path('edit_news/<int:pk>/', edit_news, name='edit_news_route'),
+
+    path('like/<int:news_id>/', like_view, name='like_route'),
+    path('unlike/<int:news_id>/', unlike_view, name='unlike_route'),
 ]

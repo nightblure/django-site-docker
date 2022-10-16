@@ -1,4 +1,5 @@
 import json
+from collections import defaultdict
 
 import requests
 from django.contrib.messages.views import SuccessMessageMixin
@@ -10,9 +11,9 @@ from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.db.models import F
+from django.db.models import F, Count, Q, Sum, Max
 
-from .models import News, Category
+from .models import News, Category, Like
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm
 
 
@@ -139,8 +140,22 @@ def user_logout(request):
 #     return render(request, 'news_list.html', context)
 
 
+def get_user_liked_posts(user_id):
+    likes_objects = Like.objects.all()
+    return [obj.news.pk for obj in likes_objects.filter(user__pk=user_id)]
+
+
+def get_news_likes_count_dict():
+    news_likes = defaultdict(int)
+    likes_objects = Like.objects.all()
+
+    for obj in likes_objects:
+        news_likes[obj.news.pk] += 1
+
+    return news_likes
+
 # замена для функции index
-class HomeNews(ListView):
+class NewsList(ListView):
     model = News
     template_name = 'news_list.html'
     context_object_name = 'news'
@@ -151,13 +166,35 @@ class HomeNews(ListView):
         # и добавляем то, что нам нужно
         context = super().get_context_data(**kwargs)
         context['title'] = 'Список новостей'
+
+        # собираем словарь вида {news_pk: likes_count}
+        # почему-то не получается сделать запросом, поэтому сделал вручную через цикл и словарь
+        # news_likes_objects = Like.objects.all().annotate(count=Count('news_id'))
+        news_likes = get_news_likes_count_dict()
+        context['news_likes'] = news_likes
+
+        # собираем список новостей, лайкнутых текущим пользователем
+        user_liked_posts = get_user_liked_posts(self.request.user.pk)
+        context['user_liked_posts'] = user_liked_posts
         return context
 
     def get_queryset(self):
         # тест работы задачи при загрузке главной страницы
         # send_tg_message.delay('hi')
-        return News.objects.filter(is_published=True)
+        return News.objects.filter(is_published=True).order_by('-created_at')
 
+
+def like_view(request, **kwargs):
+    news_id = kwargs['news_id']
+    news_obj = News.objects.get(pk=news_id)
+    Like.objects.create(user=request.user, news=news_obj)
+    return redirect('home_route')
+
+
+def unlike_view(request, **kwargs):
+    news_id = kwargs['news_id']
+    Like.objects.filter(user=request.user, news__pk=news_id).delete()
+    return redirect('home_route')
 
 # замена для функции get_news_by_category
 class NewsByCategory(ListView):
@@ -176,6 +213,15 @@ class NewsByCategory(ListView):
         category_id = self.get_category_id(self.kwargs['category_slug'])
         category_title = Category.objects.get(pk=category_id).title
         context['title'] = f'Новости в категории {category_title}'
+
+        # собираем словарь вида {news_pk: likes_count}
+        news_likes = get_news_likes_count_dict()
+        context['news_likes'] = news_likes
+
+        # собираем список новостей, лайкнутых текущим пользователем
+        user_liked_posts = get_user_liked_posts(self.request.user.pk)
+        context['user_liked_posts'] = user_liked_posts
+
         return context
 
     def get_queryset(self):
@@ -195,7 +241,7 @@ class NewsByCategory(ListView):
         return News.objects.filter(
             category=category_id,
             is_published=True,
-        ).select_related('category')
+        ).select_related('category').order_by('-created_at')
 
 
 # def index(request):

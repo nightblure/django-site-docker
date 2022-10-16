@@ -26,7 +26,7 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
         # '-' перед полем укажет на обратный порядок сортировки
-        ordering = ['title']
+        # ordering = ['title']
 
 
 class News(models.Model):
@@ -55,10 +55,23 @@ class News(models.Model):
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
         # '-' перед полем укажет на обратный порядок сортировки
-        ordering = ['-created_at']
+        # ordering = ['-created_at']
 
     def get_absolute_url(self):
         kwargs = {
             'news_id': self.id
         }
         return reverse('one_news_route', kwargs=kwargs)
+
+
+class Like(models.Model):
+    news = models.ForeignKey(News, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = 'Лайк'
+        verbose_name_plural = 'Лайки'
+        # ordering = ['user']
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'news'], name='unique_constraint')
+        ]

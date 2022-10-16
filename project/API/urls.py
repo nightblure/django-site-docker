@@ -12,7 +12,7 @@ router.register(r'news', NewsViewSet, basename='news')
 
 urlpatterns = [
     path('api/v1/news/', NewsAPIList.as_view()),
-    path('api/v1/ews/<int:pk>/', NewsAPIUpdate.as_view()),
+    path('api/v1/news/<int:pk>/', NewsAPIUpdate.as_view()),
     path('api/v1/news_delete/<int:pk>/', NewsAPIDelete.as_view()),
 
     # маршруты, сгенерированные роутером

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import News, Category
+from .models import News, Category, Like
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 
@@ -29,7 +29,7 @@ class NewsAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'slug']
     list_display_links = ['id', 'title', 'slug']
-    search_fields = ['title',]
+    search_fields = ['title', ]
 
     # автозаполнение слага
     prepopulated_fields = {
@@ -37,6 +37,12 @@ class CategoryAdmin(admin.ModelAdmin):
     }
 
 
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('news_id', 'news', 'user')
+    list_display_links = ('news_id', 'news', 'user')
+
+
 # Register your models here.
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(News, NewsAdmin)
+admin.site.register(Like, LikeAdmin)

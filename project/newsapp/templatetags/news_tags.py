@@ -1,4 +1,5 @@
 from django import template
+from django.template import defaulttags
 from django.db.models import Count, F
 
 from ..models import Category, News
@@ -20,3 +21,8 @@ def show_categories():
         .filter(count__gt=0)
 
     return {"categories": categories}
+
+
+@defaulttags.register.filter()
+def dict_value(dict_, key):
+    return dict_.get(key, 0)

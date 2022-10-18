@@ -37,13 +37,22 @@
 
                 <p class="card-text"> {{ news_item.content|safe|truncatewords:50 }} </p>
 
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data"
+                      {% if news_item.pk in user_liked_posts %}
+                      action="{% url 'unlike_route' news_item.pk %}"
+                      {% else %}
+                      action="{% url 'like_route' news_item.pk %}">
+                      {% endif %}
+
                     {% csrf_token %}
 
                     {% if news_item.pk in user_liked_posts %}
-                    <a href="{% url 'unlike_route' news_item.pk %}" class="btn btn-danger" name="unlike"> 🖤 unlike </a>
+
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit" name="unlike"> 🖤 unlike </button>
                     {% else %}
-                    <a href="{% url 'like_route' news_item.pk %}" class="btn btn-danger" name="like"> ♡ like </a>
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit" name="like"> ♡ like </button>
                     {% endif %}
 
                     <a href="{{ news_item.get_absolute_url }}" class="btn btn-primary"> Read more... </a>

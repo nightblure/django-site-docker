@@ -621,6 +621,40 @@ ALTER SEQUENCE public.newsapp_category_id_seq OWNED BY public.newsapp_category.i
 
 
 --
+-- Name: newsapp_like; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.newsapp_like (
+    id bigint NOT NULL,
+    news_id bigint NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.newsapp_like OWNER TO postgres;
+
+--
+-- Name: newsapp_like_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.newsapp_like_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.newsapp_like_id_seq OWNER TO postgres;
+
+--
+-- Name: newsapp_like_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.newsapp_like_id_seq OWNED BY public.newsapp_like.id;
+
+
+--
 -- Name: newsapp_news; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -767,6 +801,13 @@ ALTER TABLE ONLY public.newsapp_category ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: newsapp_like id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.newsapp_like ALTER COLUMN id SET DEFAULT nextval('public.newsapp_like_id_seq'::regclass);
+
+
+--
 -- Name: newsapp_news id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -858,6 +899,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 62	Can change token	16	change_tokenproxy
 63	Can delete token	16	delete_tokenproxy
 64	Can view token	16	view_tokenproxy
+65	Can add like	17	add_like
+66	Can change like	17	change_like
+67	Can delete like	17	delete_like
+68	Can view like	17	view_like
 \.
 
 
@@ -866,9 +911,9 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-5	pbkdf2_sha256$320000$GDp0YLgqX48t7ccIUV2fvM$Cu7qf03PFAjmS0+EJ8ToSa/WFrsEQU2RRzuysAhRkrs=	2022-09-19 16:56:38.200098+00	f	tokenuser			a@a.com	f	t	2022-09-14 17:10:03.346535+00
-2	pbkdf2_sha256$320000$UOxpI2GQoY3JLcJF1HGZ5I$753EIduXgipWoUOaotBTFE2wKrF+tNH1cfb5Ylj65CE=	2022-09-27 18:45:52.963028+00	f	nightxx				f	t	2022-07-10 12:07:30+00
-1	pbkdf2_sha256$320000$9MoFtty76mrwEVfRfvLYsK$0TTeLAhG1FIS/uMk3iqe02AcBmLMBuFPy9eZ9nObAnA=	2022-09-27 18:46:08.696185+00	t	admin			p@p.com	t	t	2022-05-24 15:15:33.2725+00
+2	pbkdf2_sha256$320000$UOxpI2GQoY3JLcJF1HGZ5I$753EIduXgipWoUOaotBTFE2wKrF+tNH1cfb5Ylj65CE=	2022-10-18 16:22:56.101096+00	f	nightxx				f	t	2022-07-10 12:07:30+00
+1	pbkdf2_sha256$320000$9MoFtty76mrwEVfRfvLYsK$0TTeLAhG1FIS/uMk3iqe02AcBmLMBuFPy9eZ9nObAnA=	2022-10-18 16:25:43.773994+00	t	admin			p@p.com	t	t	2022-05-24 15:15:33.2725+00
+5	pbkdf2_sha256$320000$GDp0YLgqX48t7ccIUV2fvM$Cu7qf03PFAjmS0+EJ8ToSa/WFrsEQU2RRzuysAhRkrs=	2022-10-18 16:25:55.151874+00	f	tokenuser			a@a.com	f	t	2022-09-14 17:10:03.346535+00
 \.
 
 
@@ -895,6 +940,7 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 COPY public.authtoken_token (key, created, user_id) FROM stdin;
 df43fa915a3065690aede39ad753e894d632dd14	2022-09-14 17:12:11.41411+00	5
 909daa0cb97c711a2ba88e1f6c31898e7698e272	2022-09-14 20:35:59.356064+00	2
+adbb09381bcc273fdf5a417b89f24ac9e6ea179e	2022-10-15 15:20:45.246661+00	1
 \.
 
 
@@ -993,6 +1039,17 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 88	2022-09-27 18:48:13.416872+00	33	Morning Coffee Piano: Free Kontakt instrument library by ZAK Sound	1	[{"added": {}}]	8	1
 89	2022-09-27 18:48:28.774641+00	29	Splice Sounds launches Sounds from the Cosmos by July 7	2	[{"changed": {"fields": ["Category"]}}]	8	1
 90	2022-09-27 18:48:28.781641+00	27	Klevgrand 10th Anniversary Sale: All plugins $29 for 29h, plus Squashit for free	2	[{"changed": {"fields": ["Category"]}}]	8	1
+91	2022-10-01 08:43:01.785059+00	36	Morning Coffee Piano: Free Kontakt instrument library by ZAK Sounds	3		8	1
+92	2022-10-01 08:43:01.792708+00	35	Splice Sounds launches Sounds from the Cosmos by July 8	3		8	1
+93	2022-10-16 08:21:09.696756+00	1	Like object (1)	1	[{"added": {}}]	17	1
+94	2022-10-16 08:22:08.637308+00	2	Like object (2)	1	[{"added": {}}]	17	1
+95	2022-10-16 08:22:12.994923+00	3	Like object (3)	1	[{"added": {}}]	17	1
+96	2022-10-16 08:22:17.346286+00	4	Like object (4)	1	[{"added": {}}]	17	1
+97	2022-10-16 08:22:23.145555+00	5	Like object (5)	1	[{"added": {}}]	17	1
+98	2022-10-16 08:22:27.526606+00	6	Like object (6)	1	[{"added": {}}]	17	1
+99	2022-10-16 08:22:31.38477+00	7	Like object (7)	1	[{"added": {}}]	17	1
+100	2022-10-16 08:53:25.356262+00	8	Like object (8)	1	[{"added": {}}]	17	1
+101	2022-10-16 08:59:46.264+00	6	Like object (6)	3		17	1
 \.
 
 
@@ -1065,6 +1122,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 14	django_celery_beat	clockedschedule
 15	authtoken	token
 16	authtoken	tokenproxy
+17	newsapp	like
 \.
 
 
@@ -1121,6 +1179,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 46	authtoken	0001_initial	2022-09-14 16:57:07.742629+00
 47	authtoken	0002_auto_20160226_1747	2022-09-14 16:57:07.779769+00
 48	authtoken	0003_tokenproxy	2022-09-14 16:57:07.787066+00
+49	newsapp	0010_like	2022-10-16 08:18:00.071451+00
 \.
 
 
@@ -1135,6 +1194,9 @@ nffgwpycj5rqifk42n6ulxok4vkktw2d	.eJxVjDkOwjAUBe_iGlm28SZKes5g_c04gBwpSxVxd4iUAt
 tpinoe54zbiwze9d60qhndmk17ha46a3	.eJxVjMsOwiAQRf-FtSEFOkJduu83kJlhkKqBpI-V8d-1SRe6veec-1IRt7XEbZE5TkldlFGn342QH1J3kO5Yb01zq-s8kd4VfdBFjy3J83q4fwcFl_Kt2TIbi46D6YLvrTB4nzukDtA7Goz0TCkbA0KOXZAUBjizB2JOAFm9P-1iOIc:1oYRGK:Jb5Zd79GsUJykylS5PfApKEi3-zMT4-k6goz8L5QdmA	2022-09-28 12:13:04.933634+00
 43wd26sqz50pz246a6y8iijt478s2hkh	.eJxVjMsOwiAQRf-FtSEFOkJduu83kJlhkKqBpI-V8d-1SRe6veec-1IRt7XEbZE5TkldlFGn342QH1J3kO5Yb01zq-s8kd4VfdBFjy3J83q4fwcFl_Kt2TIbi46D6YLvrTB4nzukDtA7Goz0TCkbA0KOXZAUBjizB2JOAFm9P-1iOIc:1oaKZF:pYSfwcI3ij_2IH_TsCg2eztCyXfvQ5yZNFw-BDVvXeM	2022-10-03 17:28:25.87184+00
 0unz92xq2ovwynj5tkekiy927bpxly0j	.eJxVjMsOwiAQRf-FtSEFOkJduu83kJlhkKqBpI-V8d-1SRe6veec-1IRt7XEbZE5TkldlFGn342QH1J3kO5Yb01zq-s8kd4VfdBFjy3J83q4fwcFl_Kt2TIbi46D6YLvrTB4nzukDtA7Goz0TCkbA0KOXZAUBjizB2JOAFm9P-1iOIc:1odFaq:lQa4l9lyIwchvp3Xgm4JwMVPMjtUfbMJ7w3ITu-zoss	2022-10-11 18:46:08.819179+00
+j0aobxsmcl43aqce08gdbhvm4vbtc747	.eJxVjDkOwjAUBe_iGlm28SZKes5g_c04gBwpSxVxd4iUAto3M29TBdallXWWqQysLsqp0--GQE_pO-AH9PuoaezLNKDeFX3QWd9Gltf1cP8OGsztWxvjMROGFBMDBMpiHTtHHqtDS5nFA9uAuYoYEu8hpSjxXGsIKdms3h8AbjiR:1oiJlr:jumfLK6GdMDHRoLaEcpoBRnYCl-sv_z7X1xMJo0b6tc	2022-10-25 18:14:27.652058+00
+rsra1vvcghusrur8juycc1af7kqb0gy7	.eJxVjDkOwjAUBe_iGlm28SZKes5g_c04gBwpSxVxd4iUAto3M29TBdallXWWqQysLsqp0--GQE_pO-AH9PuoaezLNKDeFX3QWd9Gltf1cP8OGsztWxvjMROGFBMDBMpiHTtHHqtDS5nFA9uAuYoYEu8hpSjxXGsIKdms3h8AbjiR:1oiK4H:2YeG7uDiR3uC4fZUCA6j5dvqHfjWOVSgwEKZdZT0ctc	2022-10-25 18:33:29.676193+00
+wbr79gcb1rjsf0a695h17nsjdlgwf8si	.eJxVjMsOwiAQRf-FtSEFOkJduu83kJlhkKqBpI-V8d-1SRe6veec-1IRt7XEbZE5TkldlFGn342QH1J3kO5Yb01zq-s8kd4VfdBFjy3J83q4fwcFl_Kt2TIbi46D6YLvrTB4nzukDtA7Goz0TCkbA0KOXZAUBjizB2JOAFm9P-1iOIc:1okpPT:oJ2yAroIC_8SRfeKS4hdJVA_M-KPEjoKw6COKZ3A96c	2022-11-01 16:25:43.872027+00
 \.
 
 
@@ -1150,17 +1212,36 @@ COPY public.newsapp_category (id, title, slug) FROM stdin;
 
 
 --
+-- Data for Name: newsapp_like; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
+3	33	5
+4	32	5
+5	32	2
+7	28	2
+8	27	1
+16	29	1
+18	31	1
+19	30	1
+20	28	1
+23	33	2
+31	33	1
+\.
+
+
+--
 -- Data for Name: newsapp_news; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_published, category_id, views_count, user_id) FROM stdin;
-27	Klevgrand 10th Anniversary Sale: All plugins $29 for 29h, plus Squashit for free	<p>Klevgrand has announced the launch of a 29 hour sale on&nbsp;<a href="https://www.pluginboutique.com/manufacturers/197-Klevgrand?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">all of its plugins</a>&nbsp;in celebration of its 10-year anniversary.</p>\r\n\r\n<p>To celebrate the 10th anniversary of starting development on Squashit we decided to give it a facelift and squash our prices for 29 hours only. You now have the opportunity to score any plug-in from the Klevgrand range at the knockout price of $29. And, as we really think Squashit is still an awesome plugin, we&rsquo;re giving away the latest version of it with any purchase!</p>\r\n\r\n<p>So, we&rsquo;re off and the clock&rsquo;s ticking. If you&rsquo;ve had your eye on some specific plugins of ours, now is really the time to act.</p>\r\n\r\n<p>The offer is valid at the&nbsp;<a href="https://klevgrand.com/" rel="noopener nofollow" target="_blank">Klevgrand</a>&nbsp;store and from distributor&nbsp;<a href="https://www.pluginboutique.com/manufacturers/197-Klevgrand?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;until September 28th, 2022, 7pm UTC.</p>	2022-09-27 18:33:38.052693+00	2022-09-27 18:48:28.778641+00	images/2022/09/27/Screenshot_1_11U6FNZ.png	t	12	3	1
-28	Native Instruments releases Komplete 14, Kontakt 7, and Choir: Omnia	<p>Native Instruments has announced the release of a massive update to its flagship<em> production suite</em>,&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14/" rel="noopener nofollow" target="_blank">Komplete 14</a>.</p>\r\n\r\n<p>Now available in NI&rsquo;s online shop, it features Komplete&rsquo;s most extensive range of sounds so far and seamless tools for putting the ideas they inspire into motion, creating an all-in-one package for creativity.</p>\r\n\r\n<p>Komplete 14&rsquo;s expansive libraries help find, design, and transform instruments in previously unimagined ways, with premium search tools to focus on sounds fast. Komplete 14 is available in 4 different sizes:&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-select/" rel="noopener nofollow" target="_blank">Select</a>,&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-standard/" rel="noopener nofollow" target="_blank">Standard</a>,&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-ultimate/" rel="noopener nofollow" target="_blank">Ultimate</a>, and&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-collectors-edition/" rel="noopener nofollow" target="_blank">Collector&rsquo;S Edition</a>, the last being a comprehensive offering of 145+ instruments, 100+ Expansions, and over 135,000 sounds.</p>\r\n\r\n<p>Dive into a huge library of sounds with KONTAKT 7, put the finishing touches on your productions with the all-new Ozone 10 Standard from iZotope, and explore an array of synths and effects from Plugin Alliance.</p>\r\n\r\n<p>Included in Komplete 14 Standard and above,&nbsp;<a href="https://rekkerd.org/out/native-instruments-kontakt-7/" rel="noopener nofollow" target="_blank">Kontakt 7</a>&nbsp;offers a huge library of sounds, alongside iZotope&rsquo;s all-new mastering tool,&nbsp;<a href="https://rekkerd.org/out/native-instruments-ozone-10-standard/" rel="noopener nofollow" target="_blank">Ozone 10 Standard</a>, which assists in putting the finishing touches on any production. More new additions come via an array of synths and effects from Plugin Alliance and Brainworx, as well as the&nbsp;<a href="https://rekkerd.org/out/native-instruments-choir-omnia/" rel="noopener nofollow" target="_blank">Choir: Omnia</a>&nbsp;sample library, included in the Komplete 14 Collector&rsquo;S Edition.</p>\r\n\r\n<p>Kontakt 7 features a refreshed HiDPI Factory library, with new instruments ranging from an orchestral section from Orchestral Tools to rare analog synths and everything in-between. An enhanced HiDPI browser offers lightning-fast access to filter and preview the largest Selection of sampled instruments around, including global text search and editable filters for searching sounds. Kontakt 7 also includes under-the-hood audio improvements and the new effects Psyche Delay and Ring Modulator from Guitar Rig 6 Pro.</p>\r\n\r\n<p>Soundwide (the group consisting of Native Instruments, iZotope, Plugin Alliance, and Brainworx) and its comprehensive ecosystem of audio creation products is on display throughout the leading production-suite that is Komplete 14. Powered by machine learning, the Ozone 10 Standard tools from iZotope make mastering easy, with assistive technology driving balance in this latest version of the industry&rsquo;s most comprehensive pro mastering software. New tools from Plugin Alliance and Brainworx help further develop and drive creativity, with synths and effects, including bx_Oberhausen, Knifonium, LO-FI-AF, Focusrite SC, and more.</p>\r\n\r\n<p>Choir: Omnia captures a 40-person vocal ensemble at their passionate peak. Created in collaboration with Strezov Sampling, the production process used a world-class signal chain to record the choir over six weeks of live performances.</p>\r\n\r\n<p>The library creates a contemporary symphonic experience for dynamic scoring across soprano, tenor, alto, and bass sections. Two browsers and intuitive controls allow for easier use of the expressive, deeply customisable instrument, and the Syllabuilder enables the construction of individual syllables and intricate phrases to create entirely unique vocalizations.</p>\r\n\r\n<p>The 4 tiers of Komplete 14 include a range of advanced instruments, effects, and Expansions, such as Soul Sessions and Neo Boogie in the Select package, Playbox in Standard, Piano Colors And Ashlight in Ultimate, and Lores in Collector&rsquo;S Edition.</p>\r\n\r\n<p>Komplete 14 is available now, while Kontakt 7 and Choir: Omnia will be available to purchase as separate products from October 4th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://rekkerd.org/out/native-instruments/" rel="noopener nofollow" target="_blank">Native Instruments</a></p>	2022-09-27 18:37:16.00949+00	2022-09-27 18:37:16.00949+00	images/2022/09/27/Screenshot_1_VWnVqKF.png	t	5	0	2
-33	Morning Coffee Piano: Free Kontakt instrument library by ZAK Sound	<p>ZAK Sound has released a free Kontakt instrument library titled&nbsp;<strong>Morning Coffee Piano</strong>, which was created with the idea of ​​making a smooth, relaxing, and chill piano.</p>\r\n\r\n<p>To achieve this sound we recorded an acoustic piano, and then added a pad-like ambient texture and a music box-like instrument.</p>\r\n\r\n<p>After editing and optimizing each sample, we created this library for Kontakt. We named it &ldquo;Morning Coffee Piano&rdquo; because the texture of this piano is as smooth as morning coffee.</p>\r\n\r\n<p>Available for the full version of Kontakt 6.7.1 or higher, Morning Coffee Piano features envelope knobs (attack and release), performance controls (stereo image, highcut, and dynamics), and effects (resonance, reverb, delay, and delay time). The interface also offers controls for each instrument&rsquo;s volume level.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://zaksound.com/morning-coffee-piano/" rel="noopener nofollow" target="_blank">ZAK Sound</a></p>	2022-09-27 18:48:13.410867+00	2022-09-27 18:48:13.410867+00	images/2022/09/27/Screenshot_1_Fggr7XL.png	t	11	0	1
-29	Splice Sounds launches Sounds from the Cosmos by July 7	<p>Splice has released a new sample pack as part of the Nova series, a program launched in partnership with SoundCloud to amplify the work of the most promising, undiscovered creators around the globe.</p>\r\n\r\n<p><a href="https://rekkerd.org/out/splice-july-7-sample-pack/" rel="noopener nofollow" target="_blank">Sounds from the Cosmos</a>&nbsp;features a collection of 150+ loops and one shots, and 11 presets for Beat Maker and the Astra synth.</p>\r\n\r\n<p>Producer and musician July 7 has gone from Manchester bedroom producer to making beats for the likes of T.I., Travis Scott, and Young Thug to releasing his own music as a solo act, racking up millions of streams worldwide.</p>\r\n\r\n<p>Always experimenting and drawing on tropes from genres like rock and death metal, July 7 has built his own sonic world that sets him apart from his peers. Dive in and get inspired with his sounds now available to incorporate into your productions.</p>\r\n\r\n<p>The sample pack is available to Splice subscribers. New users can try Splice Sounds for free with a 14-day trial.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://rekkerd.org/out/splice-sounds/" rel="noopener nofollow" target="_blank">Splice Sounds</a></p>	2022-09-27 18:38:55.36612+00	2022-09-27 18:48:28.770641+00	images/2022/09/27/Screenshot_1_xt2F84a.png	t	11	0	2
-30	AudioThing updates Things effect plugin series, on sale for $9 USD each!	<p>AudioThing has announced the release of an update to its Things series of audio plugins comprising the&nbsp;<strong>Flip EQ</strong>&nbsp;tilt equalizer,&nbsp;<strong>Texture</strong>&nbsp;granular reverb,&nbsp;<strong>Motor</strong>&nbsp;morphing rotor effect, and&nbsp;<strong>Crusher</strong>&nbsp;bitcrusher and filter.</p>\r\n\r\n<p>We have just updated all Things plugins with CLAP&nbsp;&nbsp;format, bug fixes, and improvements! If you own one or more Things, you can now upgrade to the new Things Bundle, check your account for the upgrade path.</p>\r\n\r\n<p>In celebration of the update, all Things plugins are on sale for only 9 EUR/USD each (regular 19 EUR/USD), while the Things Bundle with all 4 plugins is only 29 EUR/USD instead of 76 EUR/USD during the promotion.</p>\r\n\r\n<p>The offer is available at&nbsp;<a href="https://www.pluginboutique.com/search?a_aid=4af297e055206&amp;qs=match&amp;q=audiothing+things&amp;oses%5B%5D=" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://www.audiothing.net/plugins/?aid=119526&amp;_product_filter=things" rel="noopener nofollow" target="_blank">AudioThing</a>&nbsp;store until October 31st, 2022.</p>	2022-09-27 18:40:03.407913+00	2022-09-27 18:40:21.873168+00	images/2022/09/27/Screenshot_1_4TkC3fW.png	t	5	2	1
-31	iZotope launches Ozone 10 audio mastering software at intro offer	<p>iZotope has announced the availability of the latest version of its popular audio mastering suite. Sporting a host of new features,&nbsp;<a href="https://www.pluginboutique.com/meta_product/2-Effects/50-Mastering-/9609-iZotope-Ozone-10?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Ozone 10</a>&nbsp;enables creators to master faster than ever before with intuitive, AI-powered modules.</p>\r\n\r\n<p>Achieving a professional master has never been faster than with Ozone 10. Equally powerful for people who are new to mastering or for mastering pros, Ozone has everything needed to bring balance and smoothness, punch and glue, warmth and grit, and a sense of space to a mix, alongside smart technologies that help match the sound of chart-topping hits.</p>\r\n\r\n<p><strong>New in Ozone 10</strong></p>\r\n\r\n<ul>\r\n\t<li><strong>Stabilizer Module</strong>: Sculpt a balanced sound with this new intelligent and adaptive mastering EQ: dynamically shape a mix into a clear, natural tone, or tame problem resonance, carve away harshness, and smooth transients for better translation across listening environments (Advanced only).</li>\r\n\t<li><strong>Impact Module</strong>: Enhance the rhythm and feel of tracks with this new module by intuitively controlling microdynamics: four sliders work across different frequency bands to breathe life into a mix, adding punch and dynamic space, or gluing your track together for a thicker sound (Advanced only).</li>\r\n\t<li><strong>Improved Master Assistant</strong>: Match the sound of trusted reference files or today&rsquo;s hit songs with groundbreaking new matching technology for tone, dynamics, and width. An updated Assistant View makes it faster than ever to customize your starting point, while the Tonal Balance curve allows for easy metering (included in Standard and Advanced).</li>\r\n\t<li><strong>Magnify Soft Clip</strong>: Boost loudness while maintaining high fidelity audio with this new setting in the Maximizer module (included in Standard and Advanced).</li>\r\n\t<li><strong>Recover Sides</strong>: Reduce width without losing the sides with this new feature in the Imager module, which maintains stereo information in mono and helps preserve depth and power when narrowing a problem frequency (included in Standard and Advanced).</li>\r\n\t<li>And more, including native Apple silicon support, and a refreshed look and feel of the Ozone interface.</li>\r\n</ul>\r\n\r\n<p>Ozone 10 is available at the&nbsp;<a href="https://www.izotope.com/en/products/ozone.html" rel="noopener nofollow" target="_blank">iZotope</a>&nbsp;store and from distributors&nbsp;<a href="https://www.pluginboutique.com/meta_product/2-Effects/50-Mastering-/9609-iZotope-Ozone-10?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and&nbsp;<a href="https://rekkerd.org/out/native-instruments-ozone-10/" rel="noopener nofollow" target="_blank">Native Instruments</a>&nbsp;with introductory pricing through October 20th, 2022. The Advanced edition is $299 USD (regular $499 USD) while the Standard edition is $199 USD during the promotion (regular $249 USD).</p>\r\n\r\n<p>Various upgrades and crossgrades are available as well.</p>	2022-09-27 18:42:51.148266+00	2022-09-27 18:43:00.613411+00	images/2022/09/27/Screenshot_1_zjOs8DA.png	t	12	1	1
-32	Heavyocity launches Mosaic Pads cinematic Kontakt Player library	<p>Heavyocity Media has released a new addition to the acclaimed Mosaic Series line of virtual instruments.</p>\r\n\r\n<p><a href="https://www.pluginboutique.com/product/1-Instruments/55-Kontakt-Instrument/9685-Mosaic-Pads?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Mosaic Pads</a>&nbsp;transforms a myriad of hand-crafted, synthesized sounds into a wide range of cinematic possibilities. Brimming with inspiration and intangible movement, these unique soundscapes, eerie tones, and unearthly textures were designed to enhance any score &mdash; setting an instant mood and evoking an entirely new level of creativity.</p>\r\n\r\n<p>&ldquo;Pads have such a unique way of guiding emotion, creating dimension, and building interesting sonic worlds&rdquo; said Ari Winters, Creative Director/Senior Partner, Heavyocity. &ldquo;And with Mosaic Pads we&rsquo;ve re-imagined what synthesized sounds are capable of in modern scoring &mdash; delivering dynamic otherworldly, ambient, and atmospheric textures that will elevate any sonic palette.&rdquo;</p>\r\n\r\n<p>With over 100 meticulously-crafted snapshots, ranging from mellow to eerie, unnerving to gritty, Mosaic Pads is the perfect addition to this inspiring series, providing compelling textures capable of creating your sonic story.</p>\r\n\r\n<p>Mosaic Pads for Kontakt 6 and the free&nbsp;<a href="https://rekkerd.org/out/native-instruments-kontakt-6-player/" rel="noopener nofollow" target="_blank">Kontakt 6 Player</a>&nbsp;is on sale for a time limited intro price of $99 USD (regualar $119 USD). In addition, owners of other Mosaic Series instruments will receive an additional 20% off.</p>\r\n\r\n<p>The offer is available at the&nbsp;<a href="https://heavyocity.com/product/mosaic-pads/" rel="noopener nofollow" target="_blank">Heavyocity</a>&nbsp;store and from distributor&nbsp;<a href="https://www.pluginboutique.com/product/1-Instruments/55-Kontakt-Instrument/9685-Mosaic-Pads?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;until September 30th, 2022.</p>	2022-09-27 18:47:14.962972+00	2022-09-27 18:47:14.962972+00	images/2022/09/27/Screenshot_1_CKsPQQW.png	t	12	0	2
+27	Klevgrand 10th Anniversary Sale: All plugins $29 for 29h, plus Squashit for free	<p>Klevgrand has announced the launch of a 29 hour sale on&nbsp;<a href="https://www.pluginboutique.com/manufacturers/197-Klevgrand?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">all of its plugins</a>&nbsp;in celebration of its 10-year anniversary.</p>\r\n\r\n<p>To celebrate the 10th anniversary of starting development on Squashit we decided to give it a facelift and squash our prices for 29 hours only. You now have the opportunity to score any plug-in from the Klevgrand range at the knockout price of $29. And, as we really think Squashit is still an awesome plugin, we&rsquo;re giving away the latest version of it with any purchase!</p>\r\n\r\n<p>So, we&rsquo;re off and the clock&rsquo;s ticking. If you&rsquo;ve had your eye on some specific plugins of ours, now is really the time to act.</p>\r\n\r\n<p>The offer is valid at the&nbsp;<a href="https://klevgrand.com/" rel="noopener nofollow" target="_blank">Klevgrand</a>&nbsp;store and from distributor&nbsp;<a href="https://www.pluginboutique.com/manufacturers/197-Klevgrand?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;until September 28th, 2022, 7pm UTC.</p>	2022-09-27 18:33:38.052693+00	2022-09-27 18:48:28.778641+00	images/2022/09/27/Screenshot_1_11U6FNZ.png	t	12	5	1
+28	Native Instruments releases Komplete 14, Kontakt 7, and Choir: Omnia	<p>Native Instruments has announced the release of a massive update to its flagship<em> production suite</em>,&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14/" rel="noopener nofollow" target="_blank">Komplete 14</a>.</p>\r\n\r\n<p>Now available in NI&rsquo;s online shop, it features Komplete&rsquo;s most extensive range of sounds so far and seamless tools for putting the ideas they inspire into motion, creating an all-in-one package for creativity.</p>\r\n\r\n<p>Komplete 14&rsquo;s expansive libraries help find, design, and transform instruments in previously unimagined ways, with premium search tools to focus on sounds fast. Komplete 14 is available in 4 different sizes:&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-select/" rel="noopener nofollow" target="_blank">Select</a>,&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-standard/" rel="noopener nofollow" target="_blank">Standard</a>,&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-ultimate/" rel="noopener nofollow" target="_blank">Ultimate</a>, and&nbsp;<a href="https://rekkerd.org/out/native-instruments-komplete-14-collectors-edition/" rel="noopener nofollow" target="_blank">Collector&rsquo;S Edition</a>, the last being a comprehensive offering of 145+ instruments, 100+ Expansions, and over 135,000 sounds.</p>\r\n\r\n<p>Dive into a huge library of sounds with KONTAKT 7, put the finishing touches on your productions with the all-new Ozone 10 Standard from iZotope, and explore an array of synths and effects from Plugin Alliance.</p>\r\n\r\n<p>Included in Komplete 14 Standard and above,&nbsp;<a href="https://rekkerd.org/out/native-instruments-kontakt-7/" rel="noopener nofollow" target="_blank">Kontakt 7</a>&nbsp;offers a huge library of sounds, alongside iZotope&rsquo;s all-new mastering tool,&nbsp;<a href="https://rekkerd.org/out/native-instruments-ozone-10-standard/" rel="noopener nofollow" target="_blank">Ozone 10 Standard</a>, which assists in putting the finishing touches on any production. More new additions come via an array of synths and effects from Plugin Alliance and Brainworx, as well as the&nbsp;<a href="https://rekkerd.org/out/native-instruments-choir-omnia/" rel="noopener nofollow" target="_blank">Choir: Omnia</a>&nbsp;sample library, included in the Komplete 14 Collector&rsquo;S Edition.</p>\r\n\r\n<p>Kontakt 7 features a refreshed HiDPI Factory library, with new instruments ranging from an orchestral section from Orchestral Tools to rare analog synths and everything in-between. An enhanced HiDPI browser offers lightning-fast access to filter and preview the largest Selection of sampled instruments around, including global text search and editable filters for searching sounds. Kontakt 7 also includes under-the-hood audio improvements and the new effects Psyche Delay and Ring Modulator from Guitar Rig 6 Pro.</p>\r\n\r\n<p>Soundwide (the group consisting of Native Instruments, iZotope, Plugin Alliance, and Brainworx) and its comprehensive ecosystem of audio creation products is on display throughout the leading production-suite that is Komplete 14. Powered by machine learning, the Ozone 10 Standard tools from iZotope make mastering easy, with assistive technology driving balance in this latest version of the industry&rsquo;s most comprehensive pro mastering software. New tools from Plugin Alliance and Brainworx help further develop and drive creativity, with synths and effects, including bx_Oberhausen, Knifonium, LO-FI-AF, Focusrite SC, and more.</p>\r\n\r\n<p>Choir: Omnia captures a 40-person vocal ensemble at their passionate peak. Created in collaboration with Strezov Sampling, the production process used a world-class signal chain to record the choir over six weeks of live performances.</p>\r\n\r\n<p>The library creates a contemporary symphonic experience for dynamic scoring across soprano, tenor, alto, and bass sections. Two browsers and intuitive controls allow for easier use of the expressive, deeply customisable instrument, and the Syllabuilder enables the construction of individual syllables and intricate phrases to create entirely unique vocalizations.</p>\r\n\r\n<p>The 4 tiers of Komplete 14 include a range of advanced instruments, effects, and Expansions, such as Soul Sessions and Neo Boogie in the Select package, Playbox in Standard, Piano Colors And Ashlight in Ultimate, and Lores in Collector&rsquo;S Edition.</p>\r\n\r\n<p>Komplete 14 is available now, while Kontakt 7 and Choir: Omnia will be available to purchase as separate products from October 4th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://rekkerd.org/out/native-instruments/" rel="noopener nofollow" target="_blank">Native Instruments</a></p>	2022-09-27 18:37:16.00949+00	2022-10-01 09:11:02.829577+00	images/2022/09/27/Screenshot_1_VWnVqKF.png	t	11	3	2
+30	AudioThing updates Things effect plugin series, on sale for $9 USD each!fsdf	<p>AudioThing has announced the release of an update to its Things series of audio plugins comprising the&nbsp;<strong>Flip EQ</strong>&nbsp;tilt equalizer,&nbsp;<strong>Texture</strong>&nbsp;granular reverb,&nbsp;<strong>Motor</strong>&nbsp;morphing rotor effect, and&nbsp;<strong>Crusher</strong>&nbsp;bitcrusher and filter.</p>\r\n\r\n<p>We have just updated all Things plugins with CLAP&nbsp;&nbsp;format, bug fixes, and improvements! If you own one or more Things, you can now upgrade to the new Things Bundle, check your account for the upgrade path.</p>\r\n\r\n<p>In celebration of the update, all Things plugins are on sale for only 9 EUR/USD each (regular 19 EUR/USD), while the Things Bundle with all 4 plugins is only 29 EUR/USD instead of 76 EUR/USD during the promotion.</p>\r\n\r\n<p>The offer is available at&nbsp;<a href="https://www.pluginboutique.com/search?a_aid=4af297e055206&amp;qs=match&amp;q=audiothing+things&amp;oses%5B%5D=" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://www.audiothing.net/plugins/?aid=119526&amp;_product_filter=things" rel="noopener nofollow" target="_blank">AudioThing</a>&nbsp;store until October 31st, 2022.</p>	2022-09-27 18:40:03.407913+00	2022-10-01 09:10:50.369274+00	images/2022/09/27/Screenshot_1_4TkC3fW.png	t	12	24	1
+31	iZotope launches Ozone 10 audio mastering software at intro offer	<p>iZotope has announced the availability of the latest version of its popular audio mastering suite. Sporting a host of new features,&nbsp;<a href="https://www.pluginboutique.com/meta_product/2-Effects/50-Mastering-/9609-iZotope-Ozone-10?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Ozone 10</a>&nbsp;enables creators to master faster than ever before with intuitive, AI-powered modules.</p>\r\n\r\n<p>Achieving a professional master has never been faster than with Ozone 10. Equally powerful for people who are new to mastering or for mastering pros, Ozone has everything needed to bring balance and smoothness, punch and glue, warmth and grit, and a sense of space to a mix, alongside smart technologies that help match the sound of chart-topping hits.</p>\r\n\r\n<p><strong>New in Ozone 10</strong></p>\r\n\r\n<ul>\r\n\t<li><strong>Stabilizer Module</strong>: Sculpt a balanced sound with this new intelligent and adaptive mastering EQ: dynamically shape a mix into a clear, natural tone, or tame problem resonance, carve away harshness, and smooth transients for better translation across listening environments (Advanced only).</li>\r\n\t<li><strong>Impact Module</strong>: Enhance the rhythm and feel of tracks with this new module by intuitively controlling microdynamics: four sliders work across different frequency bands to breathe life into a mix, adding punch and dynamic space, or gluing your track together for a thicker sound (Advanced only).</li>\r\n\t<li><strong>Improved Master Assistant</strong>: Match the sound of trusted reference files or today&rsquo;s hit songs with groundbreaking new matching technology for tone, dynamics, and width. An updated Assistant View makes it faster than ever to customize your starting point, while the Tonal Balance curve allows for easy metering (included in Standard and Advanced).</li>\r\n\t<li><strong>Magnify Soft Clip</strong>: Boost loudness while maintaining high fidelity audio with this new setting in the Maximizer module (included in Standard and Advanced).</li>\r\n\t<li><strong>Recover Sides</strong>: Reduce width without losing the sides with this new feature in the Imager module, which maintains stereo information in mono and helps preserve depth and power when narrowing a problem frequency (included in Standard and Advanced).</li>\r\n\t<li>And more, including native Apple silicon support, and a refreshed look and feel of the Ozone interface.</li>\r\n</ul>\r\n\r\n<p>Ozone 10 is available at the&nbsp;<a href="https://www.izotope.com/en/products/ozone.html" rel="noopener nofollow" target="_blank">iZotope</a>&nbsp;store and from distributors&nbsp;<a href="https://www.pluginboutique.com/meta_product/2-Effects/50-Mastering-/9609-iZotope-Ozone-10?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and&nbsp;<a href="https://rekkerd.org/out/native-instruments-ozone-10/" rel="noopener nofollow" target="_blank">Native Instruments</a>&nbsp;with introductory pricing through October 20th, 2022. The Advanced edition is $299 USD (regular $499 USD) while the Standard edition is $199 USD during the promotion (regular $249 USD).</p>\r\n\r\n<p>Various upgrades and crossgrades are available as well.</p>	2022-09-27 18:42:51.148266+00	2022-09-27 18:43:00.613411+00	images/2022/09/27/Screenshot_1_zjOs8DA.png	t	12	5	1
+32	Heavyocity launches Mosaic Pads cinematic Kontakt Player library	<p>Heavyocity Media has released a new addition to the acclaimed Mosaic Series line of virtual instruments.</p>\r\n\r\n<p><a href="https://www.pluginboutique.com/product/1-Instruments/55-Kontakt-Instrument/9685-Mosaic-Pads?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Mosaic Pads</a>&nbsp;transforms a myriad of hand-crafted, synthesized sounds into a wide range of cinematic possibilities. Brimming with inspiration and intangible movement, these unique soundscapes, eerie tones, and unearthly textures were designed to enhance any score &mdash; setting an instant mood and evoking an entirely new level of creativity.</p>\r\n\r\n<p>&ldquo;Pads have such a unique way of guiding emotion, creating dimension, and building interesting sonic worlds&rdquo; said Ari Winters, Creative Director/Senior Partner, Heavyocity. &ldquo;And with Mosaic Pads we&rsquo;ve re-imagined what synthesized sounds are capable of in modern scoring &mdash; delivering dynamic otherworldly, ambient, and atmospheric textures that will elevate any sonic palette.&rdquo;</p>\r\n\r\n<p>With over 100 meticulously-crafted snapshots, ranging from mellow to eerie, unnerving to gritty, Mosaic Pads is the perfect addition to this inspiring series, providing compelling textures capable of creating your sonic story.</p>\r\n\r\n<p>Mosaic Pads for Kontakt 6 and the free&nbsp;<a href="https://rekkerd.org/out/native-instruments-kontakt-6-player/" rel="noopener nofollow" target="_blank">Kontakt 6 Player</a>&nbsp;is on sale for a time limited intro price of $99 USD (regualar $119 USD). In addition, owners of other Mosaic Series instruments will receive an additional 20% off.</p>\r\n\r\n<p>The offer is available at the&nbsp;<a href="https://heavyocity.com/product/mosaic-pads/" rel="noopener nofollow" target="_blank">Heavyocity</a>&nbsp;store and from distributor&nbsp;<a href="https://www.pluginboutique.com/product/1-Instruments/55-Kontakt-Instrument/9685-Mosaic-Pads?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;until September 30th, 2022.</p>	2022-09-27 18:47:14.962972+00	2022-10-01 08:58:16.657625+00	images/2022/09/27/Screenshot_1_CKsPQQW.png	t	12	14	2
+33	Morning Coffee Piano: Free Kontakt instrument library by ZAK Sound	<p>ZAK Sound has released a free Kontakt instrument library titled&nbsp;<strong>Morning Coffee Piano</strong>, which was created with the idea of ​​making a smooth, relaxing, and chill piano.</p>\r\n\r\n<p>To achieve this sound we recorded an acoustic piano, and then added a pad-like ambient texture and a music box-like instrument.</p>\r\n\r\n<p>After editing and optimizing each sample, we created this library for Kontakt. We named it &ldquo;Morning Coffee Piano&rdquo; because the texture of this piano is as smooth as morning coffee.</p>\r\n\r\n<p>Available for the full version of Kontakt 6.7.1 or higher, Morning Coffee Piano features envelope knobs (attack and release), performance controls (stereo image, highcut, and dynamics), and effects (resonance, reverb, delay, and delay time). The interface also offers controls for each instrument&rsquo;s volume level.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://zaksound.com/morning-coffee-piano/" rel="noopener nofollow" target="_blank">ZAK Sound</a></p>	2022-09-27 18:48:13.410867+00	2022-10-01 09:04:40.151578+00		t	11	35	1
+29	Splice Sounds launches Sounds from the Cosmos by July 7	<p>Splice has released a new sample pack as part of the Nova series, a program launched in partnership with SoundCloud to amplify the work of the most promising, undiscovered creators around the globe.</p>\r\n\r\n<p><a href="https://rekkerd.org/out/splice-july-7-sample-pack/" rel="noopener nofollow" target="_blank">Sounds from the Cosmos</a>&nbsp;features a collection of 150+ loops and one shots, and 11 presets for Beat Maker and the Astra synth.</p>\r\n\r\n<p>Producer and musician July 7 has gone from Manchester bedroom producer to making beats for the likes of T.I., Travis Scott, and Young Thug to releasing his own music as a solo act, racking up millions of streams worldwide.</p>\r\n\r\n<p>Always experimenting and drawing on tropes from genres like rock and death metal, July 7 has built his own sonic world that sets him apart from his peers. Dive in and get inspired with his sounds now available to incorporate into your productions.</p>\r\n\r\n<p>The sample pack is available to Splice subscribers. New users can try Splice Sounds for free with a 14-day trial.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://rekkerd.org/out/splice-sounds/" rel="noopener nofollow" target="_blank">Splice Sounds</a></p>	2022-09-27 18:38:55.36612+00	2022-10-01 09:01:50.587517+00	images/2022/09/27/Screenshot_1_xt2F84a.png	t	11	14	2
 \.
 
 
@@ -1182,7 +1263,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 64, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 68, true);
 
 
 --
@@ -1210,7 +1291,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 90, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 101, true);
 
 
 --
@@ -1252,14 +1333,14 @@ SELECT pg_catalog.setval('public.django_celery_beat_solarschedule_id_seq', 1, fa
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 16, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 48, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 49, true);
 
 
 --
@@ -1270,10 +1351,17 @@ SELECT pg_catalog.setval('public.newsapp_category_id_seq', 12, true);
 
 
 --
+-- Name: newsapp_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.newsapp_like_id_seq', 31, true);
+
+
+--
 -- Name: newsapp_news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_news_id_seq', 33, true);
+SELECT pg_catalog.setval('public.newsapp_news_id_seq', 36, true);
 
 
 --
@@ -1509,6 +1597,14 @@ ALTER TABLE ONLY public.newsapp_category
 
 
 --
+-- Name: newsapp_like newsapp_like_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.newsapp_like
+    ADD CONSTRAINT newsapp_like_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: newsapp_news newsapp_news_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1657,6 +1753,20 @@ CREATE INDEX newsapp_category_slug_00657ac6_like ON public.newsapp_category USIN
 
 
 --
+-- Name: newsapp_like_news_id_251412bf; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX newsapp_like_news_id_251412bf ON public.newsapp_like USING btree (news_id);
+
+
+--
+-- Name: newsapp_like_user_id_1de182dd; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX newsapp_like_user_id_1de182dd ON public.newsapp_like USING btree (user_id);
+
+
+--
 -- Name: newsapp_news_category_id_4dd5cca6; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1780,6 +1890,22 @@ ALTER TABLE ONLY public.django_celery_beat_periodictask
 
 ALTER TABLE ONLY public.django_celery_beat_periodictask
     ADD CONSTRAINT django_celery_beat_p_solar_id_a87ce72c_fk_django_ce FOREIGN KEY (solar_id) REFERENCES public.django_celery_beat_solarschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: newsapp_like newsapp_like_news_id_251412bf_fk_newsapp_news_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.newsapp_like
+    ADD CONSTRAINT newsapp_like_news_id_251412bf_fk_newsapp_news_id FOREIGN KEY (news_id) REFERENCES public.newsapp_news(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: newsapp_like newsapp_like_user_id_1de182dd_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.newsapp_like
+    ADD CONSTRAINT newsapp_like_user_id_1de182dd_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

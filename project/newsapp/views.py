@@ -30,8 +30,6 @@ def get_auth_token_message(login, password, type='token'):
 
     response = requests.post(url, data=data)
     response = response.json()
-    print(response)
-
     # if type == 'jwt' and 'detail' in response:
     #     response = json.loads('{"non_field_errors": ["Невозможно войти с предоставленными учетными данными."]}')
 

@@ -1,0 +1,24 @@
+<form method="post" enctype="multipart/form-data"
+      {% if news_item.pk in user_liked_posts %}
+      action="{% url 'unlike_route' news_item.pk %}"
+      {% else %}
+      action="{% url 'like_route' news_item.pk %}">
+      {% endif %}
+
+    {% csrf_token %}
+
+    {% if request.user.is_authenticated %}
+
+        {% if news_item.pk in user_liked_posts %}
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit" name="unlike"> 🖤 unlike </button>
+        {% else %}
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit" name="like"> ♡ like </button>
+        {% endif %}
+
+    {% endif %}
+
+    <a href="{{ news_item.get_absolute_url }}" class="btn btn-primary"> Read more... </a>
+
+</form>

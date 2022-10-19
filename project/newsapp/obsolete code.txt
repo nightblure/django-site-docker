@@ -1,0 +1,28 @@
+# def add_news(request):
+#
+#     if request.method == 'POST':
+#         form = NewsForm(request.POST, request.FILES)
+#
+#         if form.is_valid():
+#             # распаковка словаря с данными, прошедшими валидацию, и сохранение в БД
+#             # используется для форм, не связанных с моделью
+#             #news = News.objects.create(**form.cleaned_data)
+#             news = form.save()
+#             return redirect(news) # 'home_route'
+#     else:
+#         form = NewsForm()
+#
+#     context = {
+#         'title': 'Добавление новости',
+#         'form': form
+#     }
+#
+#     return render(request, 'add_news.html', context)
+
+# def test(request):
+#     objects = [x for x in range(8)]
+#     p = Paginator(objects, 2)
+#     page_num = request.GET.get('page', 1)
+#     page_objects = p.get_page(page_num)
+#     context = {'page_obj': page_objects}
+#     return render(request, 'news_list.html', context)

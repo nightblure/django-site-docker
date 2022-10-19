@@ -2,8 +2,11 @@ import json
 from collections import defaultdict
 
 import requests
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,9 +40,12 @@ def get_auth_token_message(login, password, type='token'):
     return response
 
 
-def auth_token_view(request):
-    if request.method == 'POST':
+class AuthTokenView(View):
 
+    def get(self, request):
+        return render(request, 'auth_token.html', {'form': AuthTokenForm()})
+
+    def post(self, request):
         # вытаскиваем значения текстовых полей по html-атрибуту name
         login = request.POST['login']
         password = request.POST['password']
@@ -53,16 +59,13 @@ def auth_token_view(request):
 
         return redirect('token_route')
 
-    context = {
-        'form': AuthTokenForm()
-    }
 
-    return render(request, 'auth_token.html', context)
+class JWTTokenView(View):
 
+    def get(self, request):
+        return render(request, 'jwt_token.html', {'form': AuthTokenForm()})
 
-def jwt_auth_token_view(request):
-    if request.method == 'POST':
-
+    def post(self, request):
         # вытаскиваем значения текстовых полей по html-атрибуту name
         login = request.POST['login']
         password = request.POST['password']
@@ -76,15 +79,13 @@ def jwt_auth_token_view(request):
 
         return redirect('jwt_token_route')
 
-    context = {
-        'form': AuthTokenForm()
-    }
 
-    return render(request, 'jwt_token.html', context)
+class RegisterView(View):
 
+    def get(self, request):
+        return render(request, 'register.html', {'form': UserRegisterForm()})
 
-def register(request):
-    if request.method == 'POST':
+    def post(self, request):
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
@@ -95,47 +96,30 @@ def register(request):
         else:
             messages.error(request, 'Ошибка регистрации')
 
-    else:
-        form = UserRegisterForm()
-
-    context = {
-        'form': form,
-        'title': 'Регистрация'
-    }
-
-    return render(request, 'register.html', context)
+        return redirect('register_route')
 
 
-def user_login(request):
-    if request.method == 'POST':
+class UserLoginView(View):
+
+    def get(self, request):
+        return render(request, 'login.html', {'form': UserLoginForm()})
+
+    def post(self, request):
         form = UserLoginForm(data=request.POST)
 
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             return redirect('home_route')
-    else:
-        form = UserLoginForm()
+        else:
+            messages.error(request, 'Указаны неверные данные')
 
-    context = {
-        'form': form,
-        'title': 'Войти'
-    }
-    return render(request, 'login.html', context)
+        return redirect('login_route')
 
 
 def user_logout(request):
     logout(request)
     return redirect('login_route')
-
-
-# def test(request):
-#     objects = [x for x in range(8)]
-#     p = Paginator(objects, 2)
-#     page_num = request.GET.get('page', 1)
-#     page_objects = p.get_page(page_num)
-#     context = {'page_obj': page_objects}
-#     return render(request, 'news_list.html', context)
 
 
 def get_user_liked_posts(user_id):
@@ -151,6 +135,7 @@ def get_news_likes_count_dict():
         news_likes[obj.news.pk] += 1
 
     return news_likes
+
 
 # замена для функции index
 class NewsList(ListView):
@@ -182,17 +167,22 @@ class NewsList(ListView):
         return News.objects.filter(is_published=True).order_by('-created_at')
 
 
+@login_required
 def like_view(request, **kwargs):
     news_id = kwargs['news_id']
     news_obj = News.objects.get(pk=news_id)
     Like.objects.create(user=request.user, news=news_obj)
-    return redirect('home_route')
+    category = request.COOKIES['category']
+    return redirect('news_by_category_route', category_slug=category)
 
 
+@login_required
 def unlike_view(request, **kwargs):
     news_id = kwargs['news_id']
     Like.objects.filter(user=request.user, news__pk=news_id).delete()
-    return redirect('home_route')
+    category = request.COOKIES['category']
+    return redirect('news_by_category_route', category_slug=category)
+
 
 # замена для функции get_news_by_category
 class NewsByCategory(ListView):
@@ -202,13 +192,14 @@ class NewsByCategory(ListView):
     allow_empty = True
     paginate_by = 3
 
-    def get_category_id(self, category_slug):
-        # return self.kwargs['category_id']
+    def get_category_id(self):
+        category_slug = self.kwargs['category_slug']
         return Category.objects.get(slug=category_slug).pk
 
     def get_context_data(self, *, object_list=None, **kwargs):
+
         context = super().get_context_data(**kwargs)
-        category_id = self.get_category_id(self.kwargs['category_slug'])
+        category_id = self.get_category_id()
         category_title = Category.objects.get(pk=category_id).title
         context['title'] = f'Новости в категории {category_title}'
 
@@ -223,7 +214,7 @@ class NewsByCategory(ListView):
         return context
 
     def get_queryset(self):
-        category_id = self.get_category_id(self.kwargs['category_slug'])
+        category_id = self.get_category_id()
 
         """
          select_related позволяет вытащить данные из связанной модели сразу (в данном случае из модели Категория)
@@ -241,54 +232,17 @@ class NewsByCategory(ListView):
             is_published=True,
         ).select_related('category').order_by('-created_at')
 
-
-# def index(request):
-#     # вывод в порядке добавления
-#     # news = News.objects.all()
-#     # вывод по убыванию значения поля created_at
-#     news = News.objects.order_by('-created_at')
-#
-#     # словарь переменных, передаваемых шаблону
-#     context = {
-#         'news': news,
-#         'title': 'Список новостей',
-#     }
-#
-#     # шаблон для рендера ищется по умолчанию в папке templates
-#     return render(request, template_name='index.html', context=context)
-
-
-# def get_news_by_category(request, category_title):
-#     category = Category.objects.get(title=category_title)
-#     news = News.objects.filter(category_id=category.pk)
-#     title = f'Новости в категории {category.title}'
-#
-#     context = {
-#         'news': news,
-#         'category': category,
-#         'title': title,
-#     }
-#
-#     return render(request, 'news_by_category.html', context)
-
-
-# def get_one_news(request, news_id):
-#
-#     cache_key = f'news_by_id_{news_id}'
-#     news_item = cache.get(cache_key)
-#
-#     # чекаем наличие новости в кэше
-#     if news_item:
-#         print('news from cache')
-#     else:
-#         news_item = get_object_or_404(News, pk=news_id)
-#         cache.set(cache_key, news_item)
-#         print('news from DB')
-#
-#     context = {
-#         'news_item': news_item
-#     }
-#     return render(request, 'one_news.html', context)
+    def render_to_response(self, context, **response_kwargs):
+        category = self.kwargs['category_slug']
+        response = super(ListView, self).render_to_response(context, **response_kwargs)
+        """
+        костыль:
+        запоминаем текущую категорию, чтобы вьюхи для кнопок лайка и анлайка 
+        редиректили на текущую категорию. этот функционал можно полностью выпилить,
+        если реализовать пост-запрос лайков/анлайков без релоада страницы
+        """
+        response.set_cookie('category', category)
+        return response
 
 
 # замена для функции get_one_news
@@ -330,29 +284,7 @@ class CreateNews(LoginRequiredMixin, CreateView):
     # success_url = reverse_lazy('home_route')
 
 
-# def add_news(request):
-#
-#     if request.method == 'POST':
-#         form = NewsForm(request.POST, request.FILES)
-#
-#         if form.is_valid():
-#             # распаковка словаря с данными, прошедшими валидацию, и сохранение в БД
-#             # используется для форм, не связанных с моделью
-#             #news = News.objects.create(**form.cleaned_data)
-#             news = form.save()
-#             return redirect(news) # 'home_route'
-#     else:
-#         form = NewsForm()
-#
-#     context = {
-#         'title': 'Добавление новости',
-#         'form': form
-#     }
-#
-#     return render(request, 'add_news.html', context)
-
-
-class DeleteNews(SuccessMessageMixin, DeleteView):
+class DeleteNews(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = News
 
     def get_success_url(self):
@@ -360,42 +292,19 @@ class DeleteNews(SuccessMessageMixin, DeleteView):
         return reverse('home_route')
 
     def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        name = self.object.name
-        request.session['name'] = name  # name will be change according to your need
-        return super(DeleteView, self).delete(request, *args, **kwargs)
+        news_obj = self.get_object()
+        News.objects.get(pk=news_obj.pk).delete()
 
 
-# почему-то не работает :с
-# class edit_news(LoginRequiredMixin, UpdateView):
-#     fields = ['title', 'content']
-#     model = News
-#     # fields = '__all__'
-#     success_url = reverse_lazy('news_by_category_route')
-#     template_name = 'edit_news.html'
+class EditNewsView(LoginRequiredMixin, UpdateView):
+    # fields = ['title', 'content', 'is_published', 'category', 'image']
+    model = News
+    # success_url = reverse_lazy('news_by_category_route')
+    template_name = 'edit_news.html'
+    form_class = NewsForm
 
-def edit_news(request, pk):
-    news_obj = News.objects.get(pk=pk)
-
-    if request.method == 'POST':
-        form = NewsForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            data = form.cleaned_data
-            data['user'] = request.user
-            data['image'] = news_obj.image
-            news_obj.__dict__.update(data)
-            news_obj.category = Category.objects.get(title=data['category'])
-            news_obj.save()
-            messages.success(request, f'Новость успешно отредактирована')
-            return redirect(news_obj)
-    else:
-        form = NewsForm()
-
-    context = {
-        'form': form,
-        'categories': Category.objects.all(),
-        'news_obj': news_obj,
-        'title': f'Edit {news_obj.title}'
-    }
-    return render(request, 'edit_news.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        news_obj = self.get_object()
+        context['title'] = f'Edit {news_obj.title}'
+        return context

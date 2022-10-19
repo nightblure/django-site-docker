@@ -21,32 +21,25 @@
 
     <div class="card-body">
 
-        {# <div class="media d-flex"> #}
-
         {% if news_item.image %}
         <img src="{{ news_item.image.url }}" alt="" height="300" width="300" class="float-start me-3">
-        {% else %}
-
         {% endif %}
 
-        {# <div class="media-body"> #}
-            <h5 class="card-title"> {{ news_item.title|safe }} </h5>
-            <p class="card-text"> {{ news_item.content|safe }} </p>
-            {# </div> #}
+        <h5 class="card-title"> {{ news_item.title|safe }} </h5>
+        <p class="card-text"> {{ news_item.content|safe }} </p>
 
-        {# </div> #}
+        {% if request.user.is_authenticated %}
 
-        {% if request.user == news_item.user or user.is_staff %}
+            {% if request.user == news_item.user or user.is_staff %}
 
-        <form action="{% url 'delete_news_route' pk=news_item.pk %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger float-end">Удалить новость</button>
-        </form>
+            <form action="{% url 'delete_news_route' pk=news_item.pk %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger float-end">Delete</button>
+            </form>
 
-        <form action="{% url 'edit_news_route' pk=news_item.pk %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-primary">Редактировать новость</button>
-        </form>
+            {% endif %}
+
+            <a href="{% url 'edit_news_route' pk=news_item.pk %}" class="btn btn-outline-primary">Edit</a>
 
         {% endif %}
 

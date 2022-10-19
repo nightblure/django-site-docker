@@ -18,6 +18,11 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from newsapp.errors_views import page_not_found_view
+
+# вьюха-обработчик ошибки 404
+handler404 = page_not_found_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),

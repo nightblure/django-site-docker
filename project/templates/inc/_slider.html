@@ -1,18 +1,17 @@
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+{% if news|length > 1 %}
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
 
     <div class="carousel-indicators">
 
-        {% if news|length > 1 %}
-            {% for _ in news %}
+        {% for news_item in news %}
+
             {% if forloop.first %}
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true"></button>
             {% else %}
-            <button type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide-to="{{ forloop.counter0 }}"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter0 }}"></button>
             {% endif %}
-            {% endfor %}
-        {% endif %}
+
+        {% endfor %}
 
     </div>
 
@@ -20,30 +19,33 @@
 
         {% for news_item in news %}
 
-        <div {% if forloop.first %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+            <div {% if forloop.first %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
 
-            <img src="{{ news_item.image.url }}" height="400" width="600" class="d-block w-100">
+                {% if news_item.image %}
+                    <img src="{{ news_item.image.url }}" height="400" width="600" class="d-block w-100">
+                {% else %}
+                    <img src="https://img.freepik.com/free-vector/smooth-white-wave-background_52683-55288.jpg?w=2000" height="400" width="600" class="d-block w-100">
+                {% endif %}
 
-            <div class="carousel-caption d-none d-md-block">
-                <h5>{{ news_item.title }}</h5>
-                <p> {{ news_item.content|safe|truncatewords:5 }} </p>
+                <div class="carousel-caption d-none d-md-block" {% if not news_item.image %} style="color: black" {% endif %}>
+                    <h5> {{ news_item.title }} </h5>
+                    <p> {{ news_item.content|safe|truncatewords:5 }} </p>
+                </div>
+
             </div>
-
-        </div>
 
         {% endfor %}
 
     </div>
 
-    {% if news|length > 1 %}
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
-    {% endif %}
 
 </div>
+{% endif %}

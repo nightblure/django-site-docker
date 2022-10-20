@@ -10,9 +10,15 @@
                 </li>
 
                 {% if request.user.is_authenticated %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'add_news_route' %}">Добавить новость</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'edit_profile_route' request.user.username %}">Настройки учетной записи</a>
+                </li>
+
                 {% endif %}
 
 

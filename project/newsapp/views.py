@@ -1,8 +1,10 @@
 import json
+import os
 from collections import defaultdict
 
 import requests
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -11,13 +13,15 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.db.models import F, Count, Q, Sum, Max
+from django.contrib.auth.models import User
 
+from project import settings
 from .models import News, Category, Like
-from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm, EditUserProfileForm
 
 
 def get_auth_token_message(login, password, type='token'):
@@ -171,15 +175,13 @@ class NewsList(ListView):
 def like_view(request, **kwargs):
     news_id = kwargs['news_id']
     news_obj = News.objects.get(pk=news_id)
-    Like.objects.create(user=request.user, news=news_obj)
-    category = request.COOKIES['category']
-    return redirect('news_by_category_route', category_slug=category)
+    like_obj = Like.objects.filter(user=request.user, news__pk=news_id)
 
+    if like_obj:
+        like_obj.delete()
+    else:
+        Like.objects.create(user=request.user, news=news_obj)
 
-@login_required
-def unlike_view(request, **kwargs):
-    news_id = kwargs['news_id']
-    Like.objects.filter(user=request.user, news__pk=news_id).delete()
     category = request.COOKIES['category']
     return redirect('news_by_category_route', category_slug=category)
 
@@ -197,7 +199,6 @@ class NewsByCategory(ListView):
         return Category.objects.get(slug=category_slug).pk
 
     def get_context_data(self, *, object_list=None, **kwargs):
-
         context = super().get_context_data(**kwargs)
         category_id = self.get_category_id()
         category_title = Category.objects.get(pk=category_id).title
@@ -296,15 +297,42 @@ class DeleteNews(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         News.objects.get(pk=news_obj.pk).delete()
 
 
-class EditNewsView(LoginRequiredMixin, UpdateView):
+class EditNewsView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     # fields = ['title', 'content', 'is_published', 'category', 'image']
     model = News
     # success_url = reverse_lazy('news_by_category_route')
     template_name = 'edit_news.html'
     form_class = NewsForm
+    success_message = 'Новость успешно изменена'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         news_obj = self.get_object()
         context['title'] = f'Edit {news_obj.title}'
         return context
+
+
+class EditUserProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = EditUserProfileForm
+    template_name = 'edit_user_profile.html'
+
+    def get_success_url(self):
+        messages.success(self.request, 'Настройки успешно применены')
+        user = self.get_object()
+        return reverse('edit_profile_route', kwargs={'user_name': user.username})
+
+    def get_object(self, queryset=None):
+        return User.objects.get(pk=self.request.user.pk)
+
+
+class ChangeUserPasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'change_password.html'
+    # form_class = ChangeUserPasswordForm
+    success_message = 'Пароль успешно изменен'
+    success_url = reverse_lazy('home_route')
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Проверьте, что пароль удовлетворяет требованиям безопасности, \
+                                     и совпадает с повторно введенным паролем')
+        return super().form_invalid(form)

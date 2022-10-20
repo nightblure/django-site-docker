@@ -1,9 +1,4 @@
-<form method="post" enctype="multipart/form-data"
-      {% if news_item.pk in user_liked_posts %}
-      action="{% url 'unlike_route' news_item.pk %}"
-      {% else %}
-      action="{% url 'like_route' news_item.pk %}">
-      {% endif %}
+<form method="post" enctype="multipart/form-data" action="{% url 'like_route' news_item.pk %}">
 
     {% csrf_token %}
 

@@ -4,7 +4,7 @@ from collections import defaultdict
 
 import requests
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import *
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -44,12 +44,11 @@ def get_auth_token_message(login, password, type='token'):
     return response
 
 
-class AuthTokenView(View):
+class AuthTokenView(FormView):
+    form_class = AuthTokenForm
+    template_name = 'auth_token.html'
 
-    def get(self, request):
-        return render(request, 'auth_token.html', {'form': AuthTokenForm()})
-
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         # вытаскиваем значения текстовых полей по html-атрибуту name
         login = request.POST['login']
         password = request.POST['password']
@@ -64,12 +63,11 @@ class AuthTokenView(View):
         return redirect('token_route')
 
 
-class JWTTokenView(View):
+class JWTTokenView(FormView):
+    form_class = AuthTokenForm
+    template_name = 'jwt_token.html'
 
-    def get(self, request):
-        return render(request, 'jwt_token.html', {'form': AuthTokenForm()})
-
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         # вытаскиваем значения текстовых полей по html-атрибуту name
         login = request.POST['login']
         password = request.POST['password']
@@ -84,12 +82,11 @@ class JWTTokenView(View):
         return redirect('jwt_token_route')
 
 
-class RegisterView(View):
+class RegisterView(FormView):
+    form_class = UserRegisterForm
+    template_name = 'register.html'
 
-    def get(self, request):
-        return render(request, 'register.html', {'form': UserRegisterForm()})
-
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
@@ -103,12 +100,20 @@ class RegisterView(View):
         return redirect('register_route')
 
 
-class UserLoginView(View):
+class UserLoginView(FormView):
+    form_class = UserLoginForm
+    template_name = 'login.html'
 
-    def get(self, request):
-        return render(request, 'login.html', {'form': UserLoginForm()})
+    def post(self, request, *args, **kwargs):
 
-    def post(self, request):
+        if 'reset_pass' in request.POST:
+            user = User.objects.get(username=request.POST['username'])
+            user.set_password('1234User')
+            user.save()
+            # logout(request)
+            messages.success(self.request, 'Пароль сброшен на 1234User. Войдите в учетную запись с новым паролем')
+            return redirect('home_route')
+
         form = UserLoginForm(data=request.POST)
 
         if form.is_valid():
@@ -166,8 +171,6 @@ class NewsList(ListView):
         return context
 
     def get_queryset(self):
-        # тест работы задачи при загрузке главной страницы
-        # send_tg_message.delay('hi')
         return News.objects.filter(is_published=True).order_by('-created_at')
 
 
@@ -318,12 +321,23 @@ class EditUserProfileView(LoginRequiredMixin, UpdateView):
     template_name = 'edit_user_profile.html'
 
     def get_success_url(self):
-        messages.success(self.request, 'Настройки успешно применены')
-        user = self.get_object()
-        return reverse('edit_profile_route', kwargs={'user_name': user.username})
+        messages.success(self.request, 'Профиль успешно изменен')
+        return reverse('edit_profile_route', kwargs={'user_name': self.request.user.username})
 
     def get_object(self, queryset=None):
         return User.objects.get(pk=self.request.user.pk)
+
+    def post(self, request, *args, **kwargs):
+
+        if 'reset_pass' in request.POST:
+            user = User.objects.get(pk=request.user.pk)
+            user.set_password('1234User')
+            user.save()
+            logout(request)
+            messages.success(self.request, 'Пароль сброшен на 1234User. Войдите в учетную запись с новым паролем')
+            return redirect('home_route')
+
+        return super().post(request, *args, **kwargs)
 
 
 class ChangeUserPasswordView(SuccessMessageMixin, PasswordChangeView):

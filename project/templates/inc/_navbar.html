@@ -16,7 +16,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'edit_profile_route' request.user.username %}">Настройки учетной записи</a>
+                    <a class="nav-link" href="{% url 'edit_profile_route' request.user.username %}">Настройки учетной
+                        записи</a>
                 </li>
 
                 {% endif %}
@@ -28,7 +29,8 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
                         API auth tokens
                     </a>
                     <ul class="dropdown-menu">
@@ -46,7 +48,9 @@
         <span class="navbar-text ">
 
             {% if request.user.is_authenticated %}
-                {{ user.username }}, добро пожаловать <a href="{% url 'logout_route' %}">Выйти</a>
+                <a href="{% url 'edit_profile_route' request.user.username %}">
+                    {{ user.username }}
+                </a>, добро пожаловать <a href="{% url 'logout_route' %}">Выйти</a>
             {% else %}
                 <a href="{% url 'register_route' %}">Зарегистрироваться</a>
                 <a href="{% url 'login_route' %}">Войти</a>

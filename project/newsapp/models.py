@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
+from django.utils.html import format_html
+
 from project import settings
 
 
@@ -8,7 +10,6 @@ from project import settings
 
 
 class User(AbstractUser):
-
     bio = models.TextField(max_length=500, blank=True)
     avatar = models.ImageField(null=True, default="avatar.svg")
 
@@ -83,3 +84,11 @@ class Like(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['user', 'news'], name='unique_constraint')
         ]
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    text = models.TextField()
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)

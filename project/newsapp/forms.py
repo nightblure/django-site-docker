@@ -1,10 +1,13 @@
 from django import forms
-from .models import Category, News
-from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import * # UserCreationForm, AuthenticationForm, UserChangeForm
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
+from django.utils.html import format_html
 
+from .models import Category, News, User
+from django.core.exceptions import ValidationError
 import re
+from string import Template
+from django.utils.safestring import mark_safe
+from django.forms import ImageField, ModelForm
 
 
 class AuthTokenForm(forms.Form):
@@ -90,21 +93,20 @@ class UserRegisterForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 
-class EditUserProfileForm(UserChangeForm):
+class EditUserProfileForm(ModelForm):
     username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'form-control'})),
-    email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'})),
-    # password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'})),
+    email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'avatar')
 
 
-# class ChangeUserPasswordForm(PasswordChangeForm):
-#     old_password = forms.CharField(label='Старый пароль', widget=forms.TextInput(attrs={'class': 'form-control'})),
-#     new_password1 = forms.CharField(label='Новый пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'})),
-#     new_password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'})),
-#
-#     class Meta:
-#         model = User
-#         fields = ('old_password', 'new_password1', 'new_password2')
+class ChangeUserPasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(label='Старый пароль', widget=forms.TextInput(attrs={'class': 'form-control'})),
+    new_password1 = forms.CharField(label='Новый пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'})),
+    new_password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'})),
+
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password1', 'new_password2')

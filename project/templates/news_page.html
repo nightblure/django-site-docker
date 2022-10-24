@@ -4,7 +4,7 @@
 и тайтл из базового темплейта -->
 
 {% block title %}
-{{ news_item.title }}
+Новость {{ news_item.title }}
 {% endblock %}
 
 {% block sidebar %}
@@ -51,5 +51,7 @@
     </div>
 
 </div>
+
+{% include 'inc/_comments.html' %}
 
 {% endblock %}

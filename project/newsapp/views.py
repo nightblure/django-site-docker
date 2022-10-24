@@ -4,6 +4,7 @@ from collections import defaultdict
 
 import requests
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import *
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
@@ -19,8 +20,8 @@ from django.contrib.auth import login, logout
 from django.db.models import F, Count, Q, Sum, Max
 
 from project import settings
-from .models import News, Category, Like, User
-from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm, EditUserProfileForm
+from .models import News, Category, Like, User, Comment
+from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm, EditUserProfileForm, ChangeUserPasswordForm
 
 
 def get_auth_token_message(login, password, type='token'):
@@ -107,13 +108,13 @@ class UserLoginView(FormView):
 
         if 'reset_pass' in request.POST:
             username = request.POST['username']
-            user = User.objects.filter(username=username)
+            user = User.objects.filter(username=username).first()
 
             if not user:
                 messages.error(self.request, f'Пользователя {username} не существует')
                 return redirect('home_route')
 
-            user.set_password('1234User')
+            user.password = make_password('1234User')
             user.save()
             # logout(request)
             messages.success(self.request, 'Пароль сброшен на 1234User. Войдите в учетную запись с новым паролем')
@@ -179,7 +180,7 @@ class NewsList(ListView):
         return News.objects.filter(is_published=True).order_by('-created_at')
 
 
-@login_required
+@login_required(login_url='login_route')
 def like_view(request, **kwargs):
     news_id = kwargs['news_id']
     news_obj = News.objects.get(pk=news_id)
@@ -198,7 +199,6 @@ def like_view(request, **kwargs):
         return redirect('home_route')
 
 
-# замена для функции get_news_by_category
 class NewsByCategory(ListView):
     model = News
     template_name = 'news_by_category.html'
@@ -264,6 +264,13 @@ class OneNews(DetailView):
     pk_url_kwarg = 'news_id'
     template_name = 'news_page.html'
     context_object_name = 'news_item'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        news_id = self.kwargs['news_id']
+        comments = Comment.objects.filter(news__pk=news_id).order_by('-created')
+        context['comments'] = comments
+        return context
 
     def get_queryset(self):
         news_id = self.kwargs['news_id']
@@ -337,10 +344,9 @@ class EditUserProfileView(LoginRequiredMixin, UpdateView):
         return User.objects.get(pk=self.request.user.pk)
 
     def post(self, request, *args, **kwargs):
-
         if 'reset_pass' in request.POST:
-            user = User.objects.get(pk=request.user.pk)
-            user.set_password('1234User')
+            user = User.objects.filter(pk=request.user.pk).first()
+            user.password = make_password('1234User')
             user.save()
             logout(request)
             messages.success(self.request, 'Пароль сброшен на 1234User. Войдите в учетную запись с новым паролем')
@@ -359,3 +365,27 @@ class ChangeUserPasswordView(SuccessMessageMixin, PasswordChangeView):
         messages.error(self.request, 'Проверьте, что пароль удовлетворяет требованиям безопасности, \
                                      и совпадает с повторно введенным паролем')
         return super().form_invalid(form)
+
+
+def comment_view(request, news_id, username):
+
+    user_obj = User.objects.get(pk=request.user.pk)
+    news_obj = News.objects.get(pk=news_id)
+
+    comment_text = request.POST['comment_text']
+
+    if str(comment_text).isspace():
+        messages.error(request, 'Комментарий не может быть пустым')
+    else:
+        comment_obj = Comment.objects.create(
+            user=user_obj,
+            news=news_obj,
+            text=comment_text
+        )
+
+    return redirect('one_news_route', news_id=news_id)
+
+
+def remove_comment_view(request, news_id, comment_id):
+    comment_obj = Comment.objects.get(pk=comment_id).delete()
+    return redirect('one_news_route', news_id=news_id)

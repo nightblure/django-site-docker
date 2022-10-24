@@ -3,7 +3,8 @@ from django.urls import path
 from .views import NewsList, NewsByCategory, OneNews, \
     CreateNews, RegisterView, UserLoginView, user_logout, \
     AuthTokenView, JWTTokenView, DeleteNews, \
-    EditNewsView, like_view, EditUserProfileView, ChangeUserPasswordView
+    EditNewsView, like_view, EditUserProfileView, ChangeUserPasswordView, \
+    comment_view, remove_comment_view
 
 urlpatterns = [
     # path('', index, name='home_route'),
@@ -33,4 +34,7 @@ urlpatterns = [
 
     path('edit_user_profile/<str:user_name>/', EditUserProfileView.as_view(), name='edit_profile_route'),
     path('change_user_password/<str:user_name>/', ChangeUserPasswordView.as_view(), name='change_password_route'),
+
+    path('add_comment/<int:news_id>/<str:username>', comment_view, name='add_comment'),
+    path('remove_comment/<int:news_id>/<int:comment_id>/', remove_comment_view, name='remove_comment')
 ]

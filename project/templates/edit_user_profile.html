@@ -12,10 +12,15 @@
 
 <h1> Редактирование профиля </h1>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
+
     {{ form.as_p }}
+    <img src="{{ request.user.avatar.url }}" width="200px" height="200px" />
+
+    <br>
+    <br>
 
     <a href="{% url 'change_password_route' request.user.username %}"> Изменить пароль </a> <br> <br>
 

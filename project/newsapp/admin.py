@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import News, Category, Like
+from .models import News, Category, Like, Comment, User
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 
@@ -42,7 +42,19 @@ class LikeAdmin(admin.ModelAdmin):
     list_display_links = ('news_id', 'news', 'user')
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'news', 'text')
+    list_display_links = ('user', 'news', 'text')
+
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'bio', 'avatar')
+    list_display_links = ('username', 'email', 'bio', 'avatar')
+
+
 # Register your models here.
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Like, LikeAdmin)
+admin.site.register(Comment, CommentAdmin)
+admin.site.register(User, UserAdmin)

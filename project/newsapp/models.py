@@ -1,8 +1,16 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from project import settings
+
 
 # http://127.0.0.1:8000/admin/
+
+
+class User(AbstractUser):
+
+    bio = models.TextField(max_length=500, blank=True)
+    avatar = models.ImageField(null=True, default="avatar.svg")
 
 
 class Category(models.Model):
@@ -44,7 +52,7 @@ class News(models.Model):
     is_published = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, db_column='category_id')
     views_count = models.IntegerField(default=0)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
     # строковое представление для корректного отображения в админке
     def __str__(self):

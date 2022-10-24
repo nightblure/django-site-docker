@@ -17,10 +17,9 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.db.models import F, Count, Q, Sum, Max
-from django.contrib.auth.models import User
 
 from project import settings
-from .models import News, Category, Like
+from .models import News, Category, Like, User
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm, EditUserProfileForm
 
 
@@ -107,7 +106,13 @@ class UserLoginView(FormView):
     def post(self, request, *args, **kwargs):
 
         if 'reset_pass' in request.POST:
-            user = User.objects.get(username=request.POST['username'])
+            username = request.POST['username']
+            user = User.objects.filter(username=username)
+
+            if not user:
+                messages.error(self.request, f'Пользователя {username} не существует')
+                return redirect('home_route')
+
             user.set_password('1234User')
             user.save()
             # logout(request)
@@ -186,7 +191,11 @@ def like_view(request, **kwargs):
         Like.objects.create(user=request.user, news=news_obj)
 
     category = request.COOKIES['category']
-    return redirect('news_by_category_route', category_slug=category)
+
+    if Category.objects.get(slug=category):
+        return redirect('news_by_category_route', category_slug=category)
+    else:
+        return redirect('home_route')
 
 
 # замена для функции get_news_by_category

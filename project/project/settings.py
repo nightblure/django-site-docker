@@ -74,6 +74,8 @@ ROOT_URLCONF = 'project.urls'
 # добавляем директорию для поиска шаблонов
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
+AUTH_USER_MODEL = 'newsapp.User'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

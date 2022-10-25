@@ -36,5 +36,5 @@ urlpatterns = [
     path('change_user_password/<str:user_name>/', ChangeUserPasswordView.as_view(), name='change_password_route'),
 
     path('add_comment/<int:news_id>/<str:username>', comment_view, name='add_comment'),
-    path('remove_comment/<int:news_id>/<int:comment_id>/', remove_comment_view, name='remove_comment')
+    path('remove_comment/<int:news_id>/<int:comment_id>/', remove_comment_view, name='remove_comment'),
 ]

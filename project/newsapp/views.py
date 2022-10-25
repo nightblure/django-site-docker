@@ -19,6 +19,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.db.models import F, Count, Q, Sum, Max
 
+from newsapp.mixins import ResetPasswordMixin
 from project import settings
 from .models import News, Category, Like, User, Comment
 from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm, EditUserProfileForm, ChangeUserPasswordForm
@@ -100,7 +101,7 @@ class RegisterView(FormView):
         return redirect('register_route')
 
 
-class UserLoginView(FormView):
+class UserLoginView(ResetPasswordMixin, FormView):
     form_class = UserLoginForm
     template_name = 'login.html'
 
@@ -114,9 +115,7 @@ class UserLoginView(FormView):
                 messages.error(self.request, f'Пользователя {username} не существует')
                 return redirect('home_route')
 
-            user.password = make_password('1234User')
-            user.save()
-            # logout(request)
+            self.reset_password(user)
             messages.success(self.request, 'Пароль сброшен на 1234User. Войдите в учетную запись с новым паролем')
             return redirect('home_route')
 
@@ -177,7 +176,13 @@ class NewsList(ListView):
         return context
 
     def get_queryset(self):
-        return News.objects.filter(is_published=True).order_by('-created_at')
+        search_str = self.request.GET.get('search')
+
+        if not search_str:
+            return News.objects.all()
+
+        news = News.objects.filter(title__icontains=search_str)
+        return news
 
 
 @login_required(login_url='login_route')
@@ -191,12 +196,8 @@ def like_view(request, **kwargs):
     else:
         Like.objects.create(user=request.user, news=news_obj)
 
-    category = request.COOKIES['category']
-
-    if Category.objects.get(slug=category):
-        return redirect('news_by_category_route', category_slug=category)
-    else:
-        return redirect('home_route')
+    # редирект на текущую страницу
+    return redirect('home_route')
 
 
 class NewsByCategory(ListView):
@@ -223,7 +224,7 @@ class NewsByCategory(ListView):
         # собираем список новостей, лайкнутых текущим пользователем
         user_liked_posts = get_user_liked_posts(self.request.user.pk)
         context['user_liked_posts'] = user_liked_posts
-
+        context['category'] = category_title
         return context
 
     def get_queryset(self):
@@ -244,18 +245,6 @@ class NewsByCategory(ListView):
             category=category_id,
             is_published=True,
         ).select_related('category').order_by('-created_at')
-
-    def render_to_response(self, context, **response_kwargs):
-        category = self.kwargs['category_slug']
-        response = super(ListView, self).render_to_response(context, **response_kwargs)
-        """
-        костыль:
-        запоминаем текущую категорию, чтобы вьюхи для кнопок лайка и анлайка 
-        редиректили на текущую категорию. этот функционал можно полностью выпилить,
-        если реализовать пост-запрос лайков/анлайков без релоада страницы
-        """
-        response.set_cookie('category', category)
-        return response
 
 
 # замена для функции get_one_news
@@ -306,32 +295,19 @@ class CreateNews(LoginRequiredMixin, CreateView):
 
 class DeleteNews(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = News
-
-    def get_success_url(self):
-        messages.success(self.request, f'Новость успешно удалена')
-        return reverse('home_route')
-
-    def delete(self, request, *args, **kwargs):
-        news_obj = self.get_object()
-        News.objects.get(pk=news_obj.pk).delete()
+    success_url = reverse_lazy('home_route')
+    success_message = 'Новость успешно удалена'
 
 
 class EditNewsView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    # fields = ['title', 'content', 'is_published', 'category', 'image']
     model = News
-    # success_url = reverse_lazy('news_by_category_route')
     template_name = 'edit_news.html'
     form_class = NewsForm
-    success_message = 'Новость успешно изменена'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        news_obj = self.get_object()
-        context['title'] = f'Edit {news_obj.title}'
-        return context
+    success_message = 'Новость успешно отредактирована'
+    context_object_name = 'news_obj'
 
 
-class EditUserProfileView(LoginRequiredMixin, UpdateView):
+class EditUserProfileView(ResetPasswordMixin, LoginRequiredMixin, UpdateView):
     model = User
     form_class = EditUserProfileForm
     template_name = 'edit_user_profile.html'
@@ -345,11 +321,9 @@ class EditUserProfileView(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
         if 'reset_pass' in request.POST:
-            user = User.objects.filter(pk=request.user.pk).first()
-            user.password = make_password('1234User')
-            user.save()
+            self.reset_password(request.user)
             logout(request)
-            messages.success(self.request, 'Пароль сброшен на 1234User. Войдите в учетную запись с новым паролем')
+            messages.success(request, 'Пароль сброшен на 1234User. Войдите в учетную запись с новым паролем')
             return redirect('home_route')
 
         return super().post(request, *args, **kwargs)
@@ -389,3 +363,4 @@ def comment_view(request, news_id, username):
 def remove_comment_view(request, news_id, comment_id):
     comment_obj = Comment.objects.get(pk=comment_id).delete()
     return redirect('one_news_route', news_id=news_id)
+

@@ -5,15 +5,13 @@
     {% if request.user.is_authenticated %}
 
         {% if news_item.pk in user_liked_posts %}
-            {% csrf_token %}
-            <button class="btn btn-danger" type="submit" name="unlike"> 🖤 unlike </button>
+            <button type="submit" class="btn btn-danger btn-rounded" name="unlike"> 🖤 </button>
         {% else %}
-            {% csrf_token %}
-            <button class="btn btn-danger" type="submit" name="like"> ♡ like </button>
+            <button type="submit" class="btn btn-outline-danger btn-rounded" name="like"> ♡ </button>
         {% endif %}
 
     {% endif %}
 
-    <a href="{{ news_item.get_absolute_url }}" class="btn btn-primary"> Read more... </a>
+    <a href="{{ news_item.get_absolute_url }}" class="btn btn-primary"> Читать далее... </a>
 
 </form>

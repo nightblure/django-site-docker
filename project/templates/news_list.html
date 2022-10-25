@@ -3,29 +3,39 @@
 <! -- выводим тайтл из передаваемой в контексте переменной title
 и тайтл из базового темплейта -->
 
+
 {% block title %}
 {{ title }} {{ block.super }}
 {% endblock %}
+
 
 {% block sidebar %}
 {% include 'inc/_sidebar.html' %}
 {% endblock %}
 
+
+{% block search %}
+{% include 'inc/_search.html' %}
+{% endblock %}
+
+
 {% block content %}
 
-{% include 'inc/_slider.html' %}
+    <h3> News </h3>
 
-{% for news_item in news %}
-<div class="card mb-3">
+    {% include 'inc/_slider.html' %}
 
-    <div class="card-header">
-        <a href="{{ news_item.category.get_absolute_url }}" class="list-group-item list-group-item-action">
-            Категория: {{ news_item.category }} </a>
+    {% for news_item in news %}
+    <div class="card mb-3 mt-3">
+
+        <div class="card-header">
+            <a href="{{ news_item.category.get_absolute_url }}" class="list-group-item list-group-item-action">
+                Категория: {{ news_item.category }} </a>
+        </div>
+
+        {% include 'inc/_news_list_news_item.html' %}
+
     </div>
-
-    {% include 'inc/_news_list_news_item.html' %}
-
-</div>
-{% endfor %}
+    {% endfor %}
 
 {% endblock %}

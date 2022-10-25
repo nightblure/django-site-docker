@@ -74,8 +74,8 @@ class News(models.Model):
 
 
 class Like(models.Model):
-    news = models.ForeignKey(News, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Лайк'

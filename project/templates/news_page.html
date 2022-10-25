@@ -34,10 +34,10 @@
 
             <form action="{% url 'delete_news_route' pk=news_item.pk %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-outline-danger float-end">Delete</button>
+                <button type="submit" class="btn btn-outline-danger float-end">Удалить</button>
             </form>
 
-            <a href="{% url 'edit_news_route' pk=news_item.pk %}" class="btn btn-outline-primary">Edit</a>
+            <a href="{% url 'edit_news_route' pk=news_item.pk %}" class="btn btn-outline-primary">Редактировать</a>
 
             {% endif %}
 

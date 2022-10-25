@@ -1,23 +1,29 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{ title }}
+Новости в категории {{ category }}
 {% endblock %}
 
 {% block sidebar %}
 {% include 'inc/_sidebar.html' %}
 {% endblock %}
 
+{% block search %}
+{% include 'inc/_search.html' %}
+{% endblock %}
+
 {% block content %}
+
+<h3> Новости в категории {{ category }} </h3>
 
 {% include 'inc/_slider.html' %}
 
 {% for news_item in news %}
 
-<div class="card mb-3">
+<div class="card mb-3 mt-3">
 
     <div class="card-header">
-        Категория: {{ news_item.category }}
+        Категория: {{ category }}
     </div>
 
     {% include 'inc/_news_list_news_item.html' %}

@@ -107,7 +107,7 @@ DATABASES = {
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': os.environ.get('DOCKER_IMAGE_HOST') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get('HOST'),
-        'PORT': os.environ.get('PG_PORT'),
+        'PORT': os.environ.get('DOCKER_IMAGE_PORT') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get('PG_PORT'),
     }
 }
 # print(DATABASES['default']['HOST'])

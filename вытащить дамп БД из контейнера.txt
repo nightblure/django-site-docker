@@ -10,4 +10,7 @@ docker cp <имя файла> container_id:/<путь и имя копии>
 
 в контейнере: pg_dump -U postgres --encoding=utf-8 "django_site_db" > tmp/dump.sql
 
-в терминале: docker cp django_site_pg:/tmp/dump.sql dump.sql
+
+в терминале: 
+cd Desktop
+docker cp django_site_container:/tmp/dump.sql dump.sql

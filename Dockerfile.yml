@@ -1,9 +1,9 @@
 FROM python
 ENV PYTHONUNBUFFERED 1
-# RUN echo "python -V"
 RUN mkdir /code
 WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+COPY pyproject.toml /code/
+COPY poetry.lock /code/
+RUN pip install poetry
+RUN poetry install
 COPY . /code/

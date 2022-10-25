@@ -26,7 +26,7 @@ services:
     # если бы не было дампа, то нужно было бы дописать python manage.py migrate
     command: bash -c "
         cd project
-        && python manage.py runserver 0.0.0.0:8000
+        && poetry run python manage.py runserver 0.0.0.0:8000
       "
 
     container_name: django_web_app

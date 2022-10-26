@@ -1,12 +1,16 @@
-{% if comments %}
 <div class="row d-flex justify-content-center">
     <div class="col-md-8 col-lg-12">
         <div class="card shadow-0 border" style="background-color: #f0f2f5;">
 
             <div class="card-body p-4">
 
-                <h4> {{ comments|length }} комментариев </h4>
+                {% if comments %}
+                <h4> {{ comments|length }} comments </h4>
+                {% else %}
+                <h4> 0 comments </h4>
+                {% endif %}
 
+                {% if comments|length > 0 or request.user.is_authenticated %}
                 <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
 
                     {% if request.user.is_authenticated %}
@@ -18,9 +22,10 @@
                                  width="40"
                                  height="40"/>
                             <div class="form-outline w-100">
-                <textarea name="comment_text" class="form-control" id="textAreaExample" rows="4"
-                          style="background: #fff;">
-                </textarea>
+
+                            <textarea name="comment_text" class="form-control" id="textAreaExample" rows="4"
+                                      style="background: #fff;">
+                            </textarea>
                                 <label class="form-label" for="textAreaExample">Message</label>
                             </div>
                         </div>
@@ -84,9 +89,9 @@
                     {% endfor %}
 
                 </div>
+                {% endif %}
+
             </div>
         </div>
     </div>
 </div>
-
-{% endif %}

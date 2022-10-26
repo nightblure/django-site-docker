@@ -1,10 +1,11 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg" style="">
     <div class="container-fluid">
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <ul class="navbar-nav mr-auto">
 
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home_route' %}">Главная</a>
                 </li>
@@ -15,13 +16,7 @@
                     <a class="nav-link" href="{% url 'add_news_route' %}">Добавить новость</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'edit_profile_route' request.user.username %}">Настройки учетной
-                        записи</a>
-                </li>
-
                 {% endif %}
-
 
                 {% if request.user.is_staff %}
                 <li class="nav-item">
@@ -45,18 +40,37 @@
 
         </div>
 
-        <span class="navbar-text ">
+        <!-- Dropdown user menu -->
+        {% if request.user.is_authenticated %}
+        <ul class="navbar-nav">
 
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'edit_profile_route' request.user.username %}">
-                    {{ user.username }}
-                </a>, добро пожаловать <a href="{% url 'logout_route' %}">Выйти</a>
-            {% else %}
-                <a href="{% url 'register_route' %}">Зарегистрироваться</a>
-                <a href="{% url 'login_route' %}">Войти</a>
-            {% endif %}
+            <li class="nav-item dropdown">
 
-        </span>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-mdb-toggle="dropdown" aria-expanded="false">
+                    {{ request.user.username }}
+                </a>
 
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'edit_profile_route' request.user.username %}">Настройки
+                            учетной
+                            записи</a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'logout_route' %}">Выйти</a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+        {% else %}
+        <a class="nav-link" href="{% url 'register_route' %}">Зарегистрироваться </a>
+        <a class="nav-link" href="{% url 'login_route' %}">Войти </a>
+        {% endif %}
+        <!-- Dropdown user menu -->
     </div>
 </nav>

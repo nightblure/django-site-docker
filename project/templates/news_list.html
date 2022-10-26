@@ -1,11 +1,7 @@
 {% extends 'base.html' %}
 
-<! -- выводим тайтл из передаваемой в контексте переменной title
-и тайтл из базового темплейта -->
-
-
 {% block title %}
-{{ title }} {{ block.super }}
+{{ title }}
 {% endblock %}
 
 
@@ -21,7 +17,11 @@
 
 {% block content %}
 
-    <h3> News </h3>
+    {% if not search_str %}
+    <h3> Новости </h3>
+    {% else %}
+    <h3> Новости по запросу "{{ search_str }}" </h3>
+    {% endif %}
 
     {% include 'inc/_slider.html' %}
 
@@ -38,4 +38,8 @@
     </div>
     {% endfor %}
 
+{% endblock %}
+
+{% block footer %}
+{% include 'inc/_footer.html' %}
 {% endblock %}

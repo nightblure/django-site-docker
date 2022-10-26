@@ -173,15 +173,19 @@ class NewsList(ListView):
         # собираем список новостей, лайкнутых текущим пользователем
         user_liked_posts = get_user_liked_posts(self.request.user.pk)
         context['user_liked_posts'] = user_liked_posts
+
+        if 'search' in self.request.GET:
+            context['search_str'] = self.request.GET['search']
+
         return context
 
     def get_queryset(self):
-        search_str = self.request.GET.get('search')
+        search_str = self.request.GET.get('search', None)
 
         if not search_str:
             return News.objects.all()
 
-        news = News.objects.filter(title__icontains=search_str)
+        news = News.objects.filter(Q(title__icontains=search_str) | Q(content__icontains=search_str))
         return news
 
 

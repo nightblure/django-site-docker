@@ -21,14 +21,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.yml
-    environment:
-      FROM_DOCKER_IMAGE: "True"
-    # если бы не было дампа, то нужно было бы дописать python manage.py migrate
-    command: bash -c "
-        cd project
-        && poetry run python manage.py runserver 0.0.0.0:8000
-      "
-
     container_name: django_web_app
     volumes:
       - .:/code

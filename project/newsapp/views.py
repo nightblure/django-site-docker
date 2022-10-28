@@ -47,7 +47,7 @@ def get_auth_token_message(login, password, type='token'):
 
 class AuthTokenView(FormView):
     form_class = AuthTokenForm
-    template_name = 'auth_token.html'
+    template_name = 'auth/auth_token.html'
 
     def post(self, request, *args, **kwargs):
         # вытаскиваем значения текстовых полей по html-атрибуту name
@@ -66,7 +66,7 @@ class AuthTokenView(FormView):
 
 class JWTTokenView(FormView):
     form_class = AuthTokenForm
-    template_name = 'jwt_token.html'
+    template_name = 'auth/jwt_token.html'
 
     def post(self, request, *args, **kwargs):
         # вытаскиваем значения текстовых полей по html-атрибуту name
@@ -85,7 +85,7 @@ class JWTTokenView(FormView):
 
 class SignupView(FormView):
     form_class = UserRegisterForm
-    template_name = 'signup.html'
+    template_name = 'auth/signup.html'
 
     def post(self, request, *args, **kwargs):
         form = UserRegisterForm(request.POST)
@@ -106,7 +106,7 @@ class SignupView(FormView):
 
 class UserLoginView(ResetPasswordMixin, FormView):
     form_class = UserLoginForm
-    template_name = 'login.html'
+    template_name = 'auth/login.html'
 
     def post(self, request, *args, **kwargs):
 
@@ -157,7 +157,7 @@ def get_news_likes_count_dict():
 # замена для функции index
 class NewsList(ListView):
     model = News
-    template_name = 'news_list.html'
+    template_name = 'news/news_list.html'
     context_object_name = 'news'
     paginate_by = 3
 
@@ -209,7 +209,7 @@ def like_view(request, **kwargs):
 
 class NewsByCategory(ListView):
     model = News
-    template_name = 'news_by_category.html'
+    template_name = 'news/news_by_category.html'
     context_object_name = 'news'
     allow_empty = True
     paginate_by = 3
@@ -258,7 +258,7 @@ class NewsByCategory(ListView):
 class OneNews(DetailView):
     model = News
     pk_url_kwarg = 'news_id'
-    template_name = 'news_page.html'
+    template_name = 'news/news_page.html'
     context_object_name = 'news_item'
 
     def get_context_data(self, **kwargs):
@@ -286,7 +286,24 @@ class OneNews(DetailView):
 # замена для функции add_news
 class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
-    template_name = 'add_news.html'
+    template_name = 'news/create_news.html'
+
+    # записываем в атрибут юзер текущего пользователя при создании новости
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    # используем свойства миксина, чтобы запретить добавление новостей для неавторизованного пользователя
+    # login_url = reverse_lazy('home_route')
+    raise_exception = True
+    # редирект после отработки формы. по умолчанию редиректит на созданный объект
+    # success_url = reverse_lazy('home_route')
+
+
+# замена для функции add_news
+class CreateCategory(LoginRequiredMixin, CreateView):
+    form_class = Category
+    template_name = 'categories/create_category.html'
 
     # записываем в атрибут юзер текущего пользователя при создании новости
     def form_valid(self, form):
@@ -308,7 +325,7 @@ class DeleteNews(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 class EditNewsView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = News
-    template_name = 'edit_news.html'
+    template_name = 'news/edit_news.html'
     form_class = NewsForm
     success_message = 'Новость успешно отредактирована'
     context_object_name = 'news_obj'
@@ -337,7 +354,7 @@ class EditUserProfileView(ResetPasswordMixin, LoginRequiredMixin, UpdateView):
 
 
 class ChangeUserPasswordView(SuccessMessageMixin, PasswordChangeView):
-    template_name = 'change_password.html'
+    template_name = 'auth/change_password.html'
     # form_class = ChangeUserPasswordForm
     success_message = 'Пароль успешно изменен'
     success_url = reverse_lazy('home_route')

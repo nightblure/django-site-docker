@@ -13,7 +13,7 @@ def get_categories():
 
 
 # отбираем только категории, у которых имеется хотя бы одна опубликованная новость
-@register.inclusion_tag('categories_list.html')
+@register.inclusion_tag('categories/categories_list.html')
 def show_categories():
     categories = get_categories() \
         .filter(news__is_published=True) \

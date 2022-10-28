@@ -83,14 +83,19 @@ class UserLoginForm(AuthenticationForm):
 
 # ПОЧЕМУ ВИДЖЕТЫ НЕ РАБОТАЮТ ПОЧТИ ДЛЯ ВСЕХ ПОЛЕЙ?
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'form-control'})),
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # self.fields['username'].widget.attrs.pop('autofocus')
+
+    username = forms.CharField(label='Имя пользователя'),
     email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'})),
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'})),
     password2 = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    is_subscriber = forms.BooleanField(label='Подписаться на рассылку контента', required=False)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2', 'is_subscriber')
 
 
 class EditUserProfileForm(ModelForm):

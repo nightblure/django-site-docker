@@ -83,9 +83,9 @@ class JWTTokenView(FormView):
         return redirect('jwt_token_route')
 
 
-class RegisterView(FormView):
+class SignupView(FormView):
     form_class = UserRegisterForm
-    template_name = 'register.html'
+    template_name = 'signup.html'
 
     def post(self, request, *args, **kwargs):
         form = UserRegisterForm(request.POST)
@@ -96,7 +96,10 @@ class RegisterView(FormView):
             messages.success(request, 'Успешная регистрация')
             return redirect('home_route')
         else:
-            messages.error(request, 'Ошибка регистрации')
+            if User.objects.filter(username=request.POST['username']).exists():
+                messages.error(request, 'Пользователь с таким логином уже зарегистрирован')
+            else:
+                messages.error(request, 'Ошибка регистрации')
 
         return redirect('register_route')
 

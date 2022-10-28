@@ -1,76 +1,77 @@
-<nav class="navbar navbar-expand-lg" style="">
-    <div class="container-fluid">
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="{% url 'home_route' %}"
+           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <img class="bi me-2" width="40" height="40"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xVZqKLJharXvX3unv4ZgMnkQbXopf4glYg&usqp=CAU">
+            <strong class="fs-4">Новости</strong>
+        </a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav">
 
-            <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="{% url 'home_route' %}" class="nav-link link-secondary">Главная</a>
+            </li>
 
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home_route' %}">Главная</a>
-                </li>
+            {% if request.user.is_authenticated %}
 
-                {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link link-secondary" href="{% url 'add_news_route' %}">Добавить новость</a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'add_news_route' %}">Добавить новость</a>
-                </li>
+            {% endif %}
 
-                {% endif %}
-
-                {% if request.user.is_staff %}
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="http://127.0.0.1:8000/admin/">Перейти в админку</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        API auth tokens
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'token_route' %}">Token</a></li>
-                        <li><a class="dropdown-item" href="{% url 'jwt_token_route' %}">JWT</a></li>
-                    </ul>
-                </li>
-
-                {% endif %}
-
-            </ul>
-
-        </div>
-
-        <!-- Dropdown user menu -->
-        {% if request.user.is_authenticated %}
-        <ul class="navbar-nav">
+            {% if request.user.is_staff %}
+            <li class="nav-item">
+                <a class="nav-link link-secondary" target="_blank" href="http://127.0.0.1:8000/admin/">Перейти в админку</a>
+            </li>
 
             <li class="nav-item dropdown">
 
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                   data-mdb-toggle="dropdown" aria-expanded="false">
-                    {{ request.user.username }}
+                <a class="nav-link dropdown-toggle link-secondary" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Токены авторизации
                 </a>
 
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <ul class="dropdown-menu">
 
                     <li>
-                        <a class="dropdown-item" href="{% url 'edit_profile_route' request.user.username %}">Настройки
-                            учетной
-                            записи</a>
+                        <a class="dropdown-item link-secondary" href="{% url 'token_route' %}">Token</a>
                     </li>
 
                     <li>
-                        <a class="dropdown-item" href="{% url 'logout_route' %}">Выйти</a>
+                        <a class="dropdown-item link-secondary" href="{% url 'jwt_token_route' %}">JWT</a>
                     </li>
 
                 </ul>
+
             </li>
 
+            {% endif %}
+
         </ul>
+
+        {% if request.user.is_authenticated %}
+
+        <div class="dropdown text-end">
+            <a href="#" class="nav-link link-secondary dropdown-toggle" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                {% if request.user.avatar %}
+                <img src="{{ request.user.avatar.url }}" width="32" height="32" class="rounded-circle me-2">
+                {% endif %}
+                <strong> {{ request.user }} </strong>
+            </a>
+            <ul class="dropdown-menu text-small" style="">
+                <li><a class="dropdown-item" href="{% url 'edit_profile_route' request.user.username %}">Настройки учетной записи</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout_route' %}">Выйти</a></li>
+            </ul>
+        </div>
+
         {% else %}
-        <a class="nav-link" href="{% url 'register_route' %}">Зарегистрироваться </a>
-        <a class="nav-link" href="{% url 'login_route' %}">Войти </a>
+        <a class="nav-link link-secondary" href="{% url 'signup_route' %}">Зарегистрироваться </a>
+        <a class="nav-link link-secondary" href="{% url 'login_route' %}">Войти </a>
         {% endif %}
-        <!-- Dropdown user menu -->
-    </div>
-</nav>
+
+    </header>
+</div>

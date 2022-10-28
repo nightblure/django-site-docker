@@ -4,10 +4,6 @@
 Регистрация
 {% endblock %}
 
-{% block sidebar %}
-{% include 'inc/_sidebar.html' %}
-{% endblock %}
-
 {% block content %}
 
 <h1> Регистрация </h1>
@@ -17,10 +13,13 @@
     {% csrf_token %}
     {{ form.as_p }}
 
-    <button type="submit" class="btn btn-primary btn-block">
+    <button type="submit" class="btn btn-primary">
         Подтвердить
     </button>
 
 </form>
+
+<br>
+<a href="{% url 'login_route' %}">Уже зарегистрированы?</a>
 
 {% endblock %}

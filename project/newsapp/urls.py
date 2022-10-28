@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import NewsList, NewsByCategory, OneNews, \
-    CreateNews, RegisterView, UserLoginView, user_logout, \
+    CreateNews, SignupView, UserLoginView, user_logout, \
     AuthTokenView, JWTTokenView, DeleteNews, \
     EditNewsView, like_view, EditUserProfileView, ChangeUserPasswordView, \
     comment_view, remove_comment_view
@@ -20,7 +20,7 @@ urlpatterns = [
     # path('news/add-news/', add_news, name='add_news_route'),
     path('news/add-news/', CreateNews.as_view(), name='add_news_route'),
 
-    path('register/', RegisterView.as_view(), name='register_route'),
+    path('register/', SignupView.as_view(), name='signup_route'),
     path('login/', UserLoginView.as_view(), name='login_route'),
     path('logout/', user_logout, name='logout_route'),
 

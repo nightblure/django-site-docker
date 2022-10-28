@@ -48,8 +48,8 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'bio', 'avatar')
-    list_display_links = ('username', 'email', 'bio', 'avatar')
+    list_display = ('username', 'email', 'bio', 'avatar', 'is_subscriber')
+    list_display_links = ('username', 'email', 'bio', 'avatar', 'is_subscriber')
 
 
 # Register your models here.

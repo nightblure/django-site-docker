@@ -1,4 +1,5 @@
 {% load static %}
+
 <!doctype html>
 <html lang="en">
 
@@ -13,7 +14,6 @@
 
     <!-- my css styles -->
     <link rel="stylesheet" href="{% static 'style.css' %}" />
-
     <!-- MDB -->
 <script
   type="text/javascript"
@@ -42,6 +42,9 @@
 
 {% include 'inc/_navbar.html' %}
 
+{% block custom_block %}
+{% endblock %}
+
 <div class="container mt-3">
 
     {% block search %}
@@ -49,11 +52,12 @@
 
     <div class="row mt-3">
 
-        <div class="col-md-3">
-            {% block sidebar %} NOT IMPLEMENTED SIDEBAR BLOCK {% endblock %}
+        <div class="col-md-2">
+            {% block sidebar %}
+            {% endblock %}
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-10">
 
             {% if messages %}
 

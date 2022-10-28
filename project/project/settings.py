@@ -33,7 +33,7 @@ else:
 SECRET_KEY = 'django-insecure-nfzds1ctbcra6nwrs5z$sxgcw(+0)mjv!)xm&pnv0*^=vfnv6y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 LOGGING_ON = False
 ALLOWED_HOSTS = ['*']
 
@@ -55,10 +55,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
-    'newsapp.middleware.SimpleMiddleware',
+    # кастомный мидлвейр для измерения времени выполнения запросов
+    'newsapp.middleware.RequestSpeedMiddleware',
     
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

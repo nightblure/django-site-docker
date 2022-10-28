@@ -11,7 +11,8 @@ from project import settings
 
 class User(AbstractUser):
     bio = models.TextField(max_length=500, blank=True)
-    avatar = models.ImageField(null=True, default="avatar.svg")
+    avatar = models.ImageField(null=True)
+    is_subscriber = models.BooleanField(null=False, default=False)
 
 
 class Category(models.Model):

@@ -22,7 +22,12 @@ from django.db.models import F, Count, Q, Sum, Max
 from newsapp.mixins import ResetPasswordMixin
 from project import settings
 from .models import News, Category, Like, User, Comment
-from .forms import NewsForm, UserRegisterForm, UserLoginForm, AuthTokenForm, EditUserProfileForm, ChangeUserPasswordForm
+from .forms import (
+    NewsForm, UserRegisterForm,
+    UserLoginForm, AuthTokenForm,
+    EditUserProfileForm, ChangeUserPasswordForm,
+    CategoryForm,
+)
 
 
 def get_auth_token_message(login, password, type='token'):
@@ -165,7 +170,7 @@ class NewsList(ListView):
         # чтобы не перетереть контекст, получаем его из базового класса
         # и добавляем то, что нам нужно
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Список новостей'
+        context['title'] = 'Новости'
 
         # собираем словарь вида {news_pk: likes_count}
         # почему-то не получается сделать запросом, поэтому сделал вручную через цикл и словарь
@@ -284,9 +289,10 @@ class OneNews(DetailView):
 
 
 # замена для функции add_news
-class CreateNews(LoginRequiredMixin, CreateView):
+class CreateNews(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     form_class = NewsForm
     template_name = 'news/create_news.html'
+    success_message = 'Новость успешно опубликована'
 
     # записываем в атрибут юзер текущего пользователя при создании новости
     def form_valid(self, form):
@@ -300,21 +306,12 @@ class CreateNews(LoginRequiredMixin, CreateView):
     # success_url = reverse_lazy('home_route')
 
 
-# замена для функции add_news
-class CreateCategory(LoginRequiredMixin, CreateView):
-    form_class = Category
+class CreateCategoryView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    form_class = CategoryForm
     template_name = 'categories/create_category.html'
-
-    # записываем в атрибут юзер текущего пользователя при создании новости
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-    # используем свойства миксина, чтобы запретить добавление новостей для неавторизованного пользователя
-    # login_url = reverse_lazy('home_route')
+    success_message = 'Категория успешно создана'
+    success_url = reverse_lazy('home_route')
     raise_exception = True
-    # редирект после отработки формы. по умолчанию редиректит на созданный объект
-    # success_url = reverse_lazy('home_route')
 
 
 class DeleteNews(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -323,7 +320,7 @@ class DeleteNews(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_message = 'Новость успешно удалена'
 
 
-class EditNewsView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class EditNewsView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = News
     template_name = 'news/edit_news.html'
     form_class = NewsForm
@@ -365,6 +362,7 @@ class ChangeUserPasswordView(SuccessMessageMixin, PasswordChangeView):
         return super().form_invalid(form)
 
 
+@login_required
 def comment_view(request, news_id, username):
 
     user_obj = User.objects.get(pk=request.user.pk)
@@ -384,6 +382,7 @@ def comment_view(request, news_id, username):
     return redirect('one_news_route', news_id=news_id)
 
 
+@login_required
 def remove_comment_view(request, news_id, comment_id):
     comment_obj = Comment.objects.get(pk=comment_id).delete()
     return redirect('one_news_route', news_id=news_id)

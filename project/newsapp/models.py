@@ -2,11 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import format_html
+from django.utils.text import slugify
 
 from project import settings
-
-
-# http://127.0.0.1:8000/admin/
 
 
 class User(AbstractUser):
@@ -21,6 +19,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         kwargs = {

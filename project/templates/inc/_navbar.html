@@ -4,7 +4,7 @@
            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <img class="bi me-2" width="40" height="40"
                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9xVZqKLJharXvX3unv4ZgMnkQbXopf4glYg&usqp=CAU">
-            <strong class="fs-4">Новости</strong>
+            <strong class="fs-4">News</strong>
         </a>
 
         <ul class="nav">
@@ -16,7 +16,11 @@
             {% if request.user.is_authenticated %}
 
             <li class="nav-item">
-                <a class="nav-link link-secondary" href="{% url 'add_news_route' %}">Добавить новость</a>
+                <a class="nav-link link-secondary" href="{% url 'create_news_route' %}">Опубликовать новость</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link link-secondary" href="{% url 'create_category_route' %}">Создать категорию</a>
             </li>
 
             {% endif %}

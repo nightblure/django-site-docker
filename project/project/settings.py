@@ -37,6 +37,8 @@ DEBUG = os.environ.get('DEBUG')
 LOGGING_ON = False
 ALLOWED_HOSTS = ['*']
 
+HOST = os.environ.get('DOCKER_IMAGE_HOST') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get('HOST')
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -61,7 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # кастомный мидлвейр для измерения времени выполнения запросов
     'newsapp.middleware.RequestSpeedMiddleware',
-    
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -110,8 +112,9 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': os.environ.get('DOCKER_IMAGE_HOST') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get('HOST'),
-        'PORT': os.environ.get('DOCKER_IMAGE_PORT') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get('PG_PORT'),
+        'HOST': HOST,
+        'PORT': os.environ.get('DOCKER_IMAGE_PORT') if os.environ.get('FROM_DOCKER_IMAGE') else os.environ.get(
+            'PG_PORT'),
     }
 }
 # print(DATABASES['default']['HOST'])
@@ -225,7 +228,34 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-# замена для моей кастомной миддлвейр для разлогирования
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-# SESSION_COOKIE_AGE = 0.25 * 60
-# SESSION_SAVE_EVERY_REQUEST = True
+REDIS_PORT = 6379
+# RABBITMQ_PORT = 5672
+
+REDIS_BROKER_URL = f'redis://{HOST}:{REDIS_PORT}'
+# RABBITMQ_BROKER_URL = f'amqp://guest:guest@localhost:{RABBITMQ_PORT}' # 'amqp://localhost'
+
+CELERY_BROKER_URL = REDIS_BROKER_URL
+CELERY_RESULT_BACKEND = REDIS_BROKER_URL  # f'redis://localhost:{REDIS_PORT}'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+# настройка redis
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': f'redis://{HOST}:{REDIS_PORT}',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+        }
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'vanobel159@gmail.com'
+EMAIL_HOST_PASSWORD = 'cawzihgzhuyzromu'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

@@ -19,6 +19,8 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.db.models import F, Count, Q, Sum, Max
 
+from .tasks import send_mails
+
 from newsapp.mixins import ResetPasswordMixin
 from project import settings
 from .models import News, Category, Like, User, Comment
@@ -297,6 +299,12 @@ class CreateNews(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     # записываем в атрибут юзер текущего пользователя при создании новости
     def form_valid(self, form):
         form.instance.user = self.request.user
+
+        print('mails')
+        users = [(obj.username, obj.email) for obj in User.objects.filter(is_subscriber=True)]
+        print(users, form.instance.title, form.instance.content)
+        send_mails.apply_async(args=(users, form.instance.title, form.instance.content))
+
         return super().form_valid(form)
 
     # используем свойства миксина, чтобы запретить добавление новостей для неавторизованного пользователя

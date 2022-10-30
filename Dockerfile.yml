@@ -26,4 +26,7 @@ RUN poetry install
 
 # точка входа в приложение. формат: ["<command>" "<arg1>", "<arg2>", ..., "<argn>"]
 # не нужно писать code/project/manage.py, т.к. code/ является рабочей директорией (см. WORKDIR выше)
-ENTRYPOINT ["poetry", "run", "python", "./project/manage.py", "runserver", "0.0.0.0:8000"]
+# ENTRYPOINT ["poetry", "run", "python", "./project/manage.py", "runserver", "0.0.0.0:8000"]
+
+# CMD ["cd", "./project"]
+# CMD ["celery", "-A", "project", "worker", "-l", "info", "-P", "solo"]

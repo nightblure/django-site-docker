@@ -1,10 +1,13 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import format_html
 from django.utils.text import slugify
 
 from project import settings
+from .tasks import send_mails
 
 
 class User(AbstractUser):
@@ -74,6 +77,19 @@ class News(models.Model):
             'news_id': self.id
         }
         return reverse('one_news_route', kwargs=kwargs)
+
+
+# после сохранения новости запускаем рассылку email-сообщений подписанным на рассылку пользователем
+@receiver(post_save, sender=News)
+def news_post_save(sender, instance, **kwargs):
+    users = [(obj.username, obj.email) for obj in User.objects.filter(is_subscriber=True)]
+    print(users, instance.title, instance.content)
+    send_mails.apply_async(
+        args=(users,
+              instance.title,
+              instance.content,
+              instance.pk)
+    )
 
 
 class Like(models.Model):

@@ -1,14 +1,15 @@
 import os
-
-from celery import Celery
-
+# без этой переменной импорт переменных из settings не будет работать
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 
+from project import celery_config
+from celery import Celery
+
 app = Celery('project')
-app.config_from_object('project.settings', namespace='CELERY')
+app.config_from_object(celery_config, namespace='CELERY')
 app.autodiscover_tasks()
 
 """ 
 ЗАПУСК celery из папки project
-celery -A project worker -l info -P solo из папки 
+celery -A project worker -l info -P solo
 """

@@ -424,7 +424,8 @@ CREATE TABLE public.newsapp_user (
     is_active boolean NOT NULL,
     date_joined timestamp with time zone NOT NULL,
     bio text NOT NULL,
-    avatar character varying(100)
+    avatar character varying(100),
+    is_subscriber boolean NOT NULL
 );
 
 
@@ -703,6 +704,18 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 6	2022-10-24 15:00:06.366261+00	1	admin	2	[{"changed": {"fields": ["Email address"]}}]	6	1
 7	2022-10-24 15:15:07.330433+00	2	nightxx	2	[{"changed": {"fields": ["Avatar"]}}]	6	1
 8	2022-10-24 15:16:41.688465+00	1	admin	2	[{"changed": {"fields": ["Avatar"]}}]	6	1
+9	2022-10-28 08:39:31.617772+00	4	userTest	3		6	1
+10	2022-10-28 08:46:49.508552+00	5	userTest	3		6	1
+11	2022-10-28 08:47:15.454837+00	6	usertest	3		6	1
+12	2022-10-28 11:54:42.893332+00	3	user	3		6	1
+13	2022-10-28 11:58:25.373416+00	7	user	3		6	1
+14	2022-10-28 14:14:58.909585+00	10	fghf	3		8	1
+15	2022-10-28 14:15:22.850568+00	3	fsdff	3		7	1
+16	2022-10-28 14:19:09.893454+00	11	fffff	2	[{"changed": {"fields": ["Category"]}}]	8	1
+17	2022-10-28 14:19:09.903455+00	9	fghfh	2	[{"changed": {"fields": ["Category"]}}]	8	1
+18	2022-10-28 14:19:16.955245+00	5	fghfghyy	3		7	1
+19	2022-10-28 14:19:16.960768+00	4	fdh	3		7	1
+20	2022-10-29 09:28:43.816107+00	1	admin	2	[{"changed": {"fields": ["Email address"]}}]	6	1
 \.
 
 
@@ -755,6 +768,10 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 22	sessions	0001_initial	2022-10-24 12:15:18.183623+00
 23	newsapp	0002_comment	2022-10-24 13:37:31.724484+00
 24	newsapp	0003_alter_like_news_alter_like_user	2022-10-25 08:34:03.813218+00
+25	newsapp	0004_user_is_subscriber	2022-10-28 08:35:13.98234+00
+26	newsapp	0005_alter_user_is_subscriber	2022-10-28 08:43:45.206058+00
+27	newsapp	0006_alter_user_is_subscriber	2022-10-28 08:45:51.297125+00
+28	newsapp	0007_alter_user_avatar	2022-10-28 11:58:06.458133+00
 \.
 
 
@@ -766,6 +783,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 851d7lx3wse5wxslrl4vr0tjacg0a1ep	.eJxVjMsOwiAQRf-FtSFDH4zj0n2_gQwwSNVAUtqV8d-1SRe6veec-1KOtzW7rcni5qguyqjT7-Y5PKTsIN653KoOtazL7PWu6IM2PdUoz-vh_h1kbvlbE8ceeQSyEjqUvgMDJBYQ-2BGT4nQB8I0SAKKg2XwZzuIEKBAgk69P9HwN4I:1omwaO:N6aiNWpfClybR5lhp0hSlMam6WCBPNiqRgykppcp9UM	2022-11-07 12:29:44.932762+00
 t3x5x6hjvrf1i6wies1hewgnuu99abii	.eJxVjEEOgjAQRe_StWlmKHTEpXvP0HQ6U4saSCisjHcXEha6_e-9_zYhrksJa9U5DGIuBs3pd-OYnjruQB5xvE82TeMyD2x3xR602tsk-roe7t9BibVsddMR-KyM0AMRJokesxMQYKeOlB2fqWs3kNBLajM0DXtFoN4lUjSfL9pYN7c:1onFmq:j1TGad9YYzqNrwwh6xnpXNskdZzc1sRHJ744uVvM3KE	2022-11-08 08:59:52.959488+00
 hi6h2itumnjpkic2f7uurfr5cinlyosy	.eJxVjEEOwiAQRe_C2hAodEpduvcMZJiZStVAUtqV8e7apAvd_vfef6mI25rj1mSJM6uzsur0uyWkh5Qd8B3LrWqqZV3mpHdFH7Tpa2V5Xg737yBjy9-aEiIgWJYw8SiBJAzeW_QCCYfJwci9YNcBeWYjGIAcgzNsbMAenHp_ABwsOMA:1omzA3:HHWJ5wp_56NKF3lGMGzWKvOg-NGoAWj383d66J3PYyA	2022-11-07 15:14:43.522404+00
+uxbzqg9p5ll752wcfx7bl63g11x9732k	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1ooi3X:9UUiq6F_uk9sSzniBoHs_wT2ZEhVG4uSVF73XFeUHeo	2022-11-12 09:23:07.737807+00
 \.
 
 
@@ -776,6 +794,8 @@ hi6h2itumnjpkic2f7uurfr5cinlyosy	.eJxVjEEOwiAQRe_C2hAodEpduvcMZJiZStVAUtqV8e7apA
 COPY public.newsapp_category (id, title, slug) FROM stdin;
 1	VST Plugins	vst-plugins
 2	Synths	synths
+6	Sample Packs	sample-packs
+7	dd	dd
 \.
 
 
@@ -795,8 +815,6 @@ COPY public.newsapp_comment (id, text, updated, created, news_id, user_id) FROM 
 --
 
 COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
-56	2	1
-57	6	1
 \.
 
 
@@ -805,8 +823,50 @@ COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
 --
 
 COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_published, views_count, category_id, user_id) FROM stdin;
-6	ssssssssss	ssssssss	2022-10-25 08:47:40.566459+00	2022-10-25 08:47:40.566459+00		t	3	1	1
-2	News 12	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.	2022-10-24 13:20:04.429703+00	2022-10-25 08:57:19.395313+00	images/2022/10/24/background_for_BANDCAMP.jpg	t	267	1	1
+28	args=[arg1, arg2] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]	2022-10-28 20:53:23.56481+00	2022-10-28 20:53:23.56481+00		t	1	1	2
+9	fghfh	ghjhj	2022-10-28 14:13:47.899299+00	2022-10-28 14:19:09.899457+00		t	3	1	1
+7	News x	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и фор	2022-10-28 12:16:19.540831+00	2022-10-28 12:16:19.540831+00		t	29	1	8
+12	dfgfg	dddd	2022-10-28 14:20:50.260945+00	2022-10-28 14:20:50.260945+00		t	1	7	1
+29	Категория: VST PluginsКатегория: VST Plugins	Категория: VST PluginsКатегория: VST PluginsКатегория: VST PluginsКатегория: VST Plugins	2022-10-28 20:55:02.012141+00	2022-10-28 20:55:02.012141+00		t	2	1	2
+2	News 12	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.	2022-10-24 13:20:04.429703+00	2022-10-28 14:00:07.713349+00	images/2022/10/24/background_for_BANDCAMP.jpg	t	278	1	1
+11	fffff	fghf	2022-10-28 14:16:01.266132+00	2022-10-28 14:19:09.878628+00		t	4	2	1
+13	sdf	ssss	2022-10-28 15:12:12.310892+00	2022-10-28 15:12:12.310892+00		t	1	1	2
+36	celery -A project worker -l info -P solocelery -A project worker -l info -P solocelery -A project worker -l info -P solo	celery -A project worker -l info -P solocelery -A project worker -l info -P solocelery -A project worker -l info -P solo	2022-10-29 09:31:00.56486+00	2022-10-29 09:31:00.56486+00		t	1	1	1
+14	sdf	ssss	2022-10-28 15:12:14.365022+00	2022-10-28 15:12:14.365022+00		t	1	1	2
+15	ssdf	dfdfdfdfd	2022-10-28 15:13:42.453148+00	2022-10-28 15:13:42.453148+00		t	2	7	2
+37	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2]args=[] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]\r\nargs=[arg1, arg2] args=[arg1, arg2]args=[] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]\r\nargs=[arg1, arg2] args=[arg1, arg2]args=[	2022-10-29 14:31:50.753829+00	2022-10-29 14:31:50.753829+00		t	1	1	1
+16	вапв	авпвп	2022-10-28 15:17:27.062287+00	2022-10-28 15:17:27.062287+00		t	2	1	2
+17	sdff	sdf	2022-10-28 15:18:40.217844+00	2022-10-28 15:18:40.217844+00		t	1	1	2
+18	sss	sfefef	2022-10-28 15:20:45.478434+00	2022-10-28 15:20:45.479435+00		t	1	1	2
+19	dddddddddd	ddfgdg	2022-10-28 15:37:34.340797+00	2022-10-28 15:37:34.340797+00		t	1	1	2
+20	sender = 'vanobel159@gmail.com'sdf	sender = 'vanobel159@gmail.com'	2022-10-28 15:39:57.24523+00	2022-10-28 15:39:57.24523+00		t	1	1	2
+21	import requests	import requests	2022-10-28 15:43:10.694858+00	2022-10-28 15:43:10.694858+00		t	1	1	2
+22	import requestsimport requests	import requests\r\nimport requests\r\nimport requests	2022-10-28 15:43:32.109101+00	2022-10-28 15:43:32.109101+00		t	1	2	2
+23	sfsdfsf	sfsdfsfsfsdfsfsfsdfsf	2022-10-28 17:20:34.462443+00	2022-10-28 17:20:34.462443+00		t	1	1	2
+24	args=[arg1, arg2]	args=[arg1, arg2]	2022-10-28 17:20:53.455482+00	2022-10-28 17:20:53.455482+00		t	1	1	2
+31	Добавление новостиДобавление новости	Добавление новостиДобавление новостиДобавление новостиДобавление новости	2022-10-28 20:57:32.562645+00	2022-10-28 20:57:32.562645+00		t	3	1	2
+30	ssssssssssssssssssddddddd	ssssssssssssssssssdddddddssssssssssssssssssddddddd	2022-10-28 20:56:19.022603+00	2022-10-28 20:56:19.022603+00		t	2	1	2
+25	args=[arg1, arg2]	args=[arg1, arg2]	2022-10-28 17:21:30.788934+00	2022-10-28 17:21:30.788934+00		t	3	1	2
+32	sdfsfsdfsfsdfsf	sdfsfsdfsf	2022-10-29 09:18:15.830455+00	2022-10-29 09:18:15.830455+00		t	1	1	2
+26	args=[arg1, arg2]	args=[arg1, arg2]	2022-10-28 20:44:26.936581+00	2022-10-28 20:44:26.936581+00		t	3	1	2
+27	args=[arg1, arg2]args=[arg1, arg2]args=[arg1, arg2]	args=[arg1, arg2]args=[arg1, arg2]args=[arg1, arg2]	2022-10-28 20:50:03.994519+00	2022-10-28 20:50:03.994519+00		t	2	1	2
+33	sdfsfsdfsf	sdfsfsdfsf	2022-10-29 09:18:44.72643+00	2022-10-29 09:18:44.72643+00		t	1	1	2
+34	dsafsdfddsafsdfddsafsdfddsafsdfddsafsdfddsafsdfddsafsdfd	dsafsdfddsafsdfddsafsdfddsafsdfddsafsdfd	2022-10-29 09:20:23.978765+00	2022-10-29 09:20:23.978765+00		t	1	1	2
+35	dsafsdfddsafsdfd	dsafsdfddsafsdfddsafsdfddsafsdfd	2022-10-29 09:20:58.071578+00	2022-10-29 09:20:58.071578+00		t	1	1	2
+38	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2]args=[	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]\r\nargs=[arg1, arg2] args=[arg1, arg2]args=[	2022-10-29 14:32:16.304239+00	2022-10-29 14:32:16.304239+00		t	1	1	1
+39	arg1, arg2]args=[arg1, arg2]args=[	arg1, arg2]args=[arg1, arg2]args=[	2022-10-29 14:41:28.448547+00	2022-10-29 14:41:28.448547+00		t	1	1	1
+42	гория: SynthsКатегория: Syntгория: SynthsКатегория: Synt	гория: SynthsКатегория: Syntгория: SynthsКатегория: Synt	2022-10-30 10:07:18.472514+00	2022-10-30 10:07:18.472514+00		t	2	1	1
+40	g2]args=[arg1, ar	g2]args=[arg1, ar	2022-10-30 09:58:15.746206+00	2022-10-30 09:58:15.746206+00		t	2	2	1
+41	Категория: SynthsКатегория: Synths	Категория: SynthsКатегория: Synths	2022-10-30 10:04:39.181425+00	2022-10-30 10:04:39.181425+00		t	1	1	1
+43	end_mass_mail()¶ send_mass_mail(datatuple, fail_silentl	end_mass_mail()¶\r\nsend_mass_mail(datatuple, fail_silentl	2022-10-30 10:12:00.607748+00	2022-10-30 10:12:00.607748+00		t	1	1	1
+44	end_mass_mail()¶ send_mass_mail(datatuple, fail_silentlend_mass_mail()¶ send_mass_mail(datatuple, fail_silentl	end_mass_mail()¶\r\nsend_mass_mail(datatuple, fail_silentl	2022-10-30 10:12:59.928711+00	2022-10-30 10:12:59.928711+00		t	1	1	1
+45	ss] C:\\Users\\nightblure\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\djangosite-tUvSqBmH-py3.10\\lib\\site-packages \\celery\\fixups\\django.py:203: UserWarnin	ss] C:\\Users\\nightblure\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\djangosite-tUvSqBmH-py3.10\\lib\\site-packages\r\n\\celery\\fixups\\django.py:203: UserWarning: Using settings.DEBUG leads to a memory\r\n            leak, never use this setting in production environments!	2022-10-30 10:20:45.645686+00	2022-10-30 10:20:45.645686+00		t	1	1	1
+46	News!	News!News!	2022-10-30 10:23:52.848533+00	2022-10-30 10:23:52.848533+00		t	4	1	1
+47	System check identified no issues (0 silenced).	System check identified no issues (0 silenced).	2022-10-30 10:26:53.975133+00	2022-10-30 10:26:53.975133+00		t	1	1	1
+48	System check identified no issues (0 silenced). System check identified no issues (0 silenced).	System check identified no issues (0 silenced).\r\nSystem check identified no issues (0 silenced).	2022-10-30 10:27:50.66572+00	2022-10-30 10:27:50.66572+00		t	2	1	1
+49	Категория: Synths	Категория: Synths	2022-10-30 10:51:17.591643+00	2022-10-30 10:51:17.591643+00		t	2	1	1
+50	celery acks latecelery acks late	celery acks latecelery acks late	2022-10-30 10:54:08.72124+00	2022-10-30 10:54:08.72124+00		t	3	1	1
+51	Asynchronous Tasks Wit	Asynchronous Tasks Wit	2022-10-30 11:00:11.44199+00	2022-10-30 11:00:11.44199+00		t	1	1	1
 \.
 
 
@@ -814,10 +874,10 @@ COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_
 -- Data for Name: newsapp_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.newsapp_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, bio, avatar) FROM stdin;
-2	pbkdf2_sha256$320000$ow7CupVhsNLDtjpttFYy8x$vc7ZYUAvicxF5DOdFBqt0mHre+4PFyM2u/8BF8hjwVY=	2022-10-25 08:31:17.649013+00	f	nightxx			vanobel159@gmail.com	f	t	2022-10-24 14:47:55+00		ly6sDhI35Yo_gSagc8t.jpg
-3	pbkdf2_sha256$320000$tWuRWeZQlbzQDwiVVJrQi1$jDOcu8HGMrJq+f9j+qEpcLFaIzkIJS7DCCbHZS2uD4Y=	2022-10-24 14:48:12.189331+00	f	user			vanobel159@gmail.com	f	t	2022-10-24 14:48:11.998552+00		avatar.svg
-1	pbkdf2_sha256$320000$bwDMA4OVyUHnr1QMqQEROS$kqBUg7YUAm+oya/ngvSnEN+bHahxdsdwbkx3leQ3qGI=	2022-10-25 08:59:52.837486+00	t	admin			vanobel159@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo_fMWLSgb.jpg
+COPY public.newsapp_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, bio, avatar, is_subscriber) FROM stdin;
+8	pbkdf2_sha256$390000$o4DsIQXdf4IcwOaeqDngrG$5BFF/BkSKnNxrY+8slLSwyFLJWjxAuOOyRuMNmDqfrM=	2022-10-28 13:03:12.333103+00	f	user			vanobel159@gmail.com	f	t	2022-10-28 11:58:50.815483+00			f
+2	pbkdf2_sha256$390000$9e4fO9Zvy7sHnN5m7aainj$aF7bQE7Xvj2RNjQd8MzWb8LCIgCko4hj78+uy+8Rnow=	2022-10-28 15:07:13.281074+00	f	nightxx			vanobel159@gmail.com	f	t	2022-10-24 14:47:55+00		ly6sDhI35Yo_gSagc8t.jpg	t
+1	pbkdf2_sha256$390000$ogLgYH6VHLRRsHskvQZ0ud$dGYrOvnsHEDXMCg9my4gybSfaHsrNZizTZ5gcz0Vp2U=	2022-10-29 09:23:07+00	t	admin			vanyabel13@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo_fMWLSgb.jpg	t
 \.
 
 
@@ -862,7 +922,7 @@ SELECT pg_catalog.setval('public.auth_permission_id_seq', 48, true);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 8, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 20, true);
 
 
 --
@@ -876,35 +936,35 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 24, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 28, true);
 
 
 --
 -- Name: newsapp_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_category_id_seq', 2, true);
+SELECT pg_catalog.setval('public.newsapp_category_id_seq', 7, true);
 
 
 --
 -- Name: newsapp_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_comment_id_seq', 17, true);
+SELECT pg_catalog.setval('public.newsapp_comment_id_seq', 20, true);
 
 
 --
 -- Name: newsapp_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_like_id_seq', 57, true);
+SELECT pg_catalog.setval('public.newsapp_like_id_seq', 60, true);
 
 
 --
 -- Name: newsapp_news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_news_id_seq', 6, true);
+SELECT pg_catalog.setval('public.newsapp_news_id_seq', 51, true);
 
 
 --
@@ -918,7 +978,7 @@ SELECT pg_catalog.setval('public.newsapp_user_groups_id_seq', 1, false);
 -- Name: newsapp_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_user_id_seq', 3, true);
+SELECT pg_catalog.setval('public.newsapp_user_id_seq', 8, true);
 
 
 --

@@ -2,3 +2,5 @@ venv/
 postgres/
 __pycache__/
 *.py[cod]
+rabbitmq/
+redis/

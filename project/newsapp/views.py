@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import *
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
@@ -298,13 +300,8 @@ class CreateNews(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 
     # записываем в атрибут юзер текущего пользователя при создании новости
     def form_valid(self, form):
+        # записываем пользователя, создавшего новость
         form.instance.user = self.request.user
-
-        print('mails')
-        users = [(obj.username, obj.email) for obj in User.objects.filter(is_subscriber=True)]
-        print(users, form.instance.title, form.instance.content)
-        send_mails.apply_async(args=(users, form.instance.title, form.instance.content))
-
         return super().form_valid(form)
 
     # используем свойства миксина, чтобы запретить добавление новостей для неавторизованного пользователя

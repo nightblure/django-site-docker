@@ -31,22 +31,23 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/nightblure/Desktop/dev/django-site-docker/project/templates/inc&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nightblure/Desktop/dev/django-site-docker/project/templates/categories&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates\categories" />
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates\inc" />
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates" />
       <recent name="C:\Users\nightblure\Desktop\dev\django site\project\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\media\images" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates\errors" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\newsapp" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\project" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates\auth" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates\categories" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates\news" />
     </key>
   </component>
   <component name="RunManager" selected="Python.tasks">

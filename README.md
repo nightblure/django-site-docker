@@ -23,5 +23,5 @@ Dockerfile и docker-compose собирают образ, разворачива
   * Миграции не нужны, т.к. в репозитории лежит дамп БД, в нем уже есть все таблицы с данными и системные таблицы Django
   * Если нужно поменять имя контейнера PostgreSQL в docker-compose, то также нужно не забыть записать его в переменную HOST в .env
   
-[![test_pipeline](https://github.com/nightblure/django-site-docker/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/nightblure/flask-site-ci-cd/actions/workflows/main.yml)
+[![test_pipeline](https://github.com/nightblure/django-site-docker/actions/workflows/main.yml/badge.svg?branch=main&event=push)](https://github.com/nightblure/django-site-docker/actions/workflows/main.yml)
 

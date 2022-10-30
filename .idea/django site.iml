@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/project" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/project/newsapp" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.10 (django-site-docker)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Poetry (django-site-docker)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

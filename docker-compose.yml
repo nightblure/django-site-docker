@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   db:
-    container_name: django_site_container
+    container_name: postgres
     image: postgres
     environment:
       POSTGRES_DB: "django_site_db"
@@ -11,20 +11,44 @@ services:
       POSTGRES_PASSWORD: "postgres"
       # POSTGRES_HOST_AUTH_METHOD: "trust"
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
       - ./postgres:/var/lib/postgresql/dat
       # специальная директория для автовыполнения .sql скриптов
       - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
 
   web:
+    container_name: web
     build:
       context: .
       dockerfile: Dockerfile.yml
-    container_name: django_web_app
+    command: >
+      sh -c "cd ./project/ &&
+             poetry run python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
       - 8000:8000
     depends_on:
       - db
+      - redis
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+     - 6379:6379
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile.yml
+    container_name: celery
+    command: >
+      sh -c "cd ./project/ &&
+             poetry run celery -A project worker -l info -P solo"
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - redis

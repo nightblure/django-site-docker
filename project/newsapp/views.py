@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.views import *
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
@@ -18,6 +20,8 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.db.models import F, Count, Q, Sum, Max
+
+from .tasks import send_mails
 
 from newsapp.mixins import ResetPasswordMixin
 from project import settings
@@ -296,6 +300,7 @@ class CreateNews(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 
     # записываем в атрибут юзер текущего пользователя при создании новости
     def form_valid(self, form):
+        # записываем пользователя, создавшего новость
         form.instance.user = self.request.user
         return super().form_valid(form)
 

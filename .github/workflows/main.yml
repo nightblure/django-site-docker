@@ -1,0 +1,29 @@
+name: test_pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]
+    steps:
+      - uses: actions/checkout@v3
+      - name: install python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: install packages
+        run: |
+          pip install poetry
+          poetry shell
+          poetry install
+      - name: run tests
+        run: |
+          cd ./project/newsapp
+          pytest tests.py

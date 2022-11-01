@@ -114,7 +114,7 @@ class UserRegisterForm(UserCreationForm):
 class EditUserProfileForm(ModelForm):
     username = forms.CharField(label='Имя пользователя', widget=forms.TextInput(attrs={'class': 'form-control'})),
     email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    is_subscriber = forms.BooleanField(label='Подписка на рассылку')
+    is_subscriber = forms.BooleanField(label='Подписка на рассылку', required=False)
 
     class Meta:
         model = User

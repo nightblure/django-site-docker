@@ -1,10 +1,18 @@
 from django.urls import path
 
-from .views import NewsList, NewsByCategory, OneNews, \
-    CreateNews, SignupView, UserLoginView, user_logout, \
-    AuthTokenView, JWTTokenView, DeleteNews, \
-    EditNewsView, like_view, EditUserProfileView, ChangeUserPasswordView, \
-    comment_view, remove_comment_view, CreateCategoryView
+from newsapp.views.views import AuthTokenView, JWTTokenView, MailSubscribe
+from newsapp.views.auth.views import SignupView, user_logout, LoginView
+from newsapp.views.category.views import CreateCategoryView
+from newsapp.views.comment.views import comment_view, remove_comment_view
+from newsapp.views.like.views import like_view
+from newsapp.views.news.create import CreateNews
+from newsapp.views.news.delete import DeleteNews
+from newsapp.views.news.detail import OneNews
+from newsapp.views.news.retrieve import NewsList
+from newsapp.views.news.update import UpdateNewsView
+from newsapp.views.news.views import NewsByCategory
+from newsapp.views.user.views import EditUserProfileView, ChangeUserPasswordView
+
 
 urlpatterns = [
     # path('', index, name='home_route'),
@@ -21,14 +29,14 @@ urlpatterns = [
     path('create-news/', CreateNews.as_view(), name='create_news_route'),
 
     path('register/', SignupView.as_view(), name='signup_route'),
-    path('login/', UserLoginView.as_view(), name='login_route'),
+    path('login/', LoginView.as_view(), name='login_route'),
     path('logout/', user_logout, name='logout_route'),
 
     path('auth-token/', AuthTokenView.as_view(), name='token_route'),
     path('jwt-auth-token/', JWTTokenView.as_view(), name='jwt_token_route'),
 
     path('delete-news/<int:pk>/', DeleteNews.as_view(), name='delete_news_route'),
-    path('edit-news/<int:pk>/', EditNewsView.as_view(), name='edit_news_route'),
+    path('edit-news/<int:pk>/', UpdateNewsView.as_view(), name='edit_news_route'),
 
     path('like/<int:news_id>/', like_view, name='like_route'),
 
@@ -39,4 +47,6 @@ urlpatterns = [
     path('remove-comment/<int:news_id>/<int:comment_id>/', remove_comment_view, name='remove_comment'),
 
     path('create-category/', CreateCategoryView.as_view(), name='create_category_route'),
+
+    path('subscribe/', MailSubscribe.as_view(), name='subscribe_route'),
 ]

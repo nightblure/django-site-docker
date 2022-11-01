@@ -8,7 +8,7 @@ BROKER_PORT = REDIS_PORT
 
 # если приложение разворачивается из docker-образа в контейнер, то хостом брокера будет не локалхост, а редис
 # аналогичную логику нужно применять к хосту rabbitmq
-BROKER_HOST = 'redis' if 'FROM_DOCKER_IMAGE' in os.environ else 'localhost'
+BROKER_HOST = 'redis' if settings.FROM_DOCKER_IMAGE else 'localhost'
 
 REDIS_BROKER_URL = f"redis://{BROKER_HOST}:{BROKER_PORT}"
 # RABBITMQ_BROKER_URL = f'amqp://guest:guest@{BROKER_HOST}:{BROKER_PORT}'
@@ -24,3 +24,6 @@ CACHES = {
         }
     }
 }
+
+# 15 minutes cooldown for cache
+CACHE_TTL = 60 * 15

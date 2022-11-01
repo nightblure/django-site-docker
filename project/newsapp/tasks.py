@@ -1,12 +1,12 @@
 from celery import shared_task
 from django.core.mail import send_mail, send_mass_mail
 import os
-from project.celery import app
+from project.celery import celery_app
 from django.conf import settings
 
 
 # @shared_task(bind=True, ignore_result=True)
-@app.task(bind=True, ignore_result=True)
+@celery_app.task(bind=True, ignore_result=True)
 # self - инстанс Celery. с декоратором shared_task этот параметр не нужен
 def send_mails(self, users, news_title, news_content, news_id):
     sender = 'vanobel159@gmail.com'

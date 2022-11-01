@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.html import format_html
 from django.utils.text import slugify
 
-from project import settings
+from project import settings, celery_app
 from .tasks import send_mails
 
 
@@ -82,6 +82,15 @@ class News(models.Model):
 # после сохранения новости запускаем рассылку email-сообщений подписанным на рассылку пользователем
 @receiver(post_save, sender=News)
 def news_post_save(sender, instance, **kwargs):
+
+    celery_info = celery_app.control.inspect()
+    celery_stats = celery_info.stats()
+
+    """ если celery недоступен, выходим из метода """
+    if not celery_stats:
+        print('celery is not available')
+        return
+
     users = [(obj.username, obj.email) for obj in User.objects.filter(is_subscriber=True)]
     print(users, instance.title, instance.content)
     send_mails.apply_async(

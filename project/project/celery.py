@@ -5,9 +5,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 from project import celery_config
 from celery import Celery
 
-app = Celery('project')
-app.config_from_object(celery_config, namespace='CELERY')
-app.autodiscover_tasks()
+celery_app = Celery('project')
+celery_app.config_from_object(celery_config, namespace='CELERY')
+celery_app.autodiscover_tasks()
 
 """ 
 ЗАПУСК celery из папки project

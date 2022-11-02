@@ -1,0 +1,48 @@
+https://www.codewithharry.com/blogpost/django-deploy-nginx-gunicorn/
+https://habr.com/ru/post/546778/
+
+монтирование каталога со статикой к нескольким контейнерам с помощью named-volumes:
+https://stackoverflow.com/questions/44284484/docker-compose-share-named-volume-between-multiple-containers/44284993#44284993
+----------------------------------------------------------------------------------------------------
+
+# docker-compose
+  nginx:
+    container_name: nginx
+    image: nginx
+    volumes:
+     - ./templates:/etc/nginx/templates
+    ports:
+     - 8080:80
+    environment:
+     - NGINX_HOST=ss.com
+     - NGINX_PORT=80
+
+скопировать файлы проекта в контейнер: docker cp django-site-docker nginx:/
+установить питон, poetry, зависимости проекта в окружение poetry
+apt-get install nano
+nano settings.py
+poetry shell
+
+# чек gunicorn
+gunicorn --bind localhost:8000 project.wsgi
+
+
+(https://www.digitalocean.com/community/questions/gunicorn-service-no-such-file-or-directory)
+под poetry shell узнать расположение gunicorn: which gunicorn
+скопировать результат и внести в конфиг: (/root/.cache/pypoetry/virtualenvs/djangosite-TUsY6xLE-py3.9/bin/gunicorn)
+
+cd /django-site-docker/project
+
+# разместить gunicorn.service и gunicorn.socket в /etc/systemd/system/
+cd /etc/systemd/system/
+nano /etc/systemd/system/gunicorn.service
+nano /etc/systemd/system/gunicorn.socket
+
+systemctl enable gunicorn.socket
+systemctl start gunicorn.socket
+
+конфиг nginx положить в /etc/nginx/sites-available/<conf>
+# создать симлинк на конфиг
+ln -s /etc/nginx/sites-available/<conf> /etc/nginx/sites-enabled/
+nginx -t
+systemctl restart nginx

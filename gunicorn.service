@@ -1,0 +1,21 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=root
+Group=root
+
+# путь до каталога с файлом manage.py
+WorkingDirectory=/django-site-docker/project
+
+# путь до файла gunicorn в виртуальном окружении. после установки gunicorn путь можно узнать командой which gunicorn
+ExecStart=/root/.cache/pypoetry/virtualenvs/djangosite-TUsY6xLE-py3.9/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          project.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

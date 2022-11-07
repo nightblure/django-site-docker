@@ -13,4 +13,4 @@ docker cp <имя файла> container_id:/<путь и имя копии>
 
 в терминале: 
 cd Desktop
-docker cp django_site_container:/tmp/dump.sql dump.sql
+docker cp postgres:/tmp/dump.sql dump.sql

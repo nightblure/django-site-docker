@@ -21,11 +21,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.yml
-    command: >
-      sh -c "cd ./project/ &&
-             poetry run python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/code
+    command: sh -c "cd ./project/ && \
+                    poetry run gunicorn -b 0.0.0.0:8000 project.wsgi:application"
     ports:
       - 8000:8000
     depends_on:
@@ -51,3 +48,16 @@ services:
     depends_on:
       - web
       - redis
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx.yml
+    volumes:
+     - ./project/static:/django-site-docker/project/static/
+     - ./project/media:/django-site-docker/project/media/
+    ports:
+     - 80:80
+    depends_on:
+      - web

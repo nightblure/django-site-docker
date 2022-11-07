@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/ptrstn/django-testing-examples/branch/master/graph/badge.svg)](https://codecov.io/gh/ptrstn/django-testing-examples)
+
 # News Django Site
 
 Этот проект реализует небольшой новостной сайт на Django
@@ -5,6 +7,7 @@
 * Рассылка e-mail уведомлений - ```Celery + Redis```
 * API - ```Django REST Framework```
 * Инструмент для управления зависимостями - ```Poetry```
+* Веб-сервер - ```NGINX```
 
 Работать с приложением можно локально из IDE и из docker-контейнера
 
@@ -28,4 +31,7 @@
 ## Примечания:
   * Миграции не нужны, т.к. в репозитории лежит дамп БД, в нем уже есть все таблицы с данными и системные таблицы Django
   * Если нужно поменять имя контейнера PostgreSQL в docker-compose, то также нужно не забыть записать его в переменную HOST в .env
+  * Конфиг nginx.conf должен лежать в директории ```/etc/nginx```
+  * Конфиг appconfig.conf должен лежать в директории ```/etc/nginx/conf.d```
+  * Запуск celery (из папки ```project```): ```celery -A project worker -l info -P solo```
 

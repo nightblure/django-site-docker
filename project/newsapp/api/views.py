@@ -7,10 +7,10 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from api.pagination import StandardPagination
-from api.permissions import IsAdmin, IsOwnerOrAdminOrAuthenticated
+from newsapp.api.pagination import StandardPagination
+from newsapp.api.permissions import IsAdmin, IsOwnerOrAdminOrAuthenticated
 from newsapp.models import News, Category
-from api.serializers import NewsSerializer
+from newsapp.api.serializers import NewsSerializer
 
 """
 http://127.0.0.1:8000/api/v1/newslist/

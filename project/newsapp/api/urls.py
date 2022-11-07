@@ -3,7 +3,7 @@ from rest_framework import routers
 from django.urls import path, include, re_path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-from api.views import *
+from newsapp.api.views import *
 
 router = routers.SimpleRouter()
 router.register(r'news', NewsViewSet, basename='news')

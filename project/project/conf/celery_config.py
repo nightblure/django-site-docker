@@ -1,4 +1,4 @@
-from project.redis_config import BROKER_URL
+from project.conf.redis_config import BROKER_URL
 
 CELERY_BROKER_URL = BROKER_URL
 CELERY_RESULT_BACKEND = BROKER_URL

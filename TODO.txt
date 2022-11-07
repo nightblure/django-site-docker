@@ -1,0 +1,13 @@
+https://realpython.com/django-pytest-fixtures/#accessing-the-database-from-tests
+
+workflow и codecov
+https://github.com/ptrstn/python-starter
+https://github.com/ptrstn/django-testing-examples
+
+https://realpython.com/testing-in-django-part-1-best-practices-and-examples/#best-practices
+
+
+repositories
+https://github.com/nsidnev/fastapi-realworld-example-app
+https://github.com/tough-dev-school/education-backend
+https://github.com/hackstarsj/django-ecommerce-project-amazon-clone

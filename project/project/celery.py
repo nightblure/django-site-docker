@@ -2,7 +2,7 @@ import os
 # без этой переменной импорт переменных из settings не будет работать
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 
-from project import celery_config
+import project.conf.celery_config as celery_config
 from celery import Celery
 
 celery_app = Celery('project')

@@ -32,7 +32,7 @@ urlpatterns = [
     path('', include('newsapp.urls')),
 
     # подключаем маршруты DRF API
-    path('', include('api.urls'))
+    path('', include('newsapp.api.urls'))
 ]
 
 if settings.DEBUG:

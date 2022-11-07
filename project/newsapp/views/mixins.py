@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import make_password
 from django.views.decorators.cache import cache_page
 
 from newsapp.models import User
-from project.redis_config import CACHE_TTL
+from project.conf.redis_config import CACHE_TTL
 
 
 class ResetPasswordMixin:

@@ -10,7 +10,7 @@ from project.redis import redis_instance
 
 """ 
 для function-based представлений достаточно использовать декоратор @cache_page(CACHE_TTL)
-тестирование перфоманса: loadtest -n 100 -k http://localhost:8000/
+тестирование перфоманса: loadtest -n 100 -k http://localhost:8000/ (https://www.npmjs.com/package/loadtest)
 """
 # class NewsList(CacheMixin, ListView):
 class NewsList(ListView):

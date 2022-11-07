@@ -9,7 +9,7 @@ from django.conf import settings
 @celery_app.task(bind=True, ignore_result=True)
 # self - инстанс Celery. с декоратором shared_task этот параметр не нужен
 def send_mails(self, users, news_title, news_content, news_id):
-    sender = 'vanobel159@gmail.com'
+    sender = settings.EMAIL_HOST_USER
     subject = f'News site notification service'
     messages = []
 

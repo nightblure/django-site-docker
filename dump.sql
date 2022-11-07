@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.5 (Debian 14.5-1.pgdg110+1)
--- Dumped by pg_dump version 14.5 (Debian 14.5-1.pgdg110+1)
+-- Dumped from database version 15.0 (Debian 15.0-1.pgdg110+1)
+-- Dumped by pg_dump version 15.0 (Debian 15.0-1.pgdg110+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -772,6 +772,9 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 26	newsapp	0005_alter_user_is_subscriber	2022-10-28 08:43:45.206058+00
 27	newsapp	0006_alter_user_is_subscriber	2022-10-28 08:45:51.297125+00
 28	newsapp	0007_alter_user_avatar	2022-10-28 11:58:06.458133+00
+29	newsapp	0008_alter_user_is_subscriber	2022-11-01 11:43:36.644795+00
+30	newsapp	0009_alter_user_is_subscriber	2022-11-01 11:44:06.098351+00
+31	newsapp	0010_alter_user_is_subscriber	2022-11-01 11:48:34.081601+00
 \.
 
 
@@ -784,6 +787,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 t3x5x6hjvrf1i6wies1hewgnuu99abii	.eJxVjEEOgjAQRe_StWlmKHTEpXvP0HQ6U4saSCisjHcXEha6_e-9_zYhrksJa9U5DGIuBs3pd-OYnjruQB5xvE82TeMyD2x3xR602tsk-roe7t9BibVsddMR-KyM0AMRJokesxMQYKeOlB2fqWs3kNBLajM0DXtFoN4lUjSfL9pYN7c:1onFmq:j1TGad9YYzqNrwwh6xnpXNskdZzc1sRHJ744uVvM3KE	2022-11-08 08:59:52.959488+00
 hi6h2itumnjpkic2f7uurfr5cinlyosy	.eJxVjEEOwiAQRe_C2hAodEpduvcMZJiZStVAUtqV8e7apAvd_vfef6mI25rj1mSJM6uzsur0uyWkh5Qd8B3LrWqqZV3mpHdFH7Tpa2V5Xg737yBjy9-aEiIgWJYw8SiBJAzeW_QCCYfJwci9YNcBeWYjGIAcgzNsbMAenHp_ABwsOMA:1omzA3:HHWJ5wp_56NKF3lGMGzWKvOg-NGoAWj383d66J3PYyA	2022-11-07 15:14:43.522404+00
 uxbzqg9p5ll752wcfx7bl63g11x9732k	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1ooi3X:9UUiq6F_uk9sSzniBoHs_wT2ZEhVG4uSVF73XFeUHeo	2022-11-12 09:23:07.737807+00
+i42er9fo2a5h1etk2s4og75uqp6faqie	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1oqW6v:bz-EqfgX6tU-CQ2TzYeYKMkbYR6Vlv4xBOaWoNwSfAo	2022-11-17 09:02:05.052622+00
 \.
 
 
@@ -815,6 +819,12 @@ COPY public.newsapp_comment (id, text, updated, created, news_id, user_id) FROM 
 --
 
 COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
+63	48	1
+64	29	1
+65	15	1
+77	9	1
+78	7	1
+79	11	1
 \.
 
 
@@ -823,12 +833,9 @@ COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
 --
 
 COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_published, views_count, category_id, user_id) FROM stdin;
-28	args=[arg1, arg2] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]	2022-10-28 20:53:23.56481+00	2022-10-28 20:53:23.56481+00		t	1	1	2
 9	fghfh	ghjhj	2022-10-28 14:13:47.899299+00	2022-10-28 14:19:09.899457+00		t	3	1	1
 7	News x	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и фор	2022-10-28 12:16:19.540831+00	2022-10-28 12:16:19.540831+00		t	29	1	8
-12	dfgfg	dddd	2022-10-28 14:20:50.260945+00	2022-10-28 14:20:50.260945+00		t	1	7	1
 29	Категория: VST PluginsКатегория: VST Plugins	Категория: VST PluginsКатегория: VST PluginsКатегория: VST PluginsКатегория: VST Plugins	2022-10-28 20:55:02.012141+00	2022-10-28 20:55:02.012141+00		t	2	1	2
-2	News 12	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.	2022-10-24 13:20:04.429703+00	2022-10-28 14:00:07.713349+00	images/2022/10/24/background_for_BANDCAMP.jpg	t	278	1	1
 11	fffff	fghf	2022-10-28 14:16:01.266132+00	2022-10-28 14:19:09.878628+00		t	4	2	1
 13	sdf	ssss	2022-10-28 15:12:12.310892+00	2022-10-28 15:12:12.310892+00		t	1	1	2
 36	celery -A project worker -l info -P solocelery -A project worker -l info -P solocelery -A project worker -l info -P solo	celery -A project worker -l info -P solocelery -A project worker -l info -P solocelery -A project worker -l info -P solo	2022-10-29 09:31:00.56486+00	2022-10-29 09:31:00.56486+00		t	1	1	1
@@ -864,9 +871,13 @@ COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_
 46	News!	News!News!	2022-10-30 10:23:52.848533+00	2022-10-30 10:23:52.848533+00		t	4	1	1
 47	System check identified no issues (0 silenced).	System check identified no issues (0 silenced).	2022-10-30 10:26:53.975133+00	2022-10-30 10:26:53.975133+00		t	1	1	1
 48	System check identified no issues (0 silenced). System check identified no issues (0 silenced).	System check identified no issues (0 silenced).\r\nSystem check identified no issues (0 silenced).	2022-10-30 10:27:50.66572+00	2022-10-30 10:27:50.66572+00		t	2	1	1
+28	args=[arg1, arg2] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]	2022-10-28 20:53:23.56481+00	2022-10-28 20:53:23.56481+00		t	2	1	2
+12	dfgfg	dddd	2022-10-28 14:20:50.260945+00	2022-10-28 14:20:50.260945+00		t	3	7	1
 49	Категория: Synths	Категория: Synths	2022-10-30 10:51:17.591643+00	2022-10-30 10:51:17.591643+00		t	2	1	1
 50	celery acks latecelery acks late	celery acks latecelery acks late	2022-10-30 10:54:08.72124+00	2022-10-30 10:54:08.72124+00		t	3	1	1
 51	Asynchronous Tasks Wit	Asynchronous Tasks Wit	2022-10-30 11:00:11.44199+00	2022-10-30 11:00:11.44199+00		t	1	1	1
+2	News 12	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.	2022-10-24 13:20:04.429703+00	2022-10-28 14:00:07.713349+00	images/2022/10/24/background_for_BANDCAMP.jpg	t	279	1	1
+52	рия: VST Plugins	рия: VST Plugins	2022-11-03 09:11:00.64709+00	2022-11-03 09:11:00.64709+00		t	1	2	1
 \.
 
 
@@ -877,7 +888,7 @@ COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_
 COPY public.newsapp_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, bio, avatar, is_subscriber) FROM stdin;
 8	pbkdf2_sha256$390000$o4DsIQXdf4IcwOaeqDngrG$5BFF/BkSKnNxrY+8slLSwyFLJWjxAuOOyRuMNmDqfrM=	2022-10-28 13:03:12.333103+00	f	user			vanobel159@gmail.com	f	t	2022-10-28 11:58:50.815483+00			f
 2	pbkdf2_sha256$390000$9e4fO9Zvy7sHnN5m7aainj$aF7bQE7Xvj2RNjQd8MzWb8LCIgCko4hj78+uy+8Rnow=	2022-10-28 15:07:13.281074+00	f	nightxx			vanobel159@gmail.com	f	t	2022-10-24 14:47:55+00		ly6sDhI35Yo_gSagc8t.jpg	t
-1	pbkdf2_sha256$390000$ogLgYH6VHLRRsHskvQZ0ud$dGYrOvnsHEDXMCg9my4gybSfaHsrNZizTZ5gcz0Vp2U=	2022-10-29 09:23:07+00	t	admin			vanyabel13@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo_fMWLSgb.jpg	t
+1	pbkdf2_sha256$390000$ogLgYH6VHLRRsHskvQZ0ud$dGYrOvnsHEDXMCg9my4gybSfaHsrNZizTZ5gcz0Vp2U=	2022-11-03 09:02:04.934408+00	t	admin			vanyabel13@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo_fMWLSgb.jpg	f
 \.
 
 
@@ -936,7 +947,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 28, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 31, true);
 
 
 --
@@ -957,14 +968,14 @@ SELECT pg_catalog.setval('public.newsapp_comment_id_seq', 20, true);
 -- Name: newsapp_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_like_id_seq', 60, true);
+SELECT pg_catalog.setval('public.newsapp_like_id_seq', 79, true);
 
 
 --
 -- Name: newsapp_news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_news_id_seq', 51, true);
+SELECT pg_catalog.setval('public.newsapp_news_id_seq', 52, true);
 
 
 --

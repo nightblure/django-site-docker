@@ -29,10 +29,10 @@ urlpatterns = [
 
     # воспользуемся include, чтобы определить вложенные маршруты приложения newsapp
     # для этого нужно создать в приложении новый файл urls.py с маршрутами конкретного приложения
-    path('', include('newsapp.urls')),
+    path('', include('newsapp.urls.urls')),
 
     # подключаем маршруты DRF API
-    path('', include('newsapp.api.urls'))
+    path('', include('newsapp.api.urls')),
 ]
 
 if settings.DEBUG:

@@ -1,5 +1,3 @@
-[![codecov](https://codecov.io/gh/ptrstn/django-testing-examples/branch/master/graph/badge.svg)](https://codecov.io/gh/ptrstn/django-testing-examples)
-
 # News Django Site
 
 Этот проект реализует небольшой новостной сайт на Django

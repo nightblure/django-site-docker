@@ -14,7 +14,7 @@
                 <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
 
                     {% if request.user.is_authenticated %}
-                    <form method="post" action="{% url 'add_comment' news_item.pk request.user.username %}">
+                    <form method="post" action="{% url 'add_comment_route' news_item.pk request.user.username %}">
 
                         <div class="d-flex flex-start w-100">
                             {% if request.user.avatar %}
@@ -64,7 +64,7 @@
 
                                 {% if comment.user == request.user %}
 
-                                <form method="post" action="{% url 'remove_comment' news_item.pk comment.pk %}">
+                                <form method="post" action="{% url 'remove_comment_route' news_item.pk comment.pk %}">
                                     {% csrf_token %}
 
                                     <button style="margin-top: 8px; margin-right: 8px" type="submit"

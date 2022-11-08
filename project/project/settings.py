@@ -7,9 +7,10 @@ from split_settings.tools import include
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # путь к .env файлу для определения значений переменных окружения
-dotenv_path = BASE_DIR / '.env'
+dotenv_path = ROOT_DIR / '.env'
 
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
@@ -21,6 +22,7 @@ SECRET_KEY = 'django-insecure-nfzds1ctbcra6nwrs5z$sxgcw(+0)mjv!)xm&pnv0*^=vfnv6y
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
+
 LOGGING_ON = True
 ALLOWED_HOSTS = ['*']
 

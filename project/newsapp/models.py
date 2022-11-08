@@ -5,8 +5,9 @@ from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.utils.html import format_html
 from django.utils.text import slugify
+from django.conf import settings
 
-from project import settings, celery_app
+from project import celery_app
 from .tasks import send_mails
 
 

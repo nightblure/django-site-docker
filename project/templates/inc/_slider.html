@@ -28,7 +28,7 @@
                 {% endif %}
 
                 <div class="carousel-caption d-none d-md-block" {% if not news_item.image %} style="color: black" {% endif %}>
-                    <h5> {{ news_item.title }} </h5>
+                    <h5> <a href="{{ news_item.get_absolute_url }}" style="color: white" target="_blank"> {{ news_item.title }} </a> </h5>
                     <p> {{ news_item.content|safe|truncatewords:5 }} </p>
                 </div>
 

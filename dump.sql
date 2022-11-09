@@ -716,6 +716,72 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 18	2022-10-28 14:19:16.955245+00	5	fghfghyy	3		7	1
 19	2022-10-28 14:19:16.960768+00	4	fdh	3		7	1
 20	2022-10-29 09:28:43.816107+00	1	admin	2	[{"changed": {"fields": ["Email address"]}}]	6	1
+21	2022-11-09 10:49:47.922062+00	54	Добавл	3		8	1
+22	2022-11-09 10:49:47.926674+00	53	Добавл	3		8	1
+23	2022-11-09 10:49:47.929685+00	51	Asynchronous Tasks Wit	3		8	1
+24	2022-11-09 10:49:47.931684+00	50	celery acks latecelery acks late	3		8	1
+25	2022-11-09 10:49:47.934684+00	49	Категория: Synths	3		8	1
+26	2022-11-09 10:49:47.936685+00	48	System check identified no issues (0 silenced). System check identified no issues (0 silenced).	3		8	1
+27	2022-11-09 10:49:47.938685+00	47	System check identified no issues (0 silenced).	3		8	1
+28	2022-11-09 10:49:47.941684+00	46	News!	3		8	1
+29	2022-11-09 10:49:47.943685+00	45	ss] C:\\Users\\nightblure\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\djangosite-tUvSqBmH-py3.10\\lib\\site-packages \\celery\\fixups\\django.py:203: UserWarnin	3		8	1
+30	2022-11-09 10:49:47.945686+00	44	end_mass_mail()¶ send_mass_mail(datatuple, fail_silentlend_mass_mail()¶ send_mass_mail(datatuple, fail_silentl	3		8	1
+31	2022-11-09 10:49:47.947685+00	43	end_mass_mail()¶ send_mass_mail(datatuple, fail_silentl	3		8	1
+32	2022-11-09 10:49:47.949685+00	42	гория: SynthsКатегория: Syntгория: SynthsКатегория: Synt	3		8	1
+33	2022-11-09 10:49:47.952685+00	41	Категория: SynthsКатегория: Synths	3		8	1
+34	2022-11-09 10:49:47.954685+00	40	g2]args=[arg1, ar	3		8	1
+35	2022-11-09 10:49:47.956685+00	39	arg1, arg2]args=[arg1, arg2]args=[	3		8	1
+36	2022-11-09 10:49:47.958687+00	38	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2]args=[	3		8	1
+37	2022-11-09 10:49:47.960685+00	37	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2]args=[] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	3		8	1
+38	2022-11-09 10:49:47.963685+00	36	celery -A project worker -l info -P solocelery -A project worker -l info -P solocelery -A project worker -l info -P solo	3		8	1
+39	2022-11-09 10:49:47.965684+00	35	dsafsdfddsafsdfd	3		8	1
+40	2022-11-09 10:49:47.967684+00	34	dsafsdfddsafsdfddsafsdfddsafsdfddsafsdfddsafsdfddsafsdfd	3		8	1
+41	2022-11-09 10:49:47.969684+00	33	sdfsfsdfsf	3		8	1
+42	2022-11-09 10:49:47.971685+00	32	sdfsfsdfsfsdfsf	3		8	1
+43	2022-11-09 10:49:47.973684+00	31	Добавление новостиДобавление новости	3		8	1
+44	2022-11-09 10:49:47.975685+00	30	ssssssssssssssssssddddddd	3		8	1
+45	2022-11-09 10:49:47.977685+00	29	Категория: VST PluginsКатегория: VST Plugins	3		8	1
+46	2022-11-09 10:49:47.979695+00	28	args=[arg1, arg2] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	3		8	1
+47	2022-11-09 10:49:47.981693+00	27	args=[arg1, arg2]args=[arg1, arg2]args=[arg1, arg2]	3		8	1
+48	2022-11-09 10:49:47.983701+00	26	args=[arg1, arg2]	3		8	1
+49	2022-11-09 10:49:47.985693+00	25	args=[arg1, arg2]	3		8	1
+50	2022-11-09 10:49:47.987694+00	24	args=[arg1, arg2]	3		8	1
+51	2022-11-09 10:49:47.990685+00	23	sfsdfsf	3		8	1
+52	2022-11-09 10:49:47.992685+00	22	import requestsimport requests	3		8	1
+53	2022-11-09 10:49:47.994684+00	21	import requests	3		8	1
+54	2022-11-09 10:49:47.996685+00	20	sender = 'vanobel159@gmail.com'sdf	3		8	1
+55	2022-11-09 10:49:47.997698+00	19	dddddddddd	3		8	1
+56	2022-11-09 10:49:47.999695+00	18	sss	3		8	1
+57	2022-11-09 10:49:48.001685+00	17	sdff	3		8	1
+58	2022-11-09 10:49:48.003686+00	16	вапв	3		8	1
+59	2022-11-09 10:49:48.005699+00	15	ssdf	3		8	1
+60	2022-11-09 10:49:48.0077+00	13	sdf	3		8	1
+61	2022-11-09 10:49:48.009687+00	12	dfgfg	3		8	1
+62	2022-11-09 10:49:48.011698+00	11	fffff	3		8	1
+63	2022-11-09 10:49:48.013699+00	9	fghfh	3		8	1
+64	2022-11-09 10:49:48.015693+00	7	News x	3		8	1
+65	2022-11-09 10:49:48.017685+00	2	News 12	3		8	1
+66	2022-11-09 11:09:45.903437+00	7	Effects	2	[{"changed": {"fields": ["\\u041a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f"]}}]	7	1
+67	2022-11-09 11:16:11.711891+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+68	2022-11-09 11:16:29.327919+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+69	2022-11-09 11:16:45.971709+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+70	2022-11-09 11:16:58.475808+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+71	2022-11-09 11:17:33.319889+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+72	2022-11-09 11:17:50.087184+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+73	2022-11-09 11:19:31.968327+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[]	8	1
+74	2022-11-09 11:20:20.673053+00	9	Other news	1	[{"added": {}}]	7	1
+75	2022-11-09 11:20:25.468395+00	60	iZotope launches Audiolens track referencing software, FREE for limited time	1	[{"added": {}}]	8	1
+76	2022-11-09 11:20:43.729462+00	60	iZotope launches Audiolens track referencing software, FREE for limited time	2	[{"changed": {"fields": ["Image"]}}]	8	1
+77	2022-11-09 11:22:24.90405+00	61	Klevgrand updates Grand Finale audio finalizer to v2.0	2	[{"changed": {"fields": ["content", "Image", "User"]}}]	8	1
+78	2022-11-09 11:22:49.71798+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+79	2022-11-09 11:25:02.175639+00	10	Instruments	1	[{"added": {}}]	7	1
+80	2022-11-09 11:25:22.353391+00	62	Native Instruments Kontakt 7: New browser & library, now available	1	[{"added": {}}]	8	1
+81	2022-11-09 11:25:42.016647+00	62	Native Instruments Kontakt 7: New browser & library, now available	2	[{"changed": {"fields": ["content"]}}]	8	1
+82	2022-11-09 11:26:05.261229+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["content"]}}]	8	1
+83	2022-11-09 11:26:45.961624+00	63	Save 40% on Smooth Operator effect plugin by Baby Audio	1	[{"added": {}}]	8	1
+84	2022-11-09 11:33:45.489826+00	56	Save 33% on ShaperBox 3 + Lifeline Console Lite Bundle	2	[{"changed": {"fields": ["Title", "content", "Image"]}}]	8	1
+85	2022-11-09 11:34:58.354993+00	57	Voxengo updates SPAN to v3.15	2	[{"changed": {"fields": ["content"]}}]	8	1
+86	2022-11-09 11:36:24.980653+00	58	Save 62% on Infinite Color Bundle for RC-20 by D-Fused Sounds	2	[{"changed": {"fields": ["content", "Image"]}}]	8	1
 \.
 
 
@@ -787,7 +853,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 t3x5x6hjvrf1i6wies1hewgnuu99abii	.eJxVjEEOgjAQRe_StWlmKHTEpXvP0HQ6U4saSCisjHcXEha6_e-9_zYhrksJa9U5DGIuBs3pd-OYnjruQB5xvE82TeMyD2x3xR602tsk-roe7t9BibVsddMR-KyM0AMRJokesxMQYKeOlB2fqWs3kNBLajM0DXtFoN4lUjSfL9pYN7c:1onFmq:j1TGad9YYzqNrwwh6xnpXNskdZzc1sRHJ744uVvM3KE	2022-11-08 08:59:52.959488+00
 hi6h2itumnjpkic2f7uurfr5cinlyosy	.eJxVjEEOwiAQRe_C2hAodEpduvcMZJiZStVAUtqV8e7apAvd_vfef6mI25rj1mSJM6uzsur0uyWkh5Qd8B3LrWqqZV3mpHdFH7Tpa2V5Xg737yBjy9-aEiIgWJYw8SiBJAzeW_QCCYfJwci9YNcBeWYjGIAcgzNsbMAenHp_ABwsOMA:1omzA3:HHWJ5wp_56NKF3lGMGzWKvOg-NGoAWj383d66J3PYyA	2022-11-07 15:14:43.522404+00
 uxbzqg9p5ll752wcfx7bl63g11x9732k	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1ooi3X:9UUiq6F_uk9sSzniBoHs_wT2ZEhVG4uSVF73XFeUHeo	2022-11-12 09:23:07.737807+00
-i42er9fo2a5h1etk2s4og75uqp6faqie	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1oqW6v:bz-EqfgX6tU-CQ2TzYeYKMkbYR6Vlv4xBOaWoNwSfAo	2022-11-17 09:02:05.052622+00
+5nvdavssg73ni5p68o6851xghz5bip3f	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1osjCJ:4iffLszigW5eOM0hmWQdis6ILeV3zC9yqyy6A-QXbBc	2022-11-23 11:24:47.42416+00
 \.
 
 
@@ -799,7 +865,10 @@ COPY public.newsapp_category (id, title, slug) FROM stdin;
 1	VST Plugins	vst-plugins
 2	Synths	synths
 6	Sample Packs	sample-packs
-7	dd	dd
+8	Sales and promotions	sales-and-promotions
+7	Effects	effects
+9	Other news	other-news
+10	Instruments	instruments
 \.
 
 
@@ -808,9 +877,9 @@ COPY public.newsapp_category (id, title, slug) FROM stdin;
 --
 
 COPY public.newsapp_comment (id, text, updated, created, news_id, user_id) FROM stdin;
-5	                sdfsdf	2022-10-24 15:11:17.525604+00	2022-10-24 15:11:17.525604+00	2	2
-13	                sdfffffffffff	2022-10-24 16:15:54.431586+00	2022-10-24 16:15:54.431586+00	2	2
-17	                vcv	2022-10-25 08:31:27.170382+00	2022-10-25 08:31:27.170382+00	2	2
+24	wow!      	2022-11-09 11:05:36.445179+00	2022-11-09 11:05:36.445179+00	56	1
+25	           cool!	2022-11-09 11:23:31.033785+00	2022-11-09 11:23:31.033785+00	61	1
+26	thanks!	2022-11-09 11:24:14.018562+00	2022-11-09 11:24:14.018562+00	61	2
 \.
 
 
@@ -819,12 +888,8 @@ COPY public.newsapp_comment (id, text, updated, created, news_id, user_id) FROM 
 --
 
 COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
-63	48	1
-64	29	1
-65	15	1
-77	9	1
-78	7	1
-79	11	1
+87	57	1
+88	61	1
 \.
 
 
@@ -833,51 +898,14 @@ COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
 --
 
 COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_published, views_count, category_id, user_id) FROM stdin;
-9	fghfh	ghjhj	2022-10-28 14:13:47.899299+00	2022-10-28 14:19:09.899457+00		t	3	1	1
-7	News x	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и фор	2022-10-28 12:16:19.540831+00	2022-10-28 12:16:19.540831+00		t	29	1	8
-29	Категория: VST PluginsКатегория: VST Plugins	Категория: VST PluginsКатегория: VST PluginsКатегория: VST PluginsКатегория: VST Plugins	2022-10-28 20:55:02.012141+00	2022-10-28 20:55:02.012141+00		t	2	1	2
-11	fffff	fghf	2022-10-28 14:16:01.266132+00	2022-10-28 14:19:09.878628+00		t	4	2	1
-13	sdf	ssss	2022-10-28 15:12:12.310892+00	2022-10-28 15:12:12.310892+00		t	1	1	2
-36	celery -A project worker -l info -P solocelery -A project worker -l info -P solocelery -A project worker -l info -P solo	celery -A project worker -l info -P solocelery -A project worker -l info -P solocelery -A project worker -l info -P solo	2022-10-29 09:31:00.56486+00	2022-10-29 09:31:00.56486+00		t	1	1	1
-14	sdf	ssss	2022-10-28 15:12:14.365022+00	2022-10-28 15:12:14.365022+00		t	1	1	2
-15	ssdf	dfdfdfdfd	2022-10-28 15:13:42.453148+00	2022-10-28 15:13:42.453148+00		t	2	7	2
-37	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2]args=[] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]\r\nargs=[arg1, arg2] args=[arg1, arg2]args=[] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]\r\nargs=[arg1, arg2] args=[arg1, arg2]args=[	2022-10-29 14:31:50.753829+00	2022-10-29 14:31:50.753829+00		t	1	1	1
-16	вапв	авпвп	2022-10-28 15:17:27.062287+00	2022-10-28 15:17:27.062287+00		t	2	1	2
-17	sdff	sdf	2022-10-28 15:18:40.217844+00	2022-10-28 15:18:40.217844+00		t	1	1	2
-18	sss	sfefef	2022-10-28 15:20:45.478434+00	2022-10-28 15:20:45.479435+00		t	1	1	2
-19	dddddddddd	ddfgdg	2022-10-28 15:37:34.340797+00	2022-10-28 15:37:34.340797+00		t	1	1	2
-20	sender = 'vanobel159@gmail.com'sdf	sender = 'vanobel159@gmail.com'	2022-10-28 15:39:57.24523+00	2022-10-28 15:39:57.24523+00		t	1	1	2
-21	import requests	import requests	2022-10-28 15:43:10.694858+00	2022-10-28 15:43:10.694858+00		t	1	1	2
-22	import requestsimport requests	import requests\r\nimport requests\r\nimport requests	2022-10-28 15:43:32.109101+00	2022-10-28 15:43:32.109101+00		t	1	2	2
-23	sfsdfsf	sfsdfsfsfsdfsfsfsdfsf	2022-10-28 17:20:34.462443+00	2022-10-28 17:20:34.462443+00		t	1	1	2
-24	args=[arg1, arg2]	args=[arg1, arg2]	2022-10-28 17:20:53.455482+00	2022-10-28 17:20:53.455482+00		t	1	1	2
-31	Добавление новостиДобавление новости	Добавление новостиДобавление новостиДобавление новостиДобавление новости	2022-10-28 20:57:32.562645+00	2022-10-28 20:57:32.562645+00		t	3	1	2
-30	ssssssssssssssssssddddddd	ssssssssssssssssssdddddddssssssssssssssssssddddddd	2022-10-28 20:56:19.022603+00	2022-10-28 20:56:19.022603+00		t	2	1	2
-25	args=[arg1, arg2]	args=[arg1, arg2]	2022-10-28 17:21:30.788934+00	2022-10-28 17:21:30.788934+00		t	3	1	2
-32	sdfsfsdfsfsdfsf	sdfsfsdfsf	2022-10-29 09:18:15.830455+00	2022-10-29 09:18:15.830455+00		t	1	1	2
-26	args=[arg1, arg2]	args=[arg1, arg2]	2022-10-28 20:44:26.936581+00	2022-10-28 20:44:26.936581+00		t	3	1	2
-27	args=[arg1, arg2]args=[arg1, arg2]args=[arg1, arg2]	args=[arg1, arg2]args=[arg1, arg2]args=[arg1, arg2]	2022-10-28 20:50:03.994519+00	2022-10-28 20:50:03.994519+00		t	2	1	2
-33	sdfsfsdfsf	sdfsfsdfsf	2022-10-29 09:18:44.72643+00	2022-10-29 09:18:44.72643+00		t	1	1	2
-34	dsafsdfddsafsdfddsafsdfddsafsdfddsafsdfddsafsdfddsafsdfd	dsafsdfddsafsdfddsafsdfddsafsdfddsafsdfd	2022-10-29 09:20:23.978765+00	2022-10-29 09:20:23.978765+00		t	1	1	2
-35	dsafsdfddsafsdfd	dsafsdfddsafsdfddsafsdfddsafsdfd	2022-10-29 09:20:58.071578+00	2022-10-29 09:20:58.071578+00		t	1	1	2
-38	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2] args=[arg1, arg2]args=[	] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]\r\nargs=[arg1, arg2] args=[arg1, arg2]args=[	2022-10-29 14:32:16.304239+00	2022-10-29 14:32:16.304239+00		t	1	1	1
-39	arg1, arg2]args=[arg1, arg2]args=[	arg1, arg2]args=[arg1, arg2]args=[	2022-10-29 14:41:28.448547+00	2022-10-29 14:41:28.448547+00		t	1	1	1
-42	гория: SynthsКатегория: Syntгория: SynthsКатегория: Synt	гория: SynthsКатегория: Syntгория: SynthsКатегория: Synt	2022-10-30 10:07:18.472514+00	2022-10-30 10:07:18.472514+00		t	2	1	1
-40	g2]args=[arg1, ar	g2]args=[arg1, ar	2022-10-30 09:58:15.746206+00	2022-10-30 09:58:15.746206+00		t	2	2	1
-41	Категория: SynthsКатегория: Synths	Категория: SynthsКатегория: Synths	2022-10-30 10:04:39.181425+00	2022-10-30 10:04:39.181425+00		t	1	1	1
-43	end_mass_mail()¶ send_mass_mail(datatuple, fail_silentl	end_mass_mail()¶\r\nsend_mass_mail(datatuple, fail_silentl	2022-10-30 10:12:00.607748+00	2022-10-30 10:12:00.607748+00		t	1	1	1
-44	end_mass_mail()¶ send_mass_mail(datatuple, fail_silentlend_mass_mail()¶ send_mass_mail(datatuple, fail_silentl	end_mass_mail()¶\r\nsend_mass_mail(datatuple, fail_silentl	2022-10-30 10:12:59.928711+00	2022-10-30 10:12:59.928711+00		t	1	1	1
-45	ss] C:\\Users\\nightblure\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\djangosite-tUvSqBmH-py3.10\\lib\\site-packages \\celery\\fixups\\django.py:203: UserWarnin	ss] C:\\Users\\nightblure\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\djangosite-tUvSqBmH-py3.10\\lib\\site-packages\r\n\\celery\\fixups\\django.py:203: UserWarning: Using settings.DEBUG leads to a memory\r\n            leak, never use this setting in production environments!	2022-10-30 10:20:45.645686+00	2022-10-30 10:20:45.645686+00		t	1	1	1
-46	News!	News!News!	2022-10-30 10:23:52.848533+00	2022-10-30 10:23:52.848533+00		t	4	1	1
-47	System check identified no issues (0 silenced).	System check identified no issues (0 silenced).	2022-10-30 10:26:53.975133+00	2022-10-30 10:26:53.975133+00		t	1	1	1
-48	System check identified no issues (0 silenced). System check identified no issues (0 silenced).	System check identified no issues (0 silenced).\r\nSystem check identified no issues (0 silenced).	2022-10-30 10:27:50.66572+00	2022-10-30 10:27:50.66572+00		t	2	1	1
-28	args=[arg1, arg2] args=[arg1, arg2]args=[arg1, arg2] args=[arg1, arg2]	args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]args=[arg1, arg2]\r\nargs=[arg1, arg2]	2022-10-28 20:53:23.56481+00	2022-10-28 20:53:23.56481+00		t	2	1	2
-12	dfgfg	dddd	2022-10-28 14:20:50.260945+00	2022-10-28 14:20:50.260945+00		t	3	7	1
-49	Категория: Synths	Категория: Synths	2022-10-30 10:51:17.591643+00	2022-10-30 10:51:17.591643+00		t	2	1	1
-50	celery acks latecelery acks late	celery acks latecelery acks late	2022-10-30 10:54:08.72124+00	2022-10-30 10:54:08.72124+00		t	3	1	1
-51	Asynchronous Tasks Wit	Asynchronous Tasks Wit	2022-10-30 11:00:11.44199+00	2022-10-30 11:00:11.44199+00		t	1	1	1
-2	News 12	Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.	2022-10-24 13:20:04.429703+00	2022-10-28 14:00:07.713349+00	images/2022/10/24/background_for_BANDCAMP.jpg	t	279	1	1
-52	рия: VST Plugins	рия: VST Plugins	2022-11-03 09:11:00.64709+00	2022-11-03 09:11:00.64709+00		t	1	2	1
+61	Klevgrand updates Grand Finale audio finalizer to v2.0	<p>Klevgrand has recently released an update to its multi-effect plug-in designed for finalizing complete mixes, stems, buses and/or individual audio tracks. Version 2.0 of&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/50-Mastering-/8706-Grand-Finale?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Grand Finale</a>&nbsp;brings a major facelift and some extra horsepower under the hood.</p>\r\n\r\n<p>Grand Finale is now an even more powerful tool designed for quickly finalizing complete mixes, stems, buses and/or individual audio tracks.</p>\r\n\r\n<p>SO WHAT&rsquo;S NEW? First and foremost we gave the UI a complete overhaul. Our primary aim for this new look has been to make the workflow more fun and intuitive with a clear step by step approach. The new version includes a LUFS-meter with reset, a more full-fledged multiband compressor and a bunch of new presets. AND, in addition to all this, Grand Finale will now be available as an AUv3.</p>\r\n\r\n<p><strong>Grand Finale 2.0 features</strong></p>\r\n\r\n<ul>\r\n\t<li>High quality effects, trimmed for high-precision audio finalizing.</li>\r\n\t<li>LUFS and RMS output metering.</li>\r\n\t<li>Parallel signal in aligned phase.</li>\r\n\t<li>Additive signal path with distortion and/or compression.</li>\r\n\t<li>Revamped UI optimized for a quick and creative workflow.</li>\r\n\t<li>Stereo width enhancer.</li>\r\n\t<li>Multi-band compressor.</li>\r\n\t<li>Fine-tuned limiter.</li>\r\n\t<li>Collection of pre-made presets.</li>\r\n</ul>\r\n\r\n<p>Grand Finale for Windows and Mac (VST/AU/AAX) is available to purchase at&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/50-Mastering-/8706-Grand-Finale?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://klevgrand.com/products/grandfinale" rel="noopener nofollow" target="_blank">Klevgrand</a>&nbsp;store for $69.99 USD.</p>\r\n\r\n<p>The iOS version is priced $9.99 USD at the&nbsp;<a href="https://apps.apple.com/us/app/grand-finale-2/id6444091341" rel="noopener nofollow" target="_blank">App Store</a>.</p>	2022-11-09 11:22:07.453211+00	2022-11-09 11:28:28.219899+00	images/2022/11/09/Klevgrand-Grand-Finale.jpg	t	11	1	2
+56	Save 33% on ShaperBox 3 + Lifeline Console Lite Bundle	<p>Plugin Boutique has launched an exclusive bundle offer on&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/39-FX-Bundle/9869-ShaperBox-3-Lifeline-Console-Lite-Bundle?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">ShaperBox 3 + Lifeline Console Lite</a>, offering a 33% discount on the two creative audio plugins by Cableguys and Excite Audio for the next few weeks.</p>\r\n\r\n<p>Push boundaries and find your sound with two incredible effects plugins in one special bundle.</p>\r\n\r\n<p>ShaperBox 3 is the go-to plugin for inspiration, musical motion and mixing magic with power-packed upgrades like Audio Triggering, Sidechain View in VolumeShaper, and the new LiquidShaper flanger/phaser. Lifeline Console Lite brings recordings to life with the warmth and charm of analogue audio processing.</p>\r\n\r\n<p>The bundle is priced $99 USD until November 29th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/159-Exclusive-Bundles-?a_aid=4af297e055206&amp;s=published" rel="noopener nofollow" target="_blank">Plugin Boutique</a></p>	2022-11-09 10:56:44.836107+00	2022-11-09 11:33:44.473856+00	images/2022/11/09/PIB-Shaperbox-3-LifeLine-Console-Lite-Bundle.png	t	46	1	1
+58	Save 62% on Infinite Color Bundle for RC-20 by D-Fused Sounds	<p>VST Buzz has launched a two-week promotion on the Infinite Color Bundle by D-Fused Sounds, a collection of 5 preset packs for the&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/44-Saturation/3016-RC-20-Retro-Color?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">RC-20 Retro Color</a>&nbsp;plugin by XLN Audio.</p>\r\n\r\n<p>This is an extra-large collection loaded with 223 presets to cover all of your needs from distortion, lo-fi, fluttering, flanging and chorusing effects. You&rsquo;ll get a palette of infinite colors for add nuance to your drum one shot, guitar riffs or entire bus channels!</p>\r\n\r\n<p>The bundle is priced only 29 EUR until November 22nd, 2022 (regular value 77 EUR). Prices ex. VAT in EU.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://vstbuzz.com/?ref=3" rel="noopener nofollow" target="_blank">VST Buzz</a></p>	2022-11-09 11:08:50.969338+00	2022-11-09 11:36:23.9483+00	images/2022/11/09/VST-Buzz-Infinite-Color-Bundle.jpg	t	8	8	1
+59	Excite Audio launches KSHMR Chain plugin chain utility	<p>Excite Audio has announced the release of an innovative utility that instantly copies your plugin chain from one track to countless others, allowing you to spend your time and effort where it matters most while producing.</p>\r\n\r\n<p>Using a forward-thinking Leader / Follower concept,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/72-Utility/9641-KSHMR-Chain?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">KSHMR Chain</a>&nbsp;lets you fine-tune the settings of multiple tracks with a single twist, and then hear the accumulative effect of that change in real time &ndash; great for working with vocal stacks or groups of instruments.</p>\r\n\r\n<p>The plugin has been developed in collaboration with KSHMR, whose philosophy is that &ldquo;an efficient workflow helps you to stay creative&rdquo;. With this in mind, the plugin also doubles up as an intuitive organizational tool, scanning and stocking all your plugins in easy-to-reach categories that make sense for producers.</p>\r\n\r\n<p><strong>KSHMR Chain features</strong></p>\r\n\r\n<ul>\r\n\t<li>Revolutionary Leader Follower Technology.</li>\r\n\t<li>Customizable effects chains.</li>\r\n\t<li>Automatic plugin categorization.</li>\r\n\t<li>Powerful macro control.</li>\r\n\t<li>Parallel processing and gain staging.</li>\r\n\t<li>Individual plugin bypass.</li>\r\n\t<li>Leader and Follower bypass modes.</li>\r\n\t<li>Plugin RMS metering.</li>\r\n</ul>\r\n\r\n<p>Available as a VST3, AU and AAX plugin for Windows and Mac, KSHMR Chain is on sale for the introduction price $29 USD instead of $49 USD of until October 31st, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/322-Excite-Audio?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Excite Audio</a></p>	2022-11-09 11:10:06.05581+00	2022-11-09 11:27:40.255365+00	images/2022/11/09/Excite-Audio-KSHMR-Chain.jpg	t	26	7	1
+62	Native Instruments Kontakt 7: New browser & library, now available	<p>Native Instruments has released the latest version of its do-it-all instrument platform.&nbsp;<a href="https://rekkerd.org/out/native-instruments-kontakt/" rel="noopener nofollow" target="_blank">Kontakt 7</a>&nbsp;features a new resizable browser, an overhauled Factory Library, newly added effects, and under-the-hood audio improvements.</p>\r\n\r\n<p>KONTAKT is everything from instant inspiration for music makers to the industry&rsquo;s leading instrument-building tool. More than a sampler, this shapeshifting platform has powered two decades of blockbuster film scores and chart-topping hits, plus thousands of incredible instruments.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Kontakt 7 features</strong></p>\r\n\r\n<ul>\r\n\t<li>New Factory Library: The revamped Factory Library comes with new sounds, effects, added functionality, plus a HiDPI interface.</li>\r\n\t<li>7 Collections of brand-new instruments in the Factory Library: Anything from orchestral, acoustic, band, beats, choir, synth to vintage.</li>\r\n\t<li>Enhanced browsing experience: You can now search, filter, and audition sounds as well as viewing preset properties and editing tags.</li>\r\n\t<li>Improved engine: Updated time stretching algorithm and 2 new effects from Guitar Rig 6.</li>\r\n\t<li>Simpler instrument creation process: Instrument developers now have access to Creator Tools, a standalone application suite consisting of a Debugger, an Instrument Editor, and a GUI Designer.</li>\r\n</ul>\r\n\r\n<p>Kontakt 7 for Windows and Mac is available to purchase for 299 USD/EUR.</p>\r\n\r\n<p>Owners of a previous version of Kontakt can upgrade for 99 USD/EUR, while registered users of qualifying Kontakt Player products can crossgrade for 199 USD/EUR.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://rekkerd.org/out/native-instruments/" rel="noopener nofollow" target="_blank">Native Instruments</a></p>	2022-11-09 11:25:21.339378+00	2022-11-09 11:35:38.100701+00	images/2022/11/09/Native-Instruments-Kontakt-7.jpg	t	7	10	2
+63	Save 40% on Smooth Operator effect plugin by Baby Audio	<p>Plugin Boutique has announced an exclusive sale on Baby Audio&rsquo;s intelligent signal balancer plugin designed for bringing out clarity and smoothness across instruments, vocals and mix buses.</p>\r\n\r\n<p>Allowing for creative tone-shaping without artifacts or harsh resonances,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/71-Dynamic-Processor/7565-Smooth-Operator?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Smooth Operator</a>&nbsp;features an intelligent algorithm that automatically detects and resolves fatigued frequencies.</p>\r\n\r\n<p>Smooth Operator combines equalization, spectral compression and resonance suppression into a singular creative experience that&rsquo;s instant and intuitive. Use it to perfect your tonal balance and add a touch of &lsquo;hi-fi&rsquo;.</p>\r\n\r\n<p>BABY Audio&rsquo;s spectral detection algorithm adapts to your audio 44,100 times per second and automatically eliminates fatigued frequencies. This gives you full control to shape your signal and bring out more definition.</p>\r\n\r\n<p>Smooth Operator for Windows and Mac (VST/VST3, AU and AAX) is on sale for $39 USD instead of $69 USD until November 13th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/263-Baby-Audio?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Baby Audio</a></p>	2022-11-09 11:26:44.950199+00	2022-11-09 11:27:10.79433+00	images/2022/11/09/Baby-Audio-Smooth-Operator-950x500.jpg	t	2	8	2
+60	iZotope launches Audiolens track referencing software, FREE for limited time	<p>iZotope has launched a new desktop app that analyzes audio from any streaming platform or audio source, without the need for downloading media files or setting up tedious audio routing setups.</p>\r\n\r\n<p>When paired with iZotope&rsquo;s AI-powered Assistant technology in Neutron and Ozone,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/95-Referencing-Tools/9927-Audiolens?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Audiolens</a>&nbsp;completely transforms your mixing and mastering reference workflow.</p>\r\n\r\n<p>Play your chosen audio through the selected output of your device and the application will collect data on key sonic characteristics, helping you to visualize, compare, and match your favorite reference tracks and sounds.</p>\r\n\r\n<p>Save time by capturing the analysis from Audiolens as a reference track so that you can use it in mixing and mastering without the need for downloading media files or setting up tedious audio routing setups. Integrate seamlessly with iZotope plug-ins Ozone 10 and Neutron 4 where you can match to your references and fine-tune your sound using the AI Assistants.</p>\r\n\r\n<p>Regularly priced $99 USD, Audiolens for Windows and macOS is free to download at&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/95-Referencing-Tools/9927-Audiolens?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://www.izotope.com/en/products/audiolens.html" rel="noopener nofollow" target="_blank">iZotope</a>&nbsp;website until November 22nd, 2022.</p>	2022-11-09 11:20:24.451196+00	2022-11-09 11:32:04.172508+00	images/2022/11/09/iZotope-Audiolens.jpg	t	6	9	2
+57	Voxengo updates SPAN to v3.15	<p>Voxengo has announced an update to the popular&nbsp;<strong>SPAN</strong>&nbsp;free real-time &ldquo;fast Fourier transform&rdquo; audio spectrum analyzer plugin for Windows and Mac.</p>\r\n\r\n<p>SPAN provides you with a very flexible &ldquo;mode&rdquo; system which you can use to setup your spectrum analyzer preferences. You may specify Fourier block size in samples, FFT window overlap percentage, spectrum&rsquo;s visual slope. Beside that you can choose to display secondary spectrum of a desired type (e.g. real-time maximum, all-time maximum). Spectrum can be smoothed out visually for an easier examination.</p>\r\n\r\n<p><strong>Changes in SPAN v3.13</strong></p>\r\n\r\n<ul>\r\n\t<li>Added the &ldquo;Large Cursor Readouts&rdquo; plug-in setting which enables larger mouse position readouts, useful when the plug-in is placed on a distant dedicated monitor.</li>\r\n\t<li>Fixed a drawing bug with the &ldquo;Flat Panels&rdquo; global switch disabled.</li>\r\n\t<li>Improved overall graphics drawing performance.</li>\r\n\t<li>Improved anti-aliased line rendering of the secondary spectrum.</li>\r\n\t<li>Improved knob&rsquo;s renderings.</li>\r\n\t<li>By frequent user request, the &ldquo;Solo&rdquo; switch&rsquo;s state is now saved together with the preset (a part of the routing parameters). While this opens up a possibility of leaving the &ldquo;Solo&rdquo; switch enabled and forgotten, this provides more flexibility, e.g. when mid/side processing is used.</li>\r\n</ul>\r\n\r\n<p>Available in VST/VST3, AU and AAX plugin formats, SPAN is free to download at&nbsp;<a href="https://www.voxengo.com/product/span/" rel="noopener nofollow" target="_blank">Voxengo</a>&nbsp;and from&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/25-Spectral-Analysis/695-Voxengo-SPAN?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>.</p>	2022-11-09 11:06:59.119001+00	2022-11-09 11:34:57.333931+00	images/2022/11/09/Voxengo-SPAN-free-spectrum-analyzer.jpg	t	6	1	1
 \.
 
 
@@ -887,8 +915,8 @@ COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_
 
 COPY public.newsapp_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, bio, avatar, is_subscriber) FROM stdin;
 8	pbkdf2_sha256$390000$o4DsIQXdf4IcwOaeqDngrG$5BFF/BkSKnNxrY+8slLSwyFLJWjxAuOOyRuMNmDqfrM=	2022-10-28 13:03:12.333103+00	f	user			vanobel159@gmail.com	f	t	2022-10-28 11:58:50.815483+00			f
-2	pbkdf2_sha256$390000$9e4fO9Zvy7sHnN5m7aainj$aF7bQE7Xvj2RNjQd8MzWb8LCIgCko4hj78+uy+8Rnow=	2022-10-28 15:07:13.281074+00	f	nightxx			vanobel159@gmail.com	f	t	2022-10-24 14:47:55+00		ly6sDhI35Yo_gSagc8t.jpg	t
-1	pbkdf2_sha256$390000$ogLgYH6VHLRRsHskvQZ0ud$dGYrOvnsHEDXMCg9my4gybSfaHsrNZizTZ5gcz0Vp2U=	2022-11-03 09:02:04.934408+00	t	admin			vanyabel13@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo_fMWLSgb.jpg	f
+2	pbkdf2_sha256$390000$9e4fO9Zvy7sHnN5m7aainj$aF7bQE7Xvj2RNjQd8MzWb8LCIgCko4hj78+uy+8Rnow=	2022-11-09 11:23:35.693774+00	f	nightxx			vanobel159@gmail.com	f	t	2022-10-24 14:47:55+00		background_for_BANDCAMP.jpg	t
+1	pbkdf2_sha256$390000$ogLgYH6VHLRRsHskvQZ0ud$dGYrOvnsHEDXMCg9my4gybSfaHsrNZizTZ5gcz0Vp2U=	2022-11-09 11:24:47.382159+00	t	admin			vanyabel13@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo.jpg	f
 \.
 
 
@@ -933,7 +961,7 @@ SELECT pg_catalog.setval('public.auth_permission_id_seq', 48, true);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 20, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 86, true);
 
 
 --
@@ -954,28 +982,28 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 31, true);
 -- Name: newsapp_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_category_id_seq', 7, true);
+SELECT pg_catalog.setval('public.newsapp_category_id_seq', 10, true);
 
 
 --
 -- Name: newsapp_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_comment_id_seq', 20, true);
+SELECT pg_catalog.setval('public.newsapp_comment_id_seq', 26, true);
 
 
 --
 -- Name: newsapp_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_like_id_seq', 79, true);
+SELECT pg_catalog.setval('public.newsapp_like_id_seq', 88, true);
 
 
 --
 -- Name: newsapp_news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_news_id_seq', 52, true);
+SELECT pg_catalog.setval('public.newsapp_news_id_seq', 63, true);
 
 
 --

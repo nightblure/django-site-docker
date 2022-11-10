@@ -10,6 +10,7 @@ celery_app.config_from_object(celery_config, namespace='CELERY')
 celery_app.autodiscover_tasks()
 
 """ 
-ЗАПУСК celery из папки project
-celery -A project worker -l info -P solo
+ЗАПУСК сервисов из папки project:
+- celery -A project worker -l info -P solo (очередь celery, запускать обязательно)
+- celery -A project flower (мониторинг, необязательно)
 """

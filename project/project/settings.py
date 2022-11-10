@@ -34,6 +34,16 @@ SITE_PORT = os.environ.get('SITE_PORT')
 PG_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST') if FROM_DOCKER_IMAGE else os.environ.get('PG_HOST')
 PG_PORT = os.environ.get('PG_PORT')
 
+
+BROKER = os.environ.get('BROKER')
+
+if BROKER not in ('rabbitmq', 'redis'):
+    raise Exception('environemnt variable BROKER in .env must be one from redis or rabbitmq!')
+
+REDIS_PORT = os.environ.get('REDIS_PORT')
+RABBITMQ_PORT = os.environ.get('RABBITMQ_PORT')
+
+
 ROOT_URLCONF = 'project.urls'
 
 WSGI_APPLICATION = 'project.wsgi.application'
@@ -54,6 +64,9 @@ include(
     'conf/templates.py',
     'conf/timezone.py',
     'conf/debug_toolbar.py',
+
+    'conf/redis_config.py',
+    'conf/rabbitmq_config.py'
 )
 
 # include('conf/integrations/*.py')

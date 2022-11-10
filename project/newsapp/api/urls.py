@@ -3,7 +3,11 @@ from rest_framework import routers
 from django.urls import path, include, re_path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-from newsapp.api.views import *
+from newsapp.api.views import (
+    NewsViewSet, NewsAPIList,
+    NewsAPIUpdate, NewsAPIDelete,
+    CategoryAPIList
+)
 
 router = routers.SimpleRouter()
 router.register(r'news', NewsViewSet, basename='news')
@@ -14,6 +18,8 @@ urlpatterns = [
     path('api/v1/news/', NewsAPIList.as_view()),
     path('api/v1/news/<int:pk>/', NewsAPIUpdate.as_view()),
     path('api/v1/news_delete/<int:pk>/', NewsAPIDelete.as_view()),
+
+    path('api/v1/categories/', CategoryAPIList.as_view()),
 
     # маршруты, сгенерированные роутером
     # path(f'{BASE_API_URL}/', include(router.urls)),

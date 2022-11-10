@@ -6,7 +6,14 @@ from django.conf import settings
 
 
 # @shared_task(bind=True, ignore_result=True)
-@celery_app.task(bind=True, ignore_result=True)
+@celery_app.task(
+    bind=True,
+    ignore_result=True,
+    max_retries=3,
+    expires=20,
+    soft_limit_timeout=10,
+    default_retry_delay=30, # seconds
+)
 # self - инстанс Celery. с декоратором shared_task этот параметр не нужен
 def send_mails(self, users, news_title, news_content, news_id):
     sender = settings.EMAIL_HOST_USER

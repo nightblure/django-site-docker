@@ -22,14 +22,14 @@
 
 ## Инструкция для развертывания сайта из docker-образа:
   1. Склонировать репозиторий
-  2. Задать выбранное имя БД в файле .env (переменная DB_NAME) и docker-compose (переменная POSTGRES_DB)
-  3. Развернуть приложение из корневой папки (--build - принудительная пересборка образа и контейнера): ```docker-compose up --build -d``` или ```docker-compose up -d```
+  2. Задать выбранное имя БД в файле .env (переменная ```DB_NAME```) и docker-compose (переменная ```POSTGRES_DB```)
+  3. Развернуть приложение из корневой папки: ```docker-compose up --build -d``` или ```docker-compose up -d```
   4. Приложение доступно [по адресу](http://localhost:8000/)
 
 ## Примечания:
   * Миграции не нужны, т.к. в репозитории лежит дамп БД, в нем уже есть все таблицы с данными и системные таблицы Django
-  * Если нужно поменять имя контейнера PostgreSQL в docker-compose, то также нужно не забыть записать его в переменную HOST в .env
-  * Конфиг nginx.conf должен лежать в директории ```/etc/nginx```
-  * Конфиг appconfig.conf должен лежать в директории ```/etc/nginx/conf.d```
-  * Запуск celery (из папки ```project```): ```celery -A project worker -l info -P solo```
+  * Если нужно поменять имя контейнера PostgreSQL в docker-compose, то также нужно не забыть записать его в переменную ```HOST``` в .env
+  * Конфиг ```nginx.conf``` должен лежать в директории ```/etc/nginx```
+  * Конфиг ```appconfig.conf``` должен лежать в директории ```/etc/nginx/conf.d```
+  * Запуск celery (из папки project): ```celery -A project worker -l info -P solo```
 

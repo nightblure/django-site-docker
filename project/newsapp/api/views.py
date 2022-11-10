@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from newsapp.api.pagination import StandardPagination
 from newsapp.api.permissions import IsAdmin, IsOwnerOrAdminOrAuthenticated
 from newsapp.models import News, Category
-from newsapp.api.serializers import NewsSerializer
+from newsapp.api.serializers import NewsSerializer, CategorySerializer
 
 """
 http://127.0.0.1:8000/api/v1/newslist/
@@ -83,6 +83,10 @@ class NewsAPIDelete(generics.RetrieveDestroyAPIView):
     serializer_class = NewsSerializer
     permission_classes = (IsAdmin, )
 
+
+class CategoryAPIList(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 """
 замена классов NewsAPI...

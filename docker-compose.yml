@@ -28,6 +28,7 @@ services:
     depends_on:
       - db
       - redis
+      - rabbitmq
 
   redis:
     container_name: redis
@@ -61,3 +62,25 @@ services:
      - 80:80
     depends_on:
       - web
+
+  flower:
+    container_name: flower
+    image: "mher/flower"
+    volumes:
+      - ./flower:/app
+    ports:
+      - 5557:5555
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./rabbitmq/data/:/var/lib/rabbitmq
+        - ./rabbitmq/log/:/var/log/rabbitmq

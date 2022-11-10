@@ -28,17 +28,19 @@ from newsapp.models import News, Category
 class NewsSerializer(serializers.ModelSerializer):
 
     # скрытое автогенерируемое поле
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     """
     SerializerMethodField определяет поле только для чтения,
     значение которого определяется с помощью указанного метода 
     """
-    user_str = serializers.SerializerMethodField(method_name='get_user')
-    image_path = serializers.SerializerMethodField(method_name='get_photo_url')
+    # image_path = serializers.SerializerMethodField(method_name='get_photo_url')
 
-    def get_user(self, obj):
-        return f'{obj.user}'
+    author = serializers.CharField(source='user.username')
+    category = serializers.CharField(read_only=True, source='category.title')
+    # переименованные поля created_at и updated_at
+    create_date = serializers.DateTimeField(format='%d-%m-%Y %H:%M:%S', source='created_at')
+    last_update = serializers.DateTimeField(format='%d-%m-%Y %H:%M:%S', source='updated_at')
 
     def get_photo_url(self, obj):
         # request = self.context.get('request')
@@ -47,4 +49,13 @@ class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = News
         # fields = '__all__' # ('title', 'content', 'category_id') # '__all__'
-        exclude = ('is_published', 'image', )
+        exclude = ('id', 'is_published', 'user', 'created_at', 'updated_at')
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    news = NewsSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Category
+        fields = ['title', 'news']
+        # exclude = ('id', 'slug')

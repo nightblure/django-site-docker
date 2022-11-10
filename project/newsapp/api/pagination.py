@@ -4,7 +4,7 @@ from rest_framework.pagination import PageNumberPagination
 class StandardPagination(PageNumberPagination):
 
     # значение по умолчанию для запросов, в которых не указан параметр max_page_size
-    page_size = 3
+    # page_size = 10
 
     """
     опциональный GET-параметр, используя который пользователь 

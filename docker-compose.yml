@@ -3,7 +3,8 @@ version: "3.8"
 services:
 
   db:
-    container_name: postgres
+    container_name: django_postgres
+    hostname: django_postgres
     image: postgres
     environment:
       POSTGRES_DB: "django_site_db"
@@ -12,7 +13,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./postgres:/var/lib/postgresql/dat
+      - ./django_postgres:/var/lib/postgresql/dat
       # специальная директория для автовыполнения .sql скриптов
       - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
 

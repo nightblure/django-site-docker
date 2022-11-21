@@ -5,3 +5,4 @@ __pycache__/
 rabbitmq/
 redis/
 htmlcov/
+django_postgres/

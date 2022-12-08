@@ -1,11 +1,12 @@
 # News Django Site
 
 Этот проект реализует небольшой новостной сайт на Django
-* Хранение данных - ```PostgreSQL```
-* Рассылка e-mail уведомлений - ```Celery + Redis```
-* API - ```Django REST Framework```
-* Инструмент для управления зависимостями - ```Poetry```
-* Веб-сервер - ```NGINX```
+* Database - ```PostgreSQL```
+* E-mail notifications - ```Celery + Redis```
+* REST API - ```Django REST Framework```
+* Dependencies manager - ```Poetry```
+* Web Server (in Docker container) - ```NGINX```
+* Caching - ```Redis```
 
 Работать с приложением можно локально из IDE и из docker-контейнера
 

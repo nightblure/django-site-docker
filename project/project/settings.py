@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import split_settings.tools
 from dotenv import load_dotenv
 from split_settings.tools import include
 
@@ -21,7 +22,8 @@ else:
 SECRET_KEY = 'django-insecure-nfzds1ctbcra6nwrs5z$sxgcw(+0)mjv!)xm&pnv0*^=vfnv6y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG_ = os.environ.get('DEBUG')
+DEBUG = True if DEBUG_ == 'True' else False
 
 LOGGING_ON = True
 ALLOWED_HOSTS = ['*']
@@ -34,7 +36,6 @@ SITE_PORT = os.environ.get('SITE_PORT')
 PG_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST') if FROM_DOCKER_IMAGE else os.environ.get('PG_HOST')
 PG_PORT = os.environ.get('PG_PORT')
 
-
 BROKER = os.environ.get('BROKER')
 
 if BROKER not in ('rabbitmq', 'redis'):
@@ -42,7 +43,6 @@ if BROKER not in ('rabbitmq', 'redis'):
 
 REDIS_PORT = os.environ.get('REDIS_PORT')
 RABBITMQ_PORT = os.environ.get('RABBITMQ_PORT')
-
 
 ROOT_URLCONF = 'project.urls'
 
@@ -63,8 +63,8 @@ include(
     'conf/static.py',
     'conf/templates.py',
     'conf/timezone.py',
-    'conf/debug_toolbar.py',
 
+    'conf/debug_toolbar.py',
     'conf/redis_config.py',
     'conf/rabbitmq_config.py'
 )

@@ -1,0 +1,99 @@
+{% load news_tags %}
+
+{% spaceless %}
+  {% if page_obj.paginator.num_pages > 1 %}
+    {% with request.get_full_path as path %}
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+
+          {% if page_obj.number > 2 %}
+            <li class="page-item">
+              <a class="page-link" href="{{ path|remove_page }}" title="First page">&laquo;</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="{{ path|set_page:page_obj.previous_page_number }}" title="Previous page">&lsaquo;</a>
+            </li>
+          {% endif %}
+
+          {% with page_obj.number|add:-112|round:-1000 as prev_1000 %}
+            {% if prev_1000 > 0 %}
+              <li class="page-item">
+                <a class="page-link" href="{{ path|set_page:prev_1000 }}">{{ prev_1000 }}</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+
+          {% with page_obj.number|add:-12|round:-100 as prev_100 %}
+            {% if prev_100 > 0 %}
+              <li class="page-item">
+                <a class="page-link" href="{{ path|set_page:prev_100 }}">{{ prev_100 }}</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+
+          {% with page_obj.number|add:-2|round:-10 as prev_10 %}
+            {% if prev_10 > 0 %}
+              <li class="page-item">
+                <a class="page-link" href="{{ path|set_page:prev_10 }}">{{ prev_10 }}</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+
+          {% if page_obj.has_previous %}
+            {% with page_obj.number|add:-1 as prev_number %}
+              <li class="page-item">
+                <a class="page-link" href="{% if prev_number == 1 %}{{ path|remove_page }}{% else %}{{ path|set_page:prev_number }}{% endif %}">{{ prev_number }}</a>
+              </li>
+            {% endwith %}
+          {% endif %}
+
+          <li class="page-item">
+            <a class="page-link page-item active" href="{{ path }}">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a>
+          </li>
+
+          {% if page_obj.has_next %}
+            {% with page_obj.number|add:1 as next_number %}
+              <li class="page-item">
+                <a class="page-link" href="{% if prev_number == 1 %}{{ path|remove_page }}{% else %}{{ path|set_page:next_number }}{% endif %}">{{ next_number }}</a>
+              </li>
+            {% endwith %}
+          {% endif %}
+
+          {% with page_obj.number|add:2|round:10 as next_10 %}
+            {% if next_10 <= page_obj.paginator.num_pages %}
+              <li class="page-item">
+                <a class="page-link" href="{{ path|set_page:next_10 }}">{{ next_10 }}</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+
+          {% with page_obj.number|add:12|round:100 as next_100 %}
+            {% if next_100 <= page_obj.paginator.num_pages %}
+              <li class="page-item">
+                <a class="page-link" href="{{ path|set_page:next_100 }}">{{ next_100 }}</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+
+          {% with page_obj.number|add:112|round:1000 as next_1000 %}
+            {% if next_1000 <= page_obj.paginator.num_pages %}
+              <li class="page-item">
+                <a class="page-link" href="{{ path|set_page:next_1000 }}">{{ next_1000 }}</a>
+              </li>
+            {% endif %}
+          {% endwith %}
+
+          {% if page_obj.number|add:2 < page_obj.paginator.num_pages %}
+            <li class="page-item">
+              <a class="page-link" href="{{ path|set_page:page_obj.next_page_number }}" title="'Next page'">&rsaquo;</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="{{ path|set_page:page_obj.paginator.num_pages }}" title="Last page">&raquo;</a>
+            </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+    {% endwith %}
+  {% endif %}
+{% endspaceless %}

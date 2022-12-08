@@ -4,20 +4,28 @@ from django.views.generic import ListView
 
 from newsapp.models import News
 from newsapp.views.utils import get_news_likes_count_dict, get_user_liked_posts
-from newsapp.views.mixins import CacheMixin
+from newsapp.mixins import CacheMixin
+from project.conf.redis_config import CACHE_TTL
 from project.redis import redis_instance
-
 
 """ 
 для function-based представлений достаточно использовать декоратор @cache_page(CACHE_TTL)
 тестирование перфоманса: loadtest -n 100 -k http://localhost:8000/ (https://www.npmjs.com/package/loadtest)
 """
-# class NewsList(CacheMixin, ListView):
 class NewsList(ListView):
+# class NewsList(CacheMixin, ListView):
     model = News
     template_name = 'news/news_list.html'
     context_object_name = 'news'
     paginate_by = 10
+
+    # @cache_page(CACHE_TTL, key_prefix='news_cache')
+    def get(self, request, *args, **kwargs):
+        return super(NewsList, self).get(request, *args, **kwargs)
+    
+    # @cache_page(CACHE_TTL, key_prefix='news_cache')
+    # def get(self, request, *args, **kwargs):
+    #     return super(NewsList, self).get(request, *args, **kwargs)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         # чтобы не перетереть контекст, получаем его из базового класса

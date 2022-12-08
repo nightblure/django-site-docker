@@ -9,7 +9,7 @@ from django.views.generic import UpdateView, FormView
 
 from newsapp.forms import UserLoginForm, EditUserProfileForm
 from newsapp.models import User
-from newsapp.views.mixins import ResetPasswordMixin
+from newsapp.mixins import ResetPasswordMixin
 
 
 class EditUserProfileView(ResetPasswordMixin, LoginRequiredMixin, UpdateView):

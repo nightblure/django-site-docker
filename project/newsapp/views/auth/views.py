@@ -5,7 +5,7 @@ from django.views.generic import FormView
 
 from newsapp.forms import UserRegisterForm, UserLoginForm
 from newsapp.models import User
-from newsapp.views.mixins import ResetPasswordMixin
+from newsapp.mixins import ResetPasswordMixin
 
 
 class SignupView(FormView):

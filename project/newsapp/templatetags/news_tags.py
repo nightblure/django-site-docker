@@ -2,26 +2,29 @@ import math
 import re
 
 from django import template
+from django.core.cache import cache
 from django.template import defaulttags
 from django.db.models import Count, F
 
+from project.conf.redis_config import CACHE_TTL
 from ..models import Category, News
 
 register = template.Library()
 
 
-@register.simple_tag()
-def get_categories():
-    return Category.objects.all()
-
-
 # отбираем только категории, у которых имеется хотя бы одна опубликованная новость
 @register.inclusion_tag('categories/categories_list.html')
 def show_categories():
-    categories = get_categories() \
-        .filter(news__is_published=True) \
-        .annotate(count=Count('news')) \
-        .filter(count__gt=0)
+
+    if 'categories' in cache:
+        categories = cache.get('categories')
+    else:
+        categories = Category.objects \
+            .filter(news__is_published=True) \
+            .annotate(count=Count('news')) \
+            .filter(count__gt=0)
+
+        cache.set('categories', categories, timeout=CACHE_TTL)
 
     return {"categories": categories}
 

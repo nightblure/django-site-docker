@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from newsapp.models import User
 from newsapp.forms import AuthTokenForm
-from .utils import get_auth_token_message
+from newsapp.utils import get_auth_token_message
 
 
 class AuthTokenView(LoginRequiredMixin, FormView):

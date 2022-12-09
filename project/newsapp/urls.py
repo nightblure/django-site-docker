@@ -11,7 +11,7 @@ from newsapp.views.user.views import EditUserProfileView, ChangeUserPasswordView
 
 urlpatterns = [
     path('', NewsList.as_view(), name='home_route'),
-    path('news/', include('newsapp.urls.news_urls')),
+    path('news/', include('newsapp.news_urls')),
 
     path('register/', SignupView.as_view(), name='signup_route'),
     path('login/', LoginView.as_view(), name='login_route'),
@@ -22,7 +22,7 @@ urlpatterns = [
 
     path('like/<int:news_id>/', like_view, name='like_route'),
 
-    path('user/edit<str:user_name>/', EditUserProfileView.as_view(), name='edit_profile_route'),
+    path('user/edit/<str:user_name>/', EditUserProfileView.as_view(), name='edit_profile_route'),
     path('user/change-password/<str:user_name>/', ChangeUserPasswordView.as_view(), name='change_password_route'),
 
     path('comment/create/<int:news_id>/<str:username>', comment_view, name='add_comment_route'),

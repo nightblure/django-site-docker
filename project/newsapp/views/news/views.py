@@ -1,7 +1,7 @@
 from django.views.generic import ListView
 
 from newsapp.models import News, Category
-from newsapp.views.utils import get_news_likes_count_dict, get_user_liked_posts
+from newsapp.utils import get_news_likes_count_dict, get_user_liked_posts
 
 
 class NewsByCategory(ListView):

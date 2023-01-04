@@ -1,5 +1,7 @@
 # News Django Site
 
+![Build Status](https://github.com/nightblure/django-site-docker/actions/workflows/main.yml/badge.svg?branch=main)
+
 Этот проект реализует небольшой новостной сайт на Django
 * Database - ```PostgreSQL```
 * E-mail notifications - ```Celery + Redis```

@@ -6,3 +6,4 @@ rabbitmq/
 redis/
 htmlcov/
 django_postgres/
+*coverage

@@ -16,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -52,14 +52,14 @@
       <recent name="C:\Users\nightblure\Desktop\dev\django site\project\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
+      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\newsapp\tests" />
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\newsapp" />
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\newsapp\urls" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\newsapp\urls\urls" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\project\conf" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.tasks">
+  <component name="RunManager">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="django site" />
       <option name="INTERPRETER_OPTIONS" value="" />

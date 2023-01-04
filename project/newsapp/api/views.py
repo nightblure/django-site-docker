@@ -44,7 +44,7 @@ class NewsAPIView(APIView):
 
         try:
             instance = News.objects.get(pk=pk)
-        except:
+        except Exception:
             return Response({'error': f'instance with pk={pk} not exists'})
 
         serializer = NewsSerializer(data=request.data, instance=instance)
@@ -74,25 +74,28 @@ class NewsAPIList(generics.ListCreateAPIView):
 class NewsAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = News.objects.filter(is_published=True)
     serializer_class = NewsSerializer
-    permission_classes = (IsOwnerOrAdminOrAuthenticated, )
+    permission_classes = (IsOwnerOrAdminOrAuthenticated,)
     # authentication_classes = (TokenAuthentication, )
 
 
 class NewsAPIDelete(generics.RetrieveDestroyAPIView):
     queryset = News.objects.filter(is_published=True)
     serializer_class = NewsSerializer
-    permission_classes = (IsAdmin, )
+    permission_classes = (IsAdmin,)
 
 
 class CategoryAPIList(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+
 """
 замена классов NewsAPI...
 все перечисленные наследники есть в классе viewsets.ModelViewSet
 меняя набор миксинов можно легко менять поведение API с точки зрения поддержки CRUD-операций
 """
+
+
 class NewsViewSet(mixins.CreateModelMixin,
                   # read-операции
                   mixins.RetrieveModelMixin,
@@ -103,6 +106,7 @@ class NewsViewSet(mixins.CreateModelMixin,
                   GenericViewSet):  # ReadOnlyModelViewSet
     # queryset = News.objects.filter(is_published=True)
     serializer_class = NewsSerializer
+
     # КАК ПРАВИЛЬНО РЕАЛИЗОВАТЬ ОГРАНИЧЕНИЯ ДОСТУПА ДЛЯ ВЬЮСЕТА??)
     # permission_classes = (IsOwnerOrReadOnly, )
 
@@ -115,6 +119,7 @@ class NewsViewSet(mixins.CreateModelMixin,
     detail=False означает, что возвращаться должен список
     маршрут: http://127.0.0.1:8000/api/v1/news/categories/
     """
+
     @action(methods=['get'], detail=False)
     def categories(self, request):
         categories = Category.objects.all()
@@ -124,6 +129,7 @@ class NewsViewSet(mixins.CreateModelMixin,
     получение определенной категории (благодаря параметру detail=True)
     по маршруту вида http://127.0.0.1:8000/api/v1/news/<key>/category/, где key - pk категории
     """
+
     @action(methods=['get'], detail=True)
     def category(self, request, pk):
         category = Category.objects.get(pk=pk)

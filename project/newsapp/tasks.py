@@ -12,12 +12,12 @@ from django.conf import settings
     max_retries=3,
     expires=20,
     soft_limit_timeout=10,
-    default_retry_delay=30, # seconds
+    default_retry_delay=30,  # seconds
 )
 # self - инстанс Celery. с декоратором shared_task этот параметр не нужен
 def send_mails(self, users, news_title, news_content, news_id):
     sender = settings.EMAIL_HOST_USER
-    subject = f'News site notification service'
+    subject = 'News site notification service'
     messages = []
 
     for user, user_email in users:

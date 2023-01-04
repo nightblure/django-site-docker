@@ -15,7 +15,7 @@ def comment_view(request, news_id, username):
     if str(comment_text).isspace():
         messages.error(request, 'Комментарий не может быть пустым')
     else:
-        comment_obj = Comment.objects.create(
+        Comment.objects.create(
             user=user_obj,
             news=news_obj,
             text=comment_text
@@ -26,5 +26,5 @@ def comment_view(request, news_id, username):
 
 @login_required
 def remove_comment_view(request, news_id, comment_id):
-    comment_obj = Comment.objects.get(pk=comment_id).delete()
+    Comment.objects.get(pk=comment_id).delete()
     return redirect('one_news_route', news_id=news_id)

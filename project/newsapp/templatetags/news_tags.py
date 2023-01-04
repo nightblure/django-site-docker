@@ -3,11 +3,11 @@ import re
 
 from django import template
 from django.core.cache import cache
+from django.db.models import Count
 from django.template import defaulttags
-from django.db.models import Count, F
 
 from project.conf.redis_config import CACHE_TTL
-from ..models import Category, News
+from ..models import Category
 
 register = template.Library()
 
@@ -15,7 +15,6 @@ register = template.Library()
 # отбираем только категории, у которых имеется хотя бы одна опубликованная новость
 @register.inclusion_tag('categories/categories_list.html')
 def show_categories():
-
     if 'categories' in cache:
         categories = cache.get('categories')
     else:
@@ -65,4 +64,4 @@ def remove_page(uri):
 def roundto(number, to=100):
     return int(math.ceil(number / to)) * to
 
-#endregion
+# endregion

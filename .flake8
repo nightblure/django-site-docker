@@ -1,4 +1,4 @@
 [flake8]
-ignore = D203, E501, W292, E402, F401, W291, E302
+ignore = D203, E501, W292, E402, F401, W291, E302, W391
 exclude = .git,__pycache__,docs/source/conf.py,old,build,dist, */migrations/*
 max-line-length = 120

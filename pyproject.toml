@@ -26,6 +26,7 @@ django-split-settings = "^1.2.0"
 flower = "^1.2.0"
 flake8 = "^6.0.0"
 pytest-django = "^4.5.2"
+pytest-cov = "^4.0.0"
 
 
 [build-system]

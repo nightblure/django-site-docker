@@ -20,7 +20,7 @@ urlpatterns = [
     path('auth-token/', AuthTokenView.as_view(), name='token_route'),
     path('jwt-auth-token/', JWTTokenView.as_view(), name='jwt_token_route'),
 
-    path('like/<int:news_id>/', like_view, name='like_route'),
+    path('like/<int:news_id>/', like_view, name='like_route'), # 'like/<int:news_id>/'
 
     path('user/edit/<str:user_name>/', EditUserProfileView.as_view(), name='edit_profile_route'),
     path('user/change-password/<str:user_name>/', ChangeUserPasswordView.as_view(), name='change_password_route'),

@@ -1,13 +1,13 @@
-<form method="post" enctype="multipart/form-data" action="{% url 'like_route' news_item.pk %}">
+<form id="likeForm" method="post" enctype="multipart/form-data" action="{% url 'like_route' news_item.pk %}">
 
     {% csrf_token %}
 
     {% if request.user.is_authenticated %}
-
+        {# type="submit" #}
         {% if news_item.pk in user_liked_posts %}
-            <button type="submit" class="btn btn-danger btn-rounded" name="unlike"> 🖤 </button>
+            <button name="like_btn" value="{{ news_item.pk }}" class="btn btn-danger btn-rounded"> 🖤 </button>
         {% else %}
-            <button type="submit" class="btn btn-outline-danger btn-rounded" name="like"> ♡ </button>
+            <button name="like_btn" value="{{ news_item.pk }}" class="btn btn-outline-danger btn-rounded"> ♡ </button>
         {% endif %}
 
     {% endif %}

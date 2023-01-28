@@ -95,6 +95,42 @@
 {% block footer %}
 {% endblock %}
 
+{% comment %}
+{% block javascript %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+
+      $(document).on('click', 'like_btn', function(event) {
+          event.preventDefault();
+          console.log('test');
+          $.ajax({
+
+              data: {
+                  news_id: $(this).attr('value'),
+                  user_pk: {{ request.user.pk }},
+                  csrfmiddlewaretoken: '{{ csrf_token }}'
+              },
+              type: 'post',
+              url: {% url 'like_route' %},
+
+              success: function (response) {
+                  alert('gi');
+                  // console.log(this.data);
+                  // console.log(response);
+                  // $('#id_username').removeClass('is-valid').addClass('is-invalid');
+                  // alert("Спасибо, что обратились к нам " + response.name);
+              },
+
+              error: function (response) {
+                  alert('error');
+              }
+          });
+      });
+
+  </script>
+{% endblock javascript %}
+{% endcomment %}
+
 </body>
 
 </html>

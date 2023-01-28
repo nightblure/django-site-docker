@@ -27,10 +27,10 @@ class NewsList(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Новости'
 
-        if 'likes' in cache and 'user_liked_posts' in cache:
-            context['news_likes'] = cache.get('likes')
-            context['user_liked_posts'] = cache.get('user_liked_posts')
-            return context
+        # if 'likes' in cache and 'user_liked_posts' in cache:
+        #     # context['news_likes'] = cache.get('likes')
+        #     # context['user_liked_posts'] = cache.get('user_liked_posts')
+        #     return context
 
         """
         собираем словарь вида {news_pk: likes_count}
@@ -47,14 +47,14 @@ class NewsList(ListView):
         if 'search' in self.request.GET:
             context['search_str'] = self.request.GET['search']
 
-        cache.set('likes', news_likes, timeout=CACHE_TTL)
-        cache.set('user_liked_posts', user_liked_posts, timeout=CACHE_TTL)
+        # cache.set('likes', news_likes, timeout=CACHE_TTL)
+        # cache.set('user_liked_posts', user_liked_posts, timeout=CACHE_TTL)
         return context
 
     def get_queryset(self):
 
-        if 'news' in cache:
-            return cache.get('news')
+        # if 'news' in cache:
+        #     return cache.get('news')
 
         # todo для поиска сделать отдельное view? текущая реализация выглядит странно
         search_str = self.request.GET.get('search', None)
@@ -64,5 +64,5 @@ class NewsList(ListView):
         else:
             news = News.objects.filter(Q(title__icontains=search_str) | Q(content__icontains=search_str))
 
-        cache.set('news', news, timeout=CACHE_TTL)
+        # cache.set('news', news, timeout=CACHE_TTL)
         return news

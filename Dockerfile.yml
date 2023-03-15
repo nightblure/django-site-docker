@@ -15,12 +15,13 @@ RUN mkdir /code
 WORKDIR /code
 
 # копируем файлы проекта в контейнер
-COPY . .
 COPY ["pyproject.toml", "poetry.lock", "./"]
 
 # устанавливаем poetry и ставим зависимости в локальное окружение
 RUN pip install poetry
 RUN poetry install
+
+COPY . .
 
 # RUN python ./project/manage.py collectstatic
 

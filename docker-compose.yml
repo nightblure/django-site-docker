@@ -8,7 +8,7 @@ services:
     image: postgres:alpine
     env_file: docker/.env
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - ./django_postgres:/var/lib/postgresql/dat
       # специальная директория для автовыполнения .sql скриптов
@@ -19,18 +19,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - 8000:8000
+#    ports:
+#      - 8000:8000
     depends_on:
       - db
       - redis
       - rabbitmq
+      - celery
 
   redis:
     container_name: redis
     image: redis:alpine
     ports:
-     - 6379:6379
+     - "6379:6379"
 
   celery:
     build:
@@ -41,7 +42,6 @@ services:
     volumes:
       - .:/code
     depends_on:
-      - web
       - redis
 
   nginx:
@@ -53,7 +53,7 @@ services:
      - ./project/static:/django-site-docker/project/static/
      - ./project/media:/django-site-docker/project/media/
     ports:
-     - 80:80
+     - "80:80"
     depends_on:
       - web
 
@@ -63,15 +63,17 @@ services:
     volumes:
       - ./flower:/app
     ports:
-      - 5557:5555
+      - "5557:5555"
+    depends_on:
+      - celery
 
   rabbitmq:
     image: rabbitmq:alpine
     container_name: rabbitmq
     env_file: docker/.env
     ports:
-        - 5672:5672
-        - 15672:15672
+        - "5672:5672"
+        - "15672:15672"
     volumes:
         - ./rabbitmq/data/:/var/lib/rabbitmq
         - ./rabbitmq/log/:/var/log/rabbitmq

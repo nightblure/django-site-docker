@@ -33,7 +33,7 @@ FROM_DOCKER_IMAGE = 'FROM_DOCKER_IMAGE' in os.environ
 HOST = '0.0.0.0' if FROM_DOCKER_IMAGE else 'localhost'
 
 SITE_PORT = os.environ.get('SITE_PORT')
-PG_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST') or 'localhost'
+PG_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST') if FROM_DOCKER_IMAGE else 'localhost'
 PG_PORT = os.environ.get('PG_PORT') or 5432
 
 BROKER = os.environ.get('BROKER')

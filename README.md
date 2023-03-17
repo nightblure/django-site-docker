@@ -19,15 +19,15 @@
   - ```.flake8``` - конфиг линтера ```flake8```
 
 ## Запуск образа из Docker Hub
-  1. ```docker run nightblure/django-news:latest``` 
+  1. ```docker run -d -p 80:8000 nightblure/django-news:latest``` 
 
 ## Локальный запуск проекта:
-  1. Склонировать репозиторий
+  1. [Склонировать репозиторий](https://github.com/nightblure/django-site-docker.git)
   2. Активировать окружение poetry: ```poetry shell```
   3. Установить зависимости из файлов poetry: ```poetry install```
 
 ## Локальное развертывание из docker-образа:
-  1. Склонировать репозиторий
+  1. [Склонировать репозиторий](https://github.com/nightblure/django-site-docker.git)
   2. Задать выбранное имя БД в файле .env (переменная ```POSTGRES_DB```)
   3. Развернуть приложение из корневой папки: ```docker-compose up --build -d```
   4. Приложение доступно [по адресу](http://localhost:8000/)

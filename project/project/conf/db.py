@@ -1,6 +1,6 @@
 import os
 
-from project.settings import PG_PORT, PG_HOST
+from django.conf import settings
 
 DATABASES = {
     'default': {
@@ -11,7 +11,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': PG_HOST,
-        'PORT': PG_PORT,
+        'HOST': settings.PG_HOST,
+        'PORT': settings.PG_PORT,
     }
 }

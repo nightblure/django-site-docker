@@ -31,4 +31,5 @@ COPY ./docker ./docker
 RUN chmod a+x ./docker/*.sh
 
 EXPOSE 80
+EXPOSE 8000
 CMD docker/run-app.sh

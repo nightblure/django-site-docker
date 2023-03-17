@@ -9,7 +9,7 @@
 * Dependencies manager - ```Poetry```
 * Web Server - ```NGINX```
 * Caching - ```Redis```
-* Deploy - ```Docker Hub``` & ```Github Actions```
+* Deployment - ```Docker Hub``` & ```Github Actions```
 
 ## Описание файлов:
   - ```dump.sql``` - дамп в виде ```SQL```-скрипта. Он будет примонтирован к специальной директории (см. ```docker-compose```), в которой автоматически запускаются .sql, .bash скрипты и т.д. В него можно скопировать содержимое дампа и дамп будет развернут
@@ -19,7 +19,8 @@
   - ```.flake8``` - конфиг линтера ```flake8```
 
 ## Запуск образа из Docker Hub
-  1. ```docker run -d -p 80:8000 nightblure/django-news:latest``` 
+  1. ```docker run -d -p 80:80 nightblure/django-news:latest```
+  2. Приложение доступно [по адресу](http://localhost:80/)
 
 ## Локальный запуск проекта:
   1. [Склонировать репозиторий](https://github.com/nightblure/django-site-docker.git)

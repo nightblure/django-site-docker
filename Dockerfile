@@ -25,6 +25,8 @@ RUN pip install --upgrade pip \
     && pip install poetry \
     && poetry install
 
-COPY . .
+COPY ./project ./project
+COPY ./docker ./docker
 
+RUN chmod a+x ./docker/*.sh
 CMD docker/run-app.sh

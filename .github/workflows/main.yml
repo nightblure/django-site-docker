@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install flake8
@@ -40,9 +40,9 @@ jobs:
 #          cd project
 #          pytest -rs
 
-      - name: Create and push Docker image
+      - name: Build and push Docker image on Docker Hub
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "nightblure" --password-stdin
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u $DOCKER_REPOSITORY --password-stdin
           docker build . --file ./Dockerfile --tag $DOCKER_REPOSITORY/django-news:$IMAGE_TAG --no-cache
           docker push $DOCKER_REPOSITORY/django-news:$IMAGE_TAG
 

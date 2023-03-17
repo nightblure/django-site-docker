@@ -18,7 +18,7 @@ services:
     container_name: web
     build:
       context: .
-      dockerfile: Dockerfile.yml
+      dockerfile: Dockerfile
     ports:
       - 8000:8000
     depends_on:
@@ -35,7 +35,7 @@ services:
   celery:
     build:
       context: .
-      dockerfile: Dockerfile.yml
+      dockerfile: Dockerfile
     container_name: celery
     command: ["/app/docker/run-celery.sh"]
     volumes:
@@ -48,7 +48,7 @@ services:
     container_name: nginx
     build:
       context: .
-      dockerfile: Dockerfile_nginx.yml
+      dockerfile: Dockerfile_nginx
     volumes:
      - ./project/static:/django-site-docker/project/static/
      - ./project/media:/django-site-docker/project/media/

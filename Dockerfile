@@ -1,7 +1,6 @@
 ARG PY_VER=3.10.10-alpine3.16
 FROM python:${PY_VER}
 
-# переменные окружения
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     FROM_DOCKER_IMAGE=True
@@ -20,10 +19,8 @@ RUN mkdir /app
 # задаем рабочую директорию в контексте Dockerfile. далее можно пользоваться "." и писать относительные пути (относительно директории /app)
 WORKDIR /app
 
-# копируем файлы проекта в контейнер
 COPY ["pyproject.toml", "poetry.lock", "./"]
 
-# устанавливаем poetry и ставим зависимости в локальное окружение
 RUN pip install --upgrade pip \
     && pip install poetry \
     && poetry install

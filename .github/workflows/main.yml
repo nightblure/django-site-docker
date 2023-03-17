@@ -40,14 +40,13 @@ jobs:
 #          cd project
 #          pytest -rs
 
-#      - name: Build Docker Image
-#        run:
-#          docker build . --file ./Dockerfile --tag $DOCKER_REPOSITORY/django-news:$GITHUB_RUN_NUMBER --no-cache
+      - name: Build Docker Image
+        run: docker build . --file ./Dockerfile --tag $DOCKER_REPOSITORY/django-news:$GITHUB_RUN_NUMBER --no-cache
 
       - name: Create and push Docker image
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "nightblure" --password-stdin
-          docker image build -t nightblure/django-news:latest .
+#          docker image build . --file ./Dockerfile.yml -t nightblure/django-news:latest .
           docker push $DOCKER_REPOSITORY/django-news:$GITHUB_RUN_NUMBER
 
 #      - name: Install Poetry

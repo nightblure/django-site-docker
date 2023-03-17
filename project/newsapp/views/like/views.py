@@ -11,7 +11,7 @@ from newsapp.models import News, Like
 def like_view(request, **kwargs):
     # data = dict(request.POST)
     # print(data)
-    news_id = kwargs['news_id'] # data['news_id'] # kwargs['news_id']
+    news_id = kwargs['news_id']  # data['news_id'] # kwargs['news_id']
     news_obj = News.objects.get(pk=news_id)
     is_liked: bool = Like.objects.filter(user=request.user, news__pk=news_id).exists()
 

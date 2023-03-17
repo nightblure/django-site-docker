@@ -19,7 +19,7 @@
   - ```.flake8``` - конфиг линтера ```flake8```
 
 ## Запуск образа из Docker Hub
-  1. ```docker pull nightblure/django-news:latest``` 
+  1. ```docker run nightblure/django-news:latest``` 
 
 ## Локальный запуск проекта:
   1. Склонировать репозиторий

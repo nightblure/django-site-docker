@@ -29,4 +29,6 @@ COPY ./project ./project
 COPY ./docker ./docker
 
 RUN chmod a+x ./docker/*.sh
+
+EXPOSE 80
 CMD docker/run-app.sh

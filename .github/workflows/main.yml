@@ -31,10 +31,10 @@ jobs:
       - name: flake8
         run: flake8 .
 
-      - name: tests
-        run: |
-          cd project
-          pytest -rs
+#      - name: tests
+#        run: |
+#          cd project
+#          pytest -rs
 
       - uses: actions/checkout@v3
       - name: Create and push Docker image

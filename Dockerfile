@@ -26,6 +26,7 @@ RUN pip install --upgrade pip \
     && poetry install
 
 COPY ./project ./project
+
 COPY ./docker ./docker
 
 RUN chmod a+x ./docker/*.sh

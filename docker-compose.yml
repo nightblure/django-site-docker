@@ -5,11 +5,8 @@ services:
   db:
     container_name: django_postgres
     hostname: django_postgres
-    image: postgres
-    environment:
-      POSTGRES_DB: "django_site_db"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
+    image: postgres:alpine
+    env_file: docker/.env
     ports:
       - 5432:5432
     volumes:
@@ -22,8 +19,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.yml
-    command: sh -c "cd ./project/ && \
-                    poetry run gunicorn -b 0.0.0.0:8000 project.wsgi:application"
     ports:
       - 8000:8000
     depends_on:
@@ -33,7 +28,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis
+    image: redis:alpine
     ports:
      - 6379:6379
 
@@ -42,9 +37,7 @@ services:
       context: .
       dockerfile: Dockerfile.yml
     container_name: celery
-    command: >
-      sh -c "cd ./project/ &&
-             poetry run celery -A project worker -l info -P solo"
+    command: ["/app/docker/run-celery.sh"]
     volumes:
       - .:/code
     depends_on:
@@ -66,19 +59,16 @@ services:
 
   flower:
     container_name: flower
-    image: "mher/flower"
+    image: mher/flower:latest
     volumes:
       - ./flower:/app
     ports:
       - 5557:5555
 
   rabbitmq:
-    image: rabbitmq:management-alpine
+    image: rabbitmq:alpine
     container_name: rabbitmq
-    environment:
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
-      RABBITMQ_DEFAULT_VHOST: "/"
+    env_file: docker/.env
     ports:
         - 5672:5672
         - 15672:15672

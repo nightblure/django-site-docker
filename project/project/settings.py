@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # путь к .env файлу для определения значений переменных окружения
-dotenv_path = ROOT_DIR / '.env'
+dotenv_path = ROOT_DIR / 'docker/.env'
 
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
@@ -33,8 +33,8 @@ FROM_DOCKER_IMAGE = 'FROM_DOCKER_IMAGE' in os.environ
 HOST = '0.0.0.0' if FROM_DOCKER_IMAGE else 'localhost'
 
 SITE_PORT = os.environ.get('SITE_PORT')
-PG_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST') if FROM_DOCKER_IMAGE else os.environ.get('PG_HOST')
-PG_PORT = os.environ.get('PG_PORT')
+PG_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST') or 'localhost'
+PG_PORT = os.environ.get('PG_PORT') or 5432
 
 BROKER = os.environ.get('BROKER')
 

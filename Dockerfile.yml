@@ -1,30 +1,33 @@
-# https://tproger.ru/translations/docker-instuction/
-# --------------------------------------------------
-
-# базовый образ
-FROM python
+ARG PY_VER=3.10.10-alpine3.16
+FROM python:${PY_VER}
 
 # переменные окружения
 ENV PYTHONUNBUFFERED=1 \
-	PYTHONDONTWRITEBYTECODE=1 \
-	FROM_DOCKER_IMAGE=True
+    PYTHONDONTWRITEBYTECODE=1 \
+    FROM_DOCKER_IMAGE=True
 
-RUN mkdir /code
+RUN apk update \
+    && apk add --no-cache \
+        python3-dev \
+        postgresql-dev \
+        gcc \
+        musl-dev \
+    # clear apt cache
+    && rm -rf /var/lib/apt/lists/*
 
-# задаем рабочую директорию в контексте Dockerfile. далее можно пользоваться "." и писать относительные пути (относительно директории /code)
-WORKDIR /code
+RUN mkdir /app
+
+# задаем рабочую директорию в контексте Dockerfile. далее можно пользоваться "." и писать относительные пути (относительно директории /app)
+WORKDIR /app
 
 # копируем файлы проекта в контейнер
 COPY ["pyproject.toml", "poetry.lock", "./"]
 
 # устанавливаем poetry и ставим зависимости в локальное окружение
-RUN pip install poetry
-RUN poetry install
+RUN pip install --upgrade pip \
+    && pip install poetry \
+    && poetry install
 
 COPY . .
 
-# RUN python ./project/manage.py collectstatic
-
-# точка входа в приложение. формат: ["<command>" "<arg1>", "<arg2>", ..., "<argn>"]
-# не нужно писать code/project/manage.py, т.к. code/ является рабочей директорией (см. WORKDIR выше)
-# ENTRYPOINT ["poetry", "run", "python", "./project/manage.py", "runserver", "0.0.0.0:8000"]
+CMD docker/run-app.sh

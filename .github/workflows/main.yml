@@ -43,7 +43,7 @@ jobs:
       - name: Create and push Docker image
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "nightblure" --password-stdin
-          docker build . --file ./Dockerfile.yml --tag $DOCKER_REPOSITORY/django-news:$IMAGE_TAG --no-cache
+          docker build . --file ./Dockerfile --tag $DOCKER_REPOSITORY/django-news:$IMAGE_TAG --no-cache
           docker push $DOCKER_REPOSITORY/django-news:$IMAGE_TAG
 
 #      - name: Install Poetry

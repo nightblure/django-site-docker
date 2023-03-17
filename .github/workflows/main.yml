@@ -31,6 +31,18 @@ jobs:
       - name: flake8
         run: flake8 .
 
+      - name: tests
+        run: |
+          cd project
+          pytest -rs
+
+      - uses: actions/checkout@v3
+      - name: Create and push Docker image
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORDPW }}" | docker login -u "nightblure" --password-stdin
+          docker image build -t nightblure/django-news:latest .
+          docker push nightblure/django-news:latest
+
 #      - name: Install Poetry
 #        uses: snok/install-poetry@v1
 #        with:

@@ -11,9 +11,11 @@ https://github.com/ptrstn/django-testing-examples
 
 """
 
-@pytest.fixture(autouse=True)
-def create_test_user(django_user_model):
-    test_user = django_user_model.objects.create(username='test_user', password='pass')
-    yield test_user
-    test_user.delete()
+# https://www.django-rest-framework.org/api-guide/testing/
+# https://github.com/ptrstn/django-testing-examples/tree/master/myapp
+
+# @pytest.fixture(autouse=True)
+# def test_new_user(django_user_model):
+#     test_user = django_user_model.objects.create(username="test_user", password="pass")
+#     yield test_user
 

@@ -18,7 +18,7 @@ This project implements a small Django news site.
   - ```.docker/.env (далее .env)``` - env vars file
   - ```.flake8``` - ```flake8``` config file
 
-### Local run of the project:
+## Local run of the project:
   1. ```git clone https://github.com/nightblure/django-site-docker.git```
   2. Activate ```Poetry``` virtual environment: ```poetry shell```
   3. Install dependencies: ```poetry install```

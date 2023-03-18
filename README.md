@@ -2,37 +2,34 @@
 
 ![Build Status](https://github.com/nightblure/django-site-docker/actions/workflows/main.yml/badge.svg?branch=main)
 
-Этот проект реализует небольшой новостной сайт на Django
+This project implements a small Django news site.
 * Data Storage - ```PostgreSQL```
 * E-mail notifications - ```Celery```
 * REST API - ```Django REST Framework```
 * Dependencies manager - ```Poetry```
-* Web Server - ```NGINX```
+* Web Server - ```NGINX``` & ```Gunicorn```
 * Caching - ```Redis```
 * Deployment - ```Docker Hub``` & ```Github Actions```
 
-## Описание файлов:
-  - ```dump.sql``` - дамп в виде ```SQL```-скрипта. Он будет примонтирован к специальной директории (см. ```docker-compose```), в которой автоматически запускаются .sql, .bash скрипты и т.д. В него можно скопировать содержимое дампа и дамп будет развернут
-  - ```Dockerfile.yml``` - файл, на основе которого собирается docker-образ
-  - ```docker-compose.yml``` - файл, предназначенный для развертывания контейнера с приложением и сервисов из ранее созданного образа
-  - ```.docker/.env (далее .env)``` - файл с переменными окружения
-  - ```.flake8``` - конфиг линтера ```flake8```
+### Files:
+  - ```dump.sql``` - DB dump in ```SQL```-format
+  - ```Dockerfile.yml``` - main image Dockerfile
+  - ```docker-compose.yml``` - file for deployment ```Docker``` containers
+  - ```.docker/.env (далее .env)``` - env vars file
+  - ```.flake8``` - ```flake8``` config file
 
-## Запуск образа из Docker Hub
-  1. ```docker run -d -p 80:80 nightblure/django-news:latest```
-  2. Приложение доступно [по адресу](http://localhost:80/)
+### Local run of the project:
+  1. ```git clone https://github.com/nightblure/django-site-docker.git```
+  2. Activate ```poetry```: ```poetry shell```
+  3. Install dependencies: ```poetry install```
 
-## Локальный запуск проекта:
-  1. [Склонировать репозиторий](https://github.com/nightblure/django-site-docker.git)
-  2. Активировать окружение poetry: ```poetry shell```
-  3. Установить зависимости из файлов poetry: ```poetry install```
-
-## Локальное развертывание из docker-образа:
-  1. [Склонировать репозиторий](https://github.com/nightblure/django-site-docker.git)
-  2. Задать выбранное имя БД в файле .env (переменная ```POSTGRES_DB```)
-  3. Развернуть приложение из корневой папки: ```docker-compose up --build -d```
-  4. Приложение доступно [по адресу](http://localhost:8000/)
-  5. Линтер: ```flake8 .```
+## Local deployment with Docker:
+  1. [Clone repository](https://github.com/nightblure/django-site-docker.git)
+  2. Define DB name in .env if need custom name (variable ```POSTGRES_DB```)
+  3. Deploy with command ```docker-compose up --build -d```
+  4. [Run app](http://localhost:80/)
+  5. ```flake8``` code linter: ```flake8 .```
+  6. tests: ```pytest -rs```
 
 ## Примечания:
   * Миграции не нужны, т.к. в репозитории лежит дамп БД, в нем уже есть все таблицы с данными и системные таблицы Django

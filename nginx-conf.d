@@ -1,22 +1,26 @@
+upstream web {
+    # container:port
+    server web:8000;
+}
+
 server {
+
     listen 80;
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-
     client_max_body_size 16m;
 
     location / {
-        proxy_pass http://web:8000;
+        proxy_pass http://web;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
+        proxy_redirect off;
     }
 
     location /static/ {
-        alias /app/project/static/;
+        alias /app/static/;
     }
 
     location /media  {
-        alias /app/project/media/;
+        alias /app/media/;
     }
 
 }

@@ -19,8 +19,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+#    ports:
+#      - "8000:8000"
     depends_on:
       - db
       - redis
@@ -49,9 +49,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_nginx
-    volumes:
-     - ./project/static:/django-site-docker/project/static/
-     - ./project/media:/django-site-docker/project/media/
     ports:
      - "80:80"
     depends_on:

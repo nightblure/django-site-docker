@@ -20,8 +20,9 @@ This project implements a small Django news site.
 
 ### Local run of the project:
   1. ```git clone https://github.com/nightblure/django-site-docker.git```
-  2. Activate ```poetry```: ```poetry shell```
+  2. Activate ```Poetry``` virtual environment: ```poetry shell```
   3. Install dependencies: ```poetry install```
+  4. Run ```Celery```: ```celery -A project worker -l info -P solo```   
 
 ## Local deployment with Docker:
   1. [Clone repository](https://github.com/nightblure/django-site-docker.git)
@@ -29,12 +30,5 @@ This project implements a small Django news site.
   3. Deploy with command ```docker-compose up --build -d```
   4. [Run app](http://localhost:80/)
   5. ```flake8``` code linter: ```flake8 .```
-  6. tests: ```pytest -rs```
-
-## Примечания:
-  * Миграции не нужны, т.к. в репозитории лежит дамп БД, в нем уже есть все таблицы с данными и системные таблицы Django
-  * Если нужно поменять имя контейнера ```PostgreSQL``` в ```docker-compose```, то также нужно не забыть записать его в переменную ```HOST``` в .env
-  * Конфиг ```nginx.conf``` должен лежать в директории ```/etc/nginx```
-  * Конфиг ```appconfig.conf``` должен лежать в директории ```/etc/nginx/conf.d```
-  * Запуск ```celery```: ```celery -A project worker -l info -P solo```
+  6. Tests: ```pytest -rs```
 

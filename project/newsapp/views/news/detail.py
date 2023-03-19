@@ -10,20 +10,20 @@ from newsapp.models import News, Comment
 
 class OneNews(DetailView):
     model = News
-    pk_url_kwarg = 'news_id'
+    slug_url_kwarg = 'news_slug'
     template_name = 'news/news_page.html'
     context_object_name = 'news_item'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        news_id = self.kwargs['news_id']
-        comments = Comment.objects.filter(news__pk=news_id).order_by('-created')
+        news_slug = self.kwargs['news_slug']
+        comments = Comment.objects.filter(news__slug=news_slug).order_by('-created')
         context['comments'] = comments
         return context
 
     def get_queryset(self):
-        news_id = self.kwargs['news_id']
-        news_obj = News.objects.filter(pk=news_id)
+        news_slug = self.kwargs['news_slug']
+        news_obj = News.objects.filter(slug=news_slug)
 
         """
         news_item = get_object_or_404(News, pk=news_id)

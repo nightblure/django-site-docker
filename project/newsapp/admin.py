@@ -16,7 +16,7 @@ class NewsAdminForm(forms.ModelForm):
 class NewsAdmin(admin.ModelAdmin):
     form = NewsAdminForm
     # поля, отображаемые в админке
-    list_display = ['id', 'title', 'category', 'created_at', 'updated_at', 'is_published', 'image']
+    list_display = ['id', 'title', 'slug', 'category', 'created_at', 'updated_at', 'is_published', 'image']
     # поля-ссылки на записи
     list_display_links = ['id', 'title']
     search_fields = ['title', 'content']
@@ -24,6 +24,11 @@ class NewsAdmin(admin.ModelAdmin):
     list_editable = ['is_published', 'category']
     # поля, запрещаемые для редактирования в админке
     readonly_fields = ['created_at', 'views_count']
+
+    # # автозаполнение слага
+    prepopulated_fields = {
+        'slug': ('title',)
+    }
 
 
 class CategoryAdmin(admin.ModelAdmin):

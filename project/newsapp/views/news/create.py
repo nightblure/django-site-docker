@@ -13,5 +13,5 @@ class CreateNews(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     # записываем в атрибут юзер текущего пользователя при создании новости
     def form_valid(self, form):
         # записываем пользователя, создавшего новость
-        form.instance.user = self.request.user
+        form.instance.author = self.request.user
         return super().form_valid(form)

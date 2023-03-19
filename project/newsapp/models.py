@@ -16,7 +16,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
     title = models.CharField(max_length=150, verbose_name='Категория')
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=150)
 
     def __str__(self):
         return self.title
@@ -57,11 +57,22 @@ class News(models.Model):
     is_published = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, db_column='category_id')
     views_count = models.IntegerField(default=0)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    slug = models.SlugField(unique=True, max_length=250)
 
     # строковое представление для корректного отображения в админке
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        kwargs = {
+            'news_slug': self.slug
+        }
+        return reverse('one_news_route', kwargs=kwargs)
 
     # специальный подкласс для кастомизации админки
     class Meta:
@@ -69,12 +80,6 @@ class News(models.Model):
         verbose_name_plural = 'Новости'
         # '-' перед полем укажет на обратный порядок сортировки
         # ordering = ['-created_at']
-
-    def get_absolute_url(self):
-        kwargs = {
-            'news_id': self.id
-        }
-        return reverse('one_news_route', kwargs=kwargs)
 
 
 class Like(models.Model):

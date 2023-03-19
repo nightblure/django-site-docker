@@ -5,8 +5,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
 
-    # дефолтные классы для ограничения прав.
-    # отрабатывают, когда в View не определен атрибут permission_classes
+    # дефолтные пермишны
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
@@ -24,4 +23,6 @@ REST_FRAMEWORK = {
 
     # кастомный класс для пагинации. можно применять к отдельным вьюхам
     'DEFAULT_PAGINATION_CLASS': 'newsapp.api.pagination.StandardPagination',
+
+    'DATETIME_FORMAT': "%d.%m.%Y"
 }

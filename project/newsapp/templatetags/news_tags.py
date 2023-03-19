@@ -15,15 +15,10 @@ register = template.Library()
 # отбираем только категории, у которых имеется хотя бы одна опубликованная новость
 @register.inclusion_tag('categories/categories_list.html')
 def show_categories():
-    if 'categories' in cache:
-        categories = cache.get('categories')
-    else:
-        categories = Category.objects \
-            .filter(news__is_published=True) \
-            .annotate(count=Count('news')) \
-            .filter(count__gt=0)
-
-        cache.set('categories', categories, timeout=CACHE_TTL)
+    categories = Category.objects \
+        .filter(news__is_published=True) \
+        .annotate(count=Count('news')) \
+        .filter(count__gt=0)
 
     return {"categories": categories}
 

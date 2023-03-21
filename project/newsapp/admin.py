@@ -16,16 +16,20 @@ class NewsAdminForm(forms.ModelForm):
 class NewsAdmin(admin.ModelAdmin):
     form = NewsAdminForm
     # поля, отображаемые в админке
-    list_display = ['id', 'title', 'slug', 'category', 'created_at', 'updated_at', 'is_published', 'image']
+    list_display = [
+        'id', 'title', 'slug', 'author',
+        'category', 'created_at', 'updated_at',
+        'is_published', 'image'
+    ]
     # поля-ссылки на записи
     list_display_links = ['id', 'title']
     search_fields = ['title', 'content']
     # поля доступные для быстрого редактирования в админке
-    list_editable = ['is_published', 'category']
+    list_editable = ['is_published', 'category', 'author']
     # поля, запрещаемые для редактирования в админке
     readonly_fields = ['created_at', 'views_count']
 
-    # # автозаполнение слага
+    # автозаполнение слага
     prepopulated_fields = {
         'slug': ('title',)
     }

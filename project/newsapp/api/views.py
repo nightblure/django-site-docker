@@ -8,7 +8,7 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from newsapp.api.pagination import StandardPagination
-from newsapp.api.permissions import IsAdmin, IsOwnerOrAdminOrAuthenticated
+from newsapp.api.permissions import IsAdmin
 from newsapp.models import News, Category
 from newsapp.api.serializers import NewsSerializer, CategorySerializer
 

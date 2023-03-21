@@ -1,31 +1,20 @@
-from datetime import datetime
-
 from django.db.models import Q
-from rest_framework import serializers, status
+from django.utils.text import slugify
+from rest_framework import generics
 from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from newsapp.api.news.serializers import InputSerializer, OutputSerializer
+from newsapp.api.news.permissions import IsNewsAuthorOrAdminAndAuthenticated
 from newsapp.api.pagination import StandardPagination
 from newsapp.api.utils import get_paginated_response
-from newsapp.models import News, Category
+from newsapp.models import News
 
 """
 by default we have IsAuthenticated permission for all requests!
 (check project.conf.api.py)
 """
-
-
-# https://github.com/HackSoftware/Django-Styleguide#apis--serializers
-class OutputSerializer(serializers.Serializer):
-    title = serializers.CharField()
-    content = serializers.CharField()
-    category = serializers.CharField()
-    author = serializers.CharField()
-    created_at = serializers.DateTimeField()
-    last_updated = serializers.DateTimeField(source='updated_at')
-    image_url = serializers.ImageField(source='image', use_url=True)
-    views_count = serializers.IntegerField()
 
 
 class NewsGetApi(APIView):
@@ -70,32 +59,40 @@ example:
         "category": "synths"
     }   
 """
-
-
 class NewsUpdateApi(APIView):
-    class InputSerializer(serializers.Serializer):
-        title = serializers.CharField()
-        content = serializers.CharField()
-        category = serializers.SlugRelatedField(slug_field='slug', queryset=Category.objects)
-
-        def update(self, instance, validated_data):
-            instance.title = validated_data['title']
-            instance.content = validated_data['content']
-            instance.category = validated_data['category']
-            instance.updated_at = datetime.now()
-            instance.save()
-            return instance
+    permission_classes = [IsNewsAuthorOrAdminAndAuthenticated]
 
     def patch(self, request, slug_title: str):
         news_obj = get_object_or_404(News, slug=slug_title, is_published=True)
-        serializer = self.InputSerializer(data=request.data, instance=news_obj)
+        # trigger permission check manually because its not generic view
+        self.check_object_permissions(request, news_obj)
+        serializer = InputSerializer(data=request.data, instance=news_obj)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         output_data = OutputSerializer(news_obj)
         return Response(output_data.data)
 
-#
-# class NewsAPIDelete(generics.RetrieveDestroyAPIView):
-#     queryset = News.objects.filter(is_published=True)
-#     serializer_class = NewsSerializer
-#     permission_classes = (IsAdmin,)
+
+class NewsDeleteApi(APIView):
+    permission_classes = [IsNewsAuthorOrAdminAndAuthenticated]
+
+    def delete(self, request, slug_title: str):
+        news_obj = get_object_or_404(News, slug=slug_title, is_published=True)
+        # trigger permission check manually because its not generic view
+        self.check_object_permissions(request, news_obj)
+        news_obj.delete()
+        return Response({'message': 'success'})
+
+
+class NewsCreateApi(APIView):
+    def post(self, request):
+        data = request.data
+        serializer = InputSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        if News.objects.filter(slug=slugify(data['title'])).exists():
+            return Response({'message': f"News with title '{data['title']}' already posted"})
+
+        news_obj, _ = serializer.save(author=request.user)
+        output_data = OutputSerializer(news_obj)
+        return Response(output_data.data)

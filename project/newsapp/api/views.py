@@ -63,26 +63,6 @@ class NewsAPIView(APIView):
 # ВСЕ CRUD-ОПЕРАЦИИ для ОДНОЙ записи - RetrieveUpdateDestroyAPIView
 #
 
-class NewsAPIList(generics.ListCreateAPIView):
-    queryset = News.objects.filter(is_published=True)
-    serializer_class = NewsSerializer
-    # вместо permission_classes отработает класс
-    # IsAuthenticated, определенный в settings как пермишн по умолчанию
-    pagination_class = StandardPagination
-
-
-class NewsAPIUpdate(generics.RetrieveUpdateAPIView):
-    queryset = News.objects.filter(is_published=True)
-    serializer_class = NewsSerializer
-    permission_classes = (IsOwnerOrAdminOrAuthenticated,)
-    # authentication_classes = (TokenAuthentication, )
-
-
-class NewsAPIDelete(generics.RetrieveDestroyAPIView):
-    queryset = News.objects.filter(is_published=True)
-    serializer_class = NewsSerializer
-    permission_classes = (IsAdmin,)
-
 
 class CategoryAPIList(generics.ListAPIView):
     queryset = Category.objects.all()

@@ -4,8 +4,7 @@ from django.urls import path, include, re_path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from newsapp.api.views import (
-    NewsViewSet, NewsAPIList,
-    NewsAPIUpdate, NewsAPIDelete,
+    NewsViewSet,
     CategoryAPIList
 )
 
@@ -49,7 +48,7 @@ jwt_patterns = [
 ]
 
 urlpatterns = [
-    path('api/v1/news/', include('newsapp.api.news_api.urls')),
+    path('api/v1/news/', include('newsapp.api.news.urls')),
 
     path('api/v1/categories/', CategoryAPIList.as_view()),
 

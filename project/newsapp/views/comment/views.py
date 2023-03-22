@@ -21,10 +21,11 @@ def comment_view(request, news_id, username):
             text=comment_text
         )
 
-    return redirect('one_news_route', news_id=news_id)
+    return redirect('one_news_route', news_slug=news_obj.slug)
 
 
 @login_required
 def remove_comment_view(request, news_id, comment_id):
     Comment.objects.get(pk=comment_id).delete()
-    return redirect('one_news_route', news_id=news_id)
+    news_obj = News.objects.get(pk=news_id)
+    return redirect('one_news_route', news_slug=news_obj.slug)

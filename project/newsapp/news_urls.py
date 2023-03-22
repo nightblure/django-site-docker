@@ -11,6 +11,6 @@ urlpatterns = [
     #
     path('create/', CreateNews.as_view(), name='create_news_route'),
     path('<slug:news_slug>/', OneNews.as_view(), name='one_news_route'),
-    path('delete/<int:pk>/', DeleteNews.as_view(), name='delete_news_route'),
-    path('edit/<int:pk>/', UpdateNewsView.as_view(), name='edit_news_route')
+    path('delete/<slug:slug>/', DeleteNews.as_view(), name='delete_news_route'),
+    path('edit/<slug:slug>/', UpdateNewsView.as_view(), name='edit_news_route')
 ]

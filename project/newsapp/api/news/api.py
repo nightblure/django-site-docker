@@ -1,15 +1,14 @@
 from django.db.models import Q
 from django.utils.text import slugify
-from rest_framework import generics
 from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from newsapp.api.news.permissions import IsAdmin
 from newsapp.api.news.serializers import InputSerializer, OutputSerializer
-from newsapp.api.news.permissions import IsNewsAuthorOrAdminAndAuthenticated
 from newsapp.api.pagination import StandardPagination
 from newsapp.api.utils import get_paginated_response
-from newsapp.models import News
+from newsapp.models import News, Category
 
 """
 by default we have IsAuthenticated permission for all requests!
@@ -59,8 +58,10 @@ example:
         "category": "synths"
     }   
 """
+
+
 class NewsUpdateApi(APIView):
-    permission_classes = [IsNewsAuthorOrAdminAndAuthenticated]
+    permission_classes = [IsAdmin]
 
     def patch(self, request, slug_title: str):
         news_obj = get_object_or_404(News, slug=slug_title, is_published=True)
@@ -74,7 +75,7 @@ class NewsUpdateApi(APIView):
 
 
 class NewsDeleteApi(APIView):
-    permission_classes = [IsNewsAuthorOrAdminAndAuthenticated]
+    permission_classes = [IsAdmin]
 
     def delete(self, request, slug_title: str):
         news_obj = get_object_or_404(News, slug=slug_title, is_published=True)
@@ -85,7 +86,10 @@ class NewsDeleteApi(APIView):
 
 
 class NewsCreateApi(APIView):
+    permission_classes = [IsAdmin]
+
     def post(self, request):
+        self.check_permissions(request)
         data = request.data
         serializer = InputSerializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -96,3 +100,11 @@ class NewsCreateApi(APIView):
         news_obj, _ = serializer.save(author=request.user)
         output_data = OutputSerializer(news_obj)
         return Response(output_data.data)
+
+
+class NewsGetByCategoryApi(APIView):
+    def get(self, request, category_slug: str):
+        category = get_object_or_404(Category, slug=category_slug)
+        news_objects = News.objects.filter(category=category, is_published=True)
+        serializer = OutputSerializer(news_objects, many=True)
+        return Response(serializer.data)

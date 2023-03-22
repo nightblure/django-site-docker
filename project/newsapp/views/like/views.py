@@ -13,11 +13,11 @@ def like_view(request, **kwargs):
     # print(data)
     news_id = kwargs['news_id']  # data['news_id'] # kwargs['news_id']
     news_obj = News.objects.get(pk=news_id)
-    is_liked: bool = Like.objects.filter(user=request.user, news__pk=news_id).exists()
+    like_obj = Like.objects.filter(user=request.user, news=news_obj)
+    is_liked: bool = like_obj.exists()
 
     if is_liked:
-        like_obj = Like.objects.get(user=request.user, news__pk=news_id)
-        like_obj.delete()
+        like_obj.first().delete()
     else:
         Like.objects.create(user=request.user, news=news_obj)
 

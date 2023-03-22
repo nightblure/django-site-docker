@@ -32,12 +32,12 @@
 
             {% if request.user == news_item.user or user.is_staff %}
 
-            <form action="{% url 'delete_news_route' pk=news_item.pk %}" method="post" enctype="multipart/form-data">
+            <form action="{% url 'delete_news_route' slug=news_item.slug %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-outline-danger float-end">Удалить</button>
             </form>
 
-            <a href="{% url 'edit_news_route' pk=news_item.pk %}" class="btn btn-outline-primary">Редактировать</a>
+            <a href="{% url 'edit_news_route' slug=news_item.slug %}" class="btn btn-outline-primary">Редактировать</a>
 
             {% endif %}
 

@@ -30,5 +30,9 @@ This project implements a small Django news site.
   3. Deploy with command ```docker-compose up --build -d```
   4. [Run app](http://localhost:80/)
   5. ```flake8``` code linter: ```flake8 .```
-  6. Tests: ```pytest -rs```
+  6. Tests (from ```project``` folder): 
+     * ```pytest -rs```
+     * ```pytest --cov=.```
+     * ```coverage html```
+     * ```coverage report -m```
 

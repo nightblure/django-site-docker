@@ -10,29 +10,29 @@ This project implements a small Django news site.
 * Web Server - ```NGINX``` & ```Gunicorn```
 * Caching - ```Redis```
 * Deployment - ```Docker Hub``` & ```Github Actions```
+* Tests - ```pytest```
+* Code style - ```flake8```
 
-### Files:
-  - ```dump.sql``` - DB dump in ```SQL```-format
-  - ```Dockerfile.yml``` - main image Dockerfile
+## Files:
+  - ```Makefile``` - file with all commands
+  - ```dump.sql``` - ```PostgreSQL``` dump in ```SQL``` format
+  - ```Dockerfile.yml``` - Dockerfile
   - ```docker-compose.yml``` - file for deployment ```Docker``` containers
-  - ```.docker/.env (далее .env)``` - env vars file
-  - ```.flake8``` - ```flake8``` config file
+  - ```.docker/.env``` - env variables
+  - ```.flake8``` - ```flake8``` linter config file
 
 ## Local run of the project:
-  1. ```git clone https://github.com/nightblure/django-site-docker.git```
-  2. Activate ```Poetry``` virtual environment: ```poetry shell```
-  3. Install dependencies: ```poetry install```
-  4. Run ```Celery```: ```celery -A project worker -l info -P solo```   
+  1. Install dependencies: ```make deps```
+  2. Run ```Celery```: ```make celery```
+  3. Run server: ```make server```
+  4. Linter checks: ```make linter```
+  5. Tests: ```make tests``` 
+     * ```pytest -rs```
+     * ```pytest --cov=.```
 
 ## Local deployment with Docker:
   1. [Clone repository](https://github.com/nightblure/django-site-docker.git)
   2. Define DB name in .env if need custom name (variable ```POSTGRES_DB```)
-  3. Deploy with command ```docker-compose up --build -d```
-  4. [Run app](http://localhost:80/)
-  5. ```flake8``` code linter: ```flake8 .```
-  6. Tests (from ```project``` folder): 
-     * ```pytest -rs```
-     * ```pytest --cov=.```
-     * ```coverage html```
-     * ```coverage report -m```
+  3. Deploy with command ```make up```
+  4. [Check address](http://localhost:80/)
 

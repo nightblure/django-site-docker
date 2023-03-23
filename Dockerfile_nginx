@@ -4,5 +4,5 @@ WORKDIR /app
 
 COPY nginx-conf.d /etc/nginx/conf.d/default.conf
 
-COPY project/static static
-COPY project/media media
+COPY src/static static
+COPY src/media media

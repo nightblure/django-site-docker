@@ -6,9 +6,9 @@ services:
     container_name: django_postgres
     hostname: django_postgres
     image: postgres:alpine
-    env_file: docker/.env
+    env_file: src/.env
     ports:
-      - "5432:5432"
+      - "5430:5432"
     volumes:
       - ./django_postgres:/var/lib/postgresql/dat
       # специальная директория для автовыполнения .sql скриптов
@@ -67,7 +67,7 @@ services:
   rabbitmq:
     image: rabbitmq:alpine
     container_name: rabbitmq
-    env_file: docker/.env
+    env_file: src/.env
     ports:
         - "5672:5672"
         - "15672:15672"

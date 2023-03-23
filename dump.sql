@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.0 (Debian 15.0-1.pgdg110+1)
--- Dumped by pg_dump version 15.0 (Debian 15.0-1.pgdg110+1)
+-- Dumped from database version 15.2
+-- Dumped by pg_dump version 15.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -268,7 +268,7 @@ ALTER TABLE public.django_session OWNER TO postgres;
 CREATE TABLE public.newsapp_category (
     id bigint NOT NULL,
     title character varying(150) NOT NULL,
-    slug character varying(50) NOT NULL
+    slug character varying(150) NOT NULL
 );
 
 
@@ -380,7 +380,8 @@ CREATE TABLE public.newsapp_news (
     is_published boolean NOT NULL,
     views_count integer NOT NULL,
     category_id bigint NOT NULL,
-    user_id bigint NOT NULL
+    author_id bigint NOT NULL,
+    slug character varying(250) NOT NULL
 );
 
 
@@ -688,6 +689,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.authtoken_token (key, created, user_id) FROM stdin;
+21efa7612cba3f6b6f15f9717650cb9fb598526a	2023-03-18 12:14:32.277742+00	1
 \.
 
 
@@ -782,6 +784,28 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 84	2022-11-09 11:33:45.489826+00	56	Save 33% on ShaperBox 3 + Lifeline Console Lite Bundle	2	[{"changed": {"fields": ["Title", "content", "Image"]}}]	8	1
 85	2022-11-09 11:34:58.354993+00	57	Voxengo updates SPAN to v3.15	2	[{"changed": {"fields": ["content"]}}]	8	1
 86	2022-11-09 11:36:24.980653+00	58	Save 62% on Infinite Color Bundle for RC-20 by D-Fused Sounds	2	[{"changed": {"fields": ["content", "Image"]}}]	8	1
+87	2023-03-19 09:59:36.978272+00	63	Save 40% on Smooth Operator effect plugin by Baby Audio	2	[]	8	1
+88	2023-03-19 09:59:41.55227+00	62	Native Instruments Kontakt 7: New browser & library, now available	2	[]	8	1
+89	2023-03-19 09:59:43.756317+00	61	Klevgrand updates Grand Finale audio finalizer to v2.0	2	[]	8	1
+90	2023-03-19 09:59:46.088545+00	60	iZotope launches Audiolens track referencing software, FREE for limited time	2	[]	8	1
+91	2023-03-19 09:59:48.325417+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[]	8	1
+92	2023-03-19 09:59:50.693636+00	58	Save 62% on Infinite Color Bundle for RC-20 by D-Fused Sounds	2	[]	8	1
+93	2023-03-19 09:59:53.265934+00	57	Voxengo updates SPAN to v3.15	2	[]	8	1
+94	2023-03-19 09:59:56.778494+00	56	Save 33% on ShaperBox 3 + Lifeline Console Lite Bundle	2	[]	8	1
+95	2023-03-19 10:08:55.876221+00	63	Save 40% on Smooth Operator effect plugin by Baby Audio	2	[]	8	1
+96	2023-03-19 10:38:38.695734+00	65	sdgg	2	[{"changed": {"fields": ["Title", "content", "Slug"]}}]	8	1
+97	2023-03-19 10:42:39.928264+00	69	fdffdf	2	[{"changed": {"fields": ["Title", "content", "Slug"]}}]	8	1
+98	2023-03-19 10:46:37.118807+00	71	ыва	3		8	1
+99	2023-03-21 18:08:36.384735+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["Is published"]}}]	8	1
+100	2023-03-21 18:08:48.117923+00	59	Excite Audio launches KSHMR Chain plugin chain utility	2	[{"changed": {"fields": ["Is published"]}}]	8	1
+101	2023-03-21 18:59:16.71698+00	72	Test News	1	[{"added": {}}]	8	1
+102	2023-03-21 19:24:43.446739+00	74	test tt	2	[{"changed": {"fields": ["content", "Category"]}}]	8	1
+103	2023-03-21 19:27:17.436453+00	74	test tt	3		8	1
+104	2023-03-21 20:03:52.685011+00	2	nightxx	2	[{"changed": {"fields": ["Staff status"]}}]	6	1
+105	2023-03-21 20:11:10.339261+00	2	nightxx	2	[{"changed": {"fields": ["Staff status"]}}]	6	1
+106	2023-03-21 20:22:09.506204+00	79	testsx	1	[{"added": {}}]	8	1
+107	2023-03-22 13:46:39.743826+00	140	sdf	3		8	1
+108	2023-03-22 14:24:50.33543+00	11	testcat	3		7	1
 \.
 
 
@@ -841,6 +865,10 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 29	newsapp	0008_alter_user_is_subscriber	2022-11-01 11:43:36.644795+00
 30	newsapp	0009_alter_user_is_subscriber	2022-11-01 11:44:06.098351+00
 31	newsapp	0010_alter_user_is_subscriber	2022-11-01 11:48:34.081601+00
+32	newsapp	0011_news_slug	2023-03-19 09:57:46.458232+00
+33	newsapp	0012_rename_user_news_author	2023-03-19 09:57:46.489232+00
+34	newsapp	0013_alter_news_slug	2023-03-19 09:59:30.517239+00
+35	newsapp	0014_alter_category_slug_alter_news_slug	2023-03-19 10:01:27.3425+00
 \.
 
 
@@ -854,6 +882,7 @@ t3x5x6hjvrf1i6wies1hewgnuu99abii	.eJxVjEEOgjAQRe_StWlmKHTEpXvP0HQ6U4saSCisjHcXEh
 hi6h2itumnjpkic2f7uurfr5cinlyosy	.eJxVjEEOwiAQRe_C2hAodEpduvcMZJiZStVAUtqV8e7apAvd_vfef6mI25rj1mSJM6uzsur0uyWkh5Qd8B3LrWqqZV3mpHdFH7Tpa2V5Xg737yBjy9-aEiIgWJYw8SiBJAzeW_QCCYfJwci9YNcBeWYjGIAcgzNsbMAenHp_ABwsOMA:1omzA3:HHWJ5wp_56NKF3lGMGzWKvOg-NGoAWj383d66J3PYyA	2022-11-07 15:14:43.522404+00
 uxbzqg9p5ll752wcfx7bl63g11x9732k	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1ooi3X:9UUiq6F_uk9sSzniBoHs_wT2ZEhVG4uSVF73XFeUHeo	2022-11-12 09:23:07.737807+00
 5nvdavssg73ni5p68o6851xghz5bip3f	.eJxVjMsKwjAURP8lawlNYl4u3fsN5b4wVUmgaVfiv9tCF7oamHNm3mqEdSnj2mUeJ1YXZdTpt0Ogp9Qd8APqvWlqdZkn1LuiD9r1rbG8rof7d1Cgl22NATC4QD6wWGfdOUaMxmaigCGz3dI7YsHMQ8KUDCJKHjyQT17Iqc8X61Y4Zg:1osjCJ:4iffLszigW5eOM0hmWQdis6ILeV3zC9yqyy6A-QXbBc	2022-11-23 11:24:47.42416+00
+n1q6hndy0vw3c1i3h1wjg7mw05swzhqm	.eJxVjDsOwyAQBe9CHSEWMIiU6XMGtMuugpMIJH8qK3ePLblI2jczb1MZ16XmdZYpj6yuCtTldyMsL2kH4Ce2R9elt2UaSR-KPums753lfTvdv4OKc91r66Mla5I3zosADAZYQgLCZA1TGhy7GBFKQQ6RMWKgIGAS78iwU58vv8E3WQ:1peiEG:Bk61qMAbBSW65Ngu3Qfm1Ayw6xvmW31O0bE8uDCxAX4	2023-04-04 20:05:08.965152+00
 \.
 
 
@@ -889,7 +918,8 @@ COPY public.newsapp_comment (id, text, updated, created, news_id, user_id) FROM 
 
 COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
 87	57	1
-88	61	1
+89	61	1
+91	58	1
 \.
 
 
@@ -897,15 +927,15 @@ COPY public.newsapp_like (id, news_id, user_id) FROM stdin;
 -- Data for Name: newsapp_news; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_published, views_count, category_id, user_id) FROM stdin;
-61	Klevgrand updates Grand Finale audio finalizer to v2.0	<p>Klevgrand has recently released an update to its multi-effect plug-in designed for finalizing complete mixes, stems, buses and/or individual audio tracks. Version 2.0 of&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/50-Mastering-/8706-Grand-Finale?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Grand Finale</a>&nbsp;brings a major facelift and some extra horsepower under the hood.</p>\r\n\r\n<p>Grand Finale is now an even more powerful tool designed for quickly finalizing complete mixes, stems, buses and/or individual audio tracks.</p>\r\n\r\n<p>SO WHAT&rsquo;S NEW? First and foremost we gave the UI a complete overhaul. Our primary aim for this new look has been to make the workflow more fun and intuitive with a clear step by step approach. The new version includes a LUFS-meter with reset, a more full-fledged multiband compressor and a bunch of new presets. AND, in addition to all this, Grand Finale will now be available as an AUv3.</p>\r\n\r\n<p><strong>Grand Finale 2.0 features</strong></p>\r\n\r\n<ul>\r\n\t<li>High quality effects, trimmed for high-precision audio finalizing.</li>\r\n\t<li>LUFS and RMS output metering.</li>\r\n\t<li>Parallel signal in aligned phase.</li>\r\n\t<li>Additive signal path with distortion and/or compression.</li>\r\n\t<li>Revamped UI optimized for a quick and creative workflow.</li>\r\n\t<li>Stereo width enhancer.</li>\r\n\t<li>Multi-band compressor.</li>\r\n\t<li>Fine-tuned limiter.</li>\r\n\t<li>Collection of pre-made presets.</li>\r\n</ul>\r\n\r\n<p>Grand Finale for Windows and Mac (VST/AU/AAX) is available to purchase at&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/50-Mastering-/8706-Grand-Finale?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://klevgrand.com/products/grandfinale" rel="noopener nofollow" target="_blank">Klevgrand</a>&nbsp;store for $69.99 USD.</p>\r\n\r\n<p>The iOS version is priced $9.99 USD at the&nbsp;<a href="https://apps.apple.com/us/app/grand-finale-2/id6444091341" rel="noopener nofollow" target="_blank">App Store</a>.</p>	2022-11-09 11:22:07.453211+00	2022-11-09 11:28:28.219899+00	images/2022/11/09/Klevgrand-Grand-Finale.jpg	t	11	1	2
-56	Save 33% on ShaperBox 3 + Lifeline Console Lite Bundle	<p>Plugin Boutique has launched an exclusive bundle offer on&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/39-FX-Bundle/9869-ShaperBox-3-Lifeline-Console-Lite-Bundle?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">ShaperBox 3 + Lifeline Console Lite</a>, offering a 33% discount on the two creative audio plugins by Cableguys and Excite Audio for the next few weeks.</p>\r\n\r\n<p>Push boundaries and find your sound with two incredible effects plugins in one special bundle.</p>\r\n\r\n<p>ShaperBox 3 is the go-to plugin for inspiration, musical motion and mixing magic with power-packed upgrades like Audio Triggering, Sidechain View in VolumeShaper, and the new LiquidShaper flanger/phaser. Lifeline Console Lite brings recordings to life with the warmth and charm of analogue audio processing.</p>\r\n\r\n<p>The bundle is priced $99 USD until November 29th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/159-Exclusive-Bundles-?a_aid=4af297e055206&amp;s=published" rel="noopener nofollow" target="_blank">Plugin Boutique</a></p>	2022-11-09 10:56:44.836107+00	2022-11-09 11:33:44.473856+00	images/2022/11/09/PIB-Shaperbox-3-LifeLine-Console-Lite-Bundle.png	t	46	1	1
-58	Save 62% on Infinite Color Bundle for RC-20 by D-Fused Sounds	<p>VST Buzz has launched a two-week promotion on the Infinite Color Bundle by D-Fused Sounds, a collection of 5 preset packs for the&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/44-Saturation/3016-RC-20-Retro-Color?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">RC-20 Retro Color</a>&nbsp;plugin by XLN Audio.</p>\r\n\r\n<p>This is an extra-large collection loaded with 223 presets to cover all of your needs from distortion, lo-fi, fluttering, flanging and chorusing effects. You&rsquo;ll get a palette of infinite colors for add nuance to your drum one shot, guitar riffs or entire bus channels!</p>\r\n\r\n<p>The bundle is priced only 29 EUR until November 22nd, 2022 (regular value 77 EUR). Prices ex. VAT in EU.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://vstbuzz.com/?ref=3" rel="noopener nofollow" target="_blank">VST Buzz</a></p>	2022-11-09 11:08:50.969338+00	2022-11-09 11:36:23.9483+00	images/2022/11/09/VST-Buzz-Infinite-Color-Bundle.jpg	t	8	8	1
-59	Excite Audio launches KSHMR Chain plugin chain utility	<p>Excite Audio has announced the release of an innovative utility that instantly copies your plugin chain from one track to countless others, allowing you to spend your time and effort where it matters most while producing.</p>\r\n\r\n<p>Using a forward-thinking Leader / Follower concept,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/72-Utility/9641-KSHMR-Chain?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">KSHMR Chain</a>&nbsp;lets you fine-tune the settings of multiple tracks with a single twist, and then hear the accumulative effect of that change in real time &ndash; great for working with vocal stacks or groups of instruments.</p>\r\n\r\n<p>The plugin has been developed in collaboration with KSHMR, whose philosophy is that &ldquo;an efficient workflow helps you to stay creative&rdquo;. With this in mind, the plugin also doubles up as an intuitive organizational tool, scanning and stocking all your plugins in easy-to-reach categories that make sense for producers.</p>\r\n\r\n<p><strong>KSHMR Chain features</strong></p>\r\n\r\n<ul>\r\n\t<li>Revolutionary Leader Follower Technology.</li>\r\n\t<li>Customizable effects chains.</li>\r\n\t<li>Automatic plugin categorization.</li>\r\n\t<li>Powerful macro control.</li>\r\n\t<li>Parallel processing and gain staging.</li>\r\n\t<li>Individual plugin bypass.</li>\r\n\t<li>Leader and Follower bypass modes.</li>\r\n\t<li>Plugin RMS metering.</li>\r\n</ul>\r\n\r\n<p>Available as a VST3, AU and AAX plugin for Windows and Mac, KSHMR Chain is on sale for the introduction price $29 USD instead of $49 USD of until October 31st, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/322-Excite-Audio?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Excite Audio</a></p>	2022-11-09 11:10:06.05581+00	2022-11-09 11:27:40.255365+00	images/2022/11/09/Excite-Audio-KSHMR-Chain.jpg	t	26	7	1
-62	Native Instruments Kontakt 7: New browser & library, now available	<p>Native Instruments has released the latest version of its do-it-all instrument platform.&nbsp;<a href="https://rekkerd.org/out/native-instruments-kontakt/" rel="noopener nofollow" target="_blank">Kontakt 7</a>&nbsp;features a new resizable browser, an overhauled Factory Library, newly added effects, and under-the-hood audio improvements.</p>\r\n\r\n<p>KONTAKT is everything from instant inspiration for music makers to the industry&rsquo;s leading instrument-building tool. More than a sampler, this shapeshifting platform has powered two decades of blockbuster film scores and chart-topping hits, plus thousands of incredible instruments.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Kontakt 7 features</strong></p>\r\n\r\n<ul>\r\n\t<li>New Factory Library: The revamped Factory Library comes with new sounds, effects, added functionality, plus a HiDPI interface.</li>\r\n\t<li>7 Collections of brand-new instruments in the Factory Library: Anything from orchestral, acoustic, band, beats, choir, synth to vintage.</li>\r\n\t<li>Enhanced browsing experience: You can now search, filter, and audition sounds as well as viewing preset properties and editing tags.</li>\r\n\t<li>Improved engine: Updated time stretching algorithm and 2 new effects from Guitar Rig 6.</li>\r\n\t<li>Simpler instrument creation process: Instrument developers now have access to Creator Tools, a standalone application suite consisting of a Debugger, an Instrument Editor, and a GUI Designer.</li>\r\n</ul>\r\n\r\n<p>Kontakt 7 for Windows and Mac is available to purchase for 299 USD/EUR.</p>\r\n\r\n<p>Owners of a previous version of Kontakt can upgrade for 99 USD/EUR, while registered users of qualifying Kontakt Player products can crossgrade for 199 USD/EUR.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://rekkerd.org/out/native-instruments/" rel="noopener nofollow" target="_blank">Native Instruments</a></p>	2022-11-09 11:25:21.339378+00	2022-11-09 11:35:38.100701+00	images/2022/11/09/Native-Instruments-Kontakt-7.jpg	t	7	10	2
-63	Save 40% on Smooth Operator effect plugin by Baby Audio	<p>Plugin Boutique has announced an exclusive sale on Baby Audio&rsquo;s intelligent signal balancer plugin designed for bringing out clarity and smoothness across instruments, vocals and mix buses.</p>\r\n\r\n<p>Allowing for creative tone-shaping without artifacts or harsh resonances,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/71-Dynamic-Processor/7565-Smooth-Operator?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Smooth Operator</a>&nbsp;features an intelligent algorithm that automatically detects and resolves fatigued frequencies.</p>\r\n\r\n<p>Smooth Operator combines equalization, spectral compression and resonance suppression into a singular creative experience that&rsquo;s instant and intuitive. Use it to perfect your tonal balance and add a touch of &lsquo;hi-fi&rsquo;.</p>\r\n\r\n<p>BABY Audio&rsquo;s spectral detection algorithm adapts to your audio 44,100 times per second and automatically eliminates fatigued frequencies. This gives you full control to shape your signal and bring out more definition.</p>\r\n\r\n<p>Smooth Operator for Windows and Mac (VST/VST3, AU and AAX) is on sale for $39 USD instead of $69 USD until November 13th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/263-Baby-Audio?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Baby Audio</a></p>	2022-11-09 11:26:44.950199+00	2022-11-09 11:27:10.79433+00	images/2022/11/09/Baby-Audio-Smooth-Operator-950x500.jpg	t	2	8	2
-60	iZotope launches Audiolens track referencing software, FREE for limited time	<p>iZotope has launched a new desktop app that analyzes audio from any streaming platform or audio source, without the need for downloading media files or setting up tedious audio routing setups.</p>\r\n\r\n<p>When paired with iZotope&rsquo;s AI-powered Assistant technology in Neutron and Ozone,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/95-Referencing-Tools/9927-Audiolens?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Audiolens</a>&nbsp;completely transforms your mixing and mastering reference workflow.</p>\r\n\r\n<p>Play your chosen audio through the selected output of your device and the application will collect data on key sonic characteristics, helping you to visualize, compare, and match your favorite reference tracks and sounds.</p>\r\n\r\n<p>Save time by capturing the analysis from Audiolens as a reference track so that you can use it in mixing and mastering without the need for downloading media files or setting up tedious audio routing setups. Integrate seamlessly with iZotope plug-ins Ozone 10 and Neutron 4 where you can match to your references and fine-tune your sound using the AI Assistants.</p>\r\n\r\n<p>Regularly priced $99 USD, Audiolens for Windows and macOS is free to download at&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/95-Referencing-Tools/9927-Audiolens?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://www.izotope.com/en/products/audiolens.html" rel="noopener nofollow" target="_blank">iZotope</a>&nbsp;website until November 22nd, 2022.</p>	2022-11-09 11:20:24.451196+00	2022-11-09 11:32:04.172508+00	images/2022/11/09/iZotope-Audiolens.jpg	t	6	9	2
-57	Voxengo updates SPAN to v3.15	<p>Voxengo has announced an update to the popular&nbsp;<strong>SPAN</strong>&nbsp;free real-time &ldquo;fast Fourier transform&rdquo; audio spectrum analyzer plugin for Windows and Mac.</p>\r\n\r\n<p>SPAN provides you with a very flexible &ldquo;mode&rdquo; system which you can use to setup your spectrum analyzer preferences. You may specify Fourier block size in samples, FFT window overlap percentage, spectrum&rsquo;s visual slope. Beside that you can choose to display secondary spectrum of a desired type (e.g. real-time maximum, all-time maximum). Spectrum can be smoothed out visually for an easier examination.</p>\r\n\r\n<p><strong>Changes in SPAN v3.13</strong></p>\r\n\r\n<ul>\r\n\t<li>Added the &ldquo;Large Cursor Readouts&rdquo; plug-in setting which enables larger mouse position readouts, useful when the plug-in is placed on a distant dedicated monitor.</li>\r\n\t<li>Fixed a drawing bug with the &ldquo;Flat Panels&rdquo; global switch disabled.</li>\r\n\t<li>Improved overall graphics drawing performance.</li>\r\n\t<li>Improved anti-aliased line rendering of the secondary spectrum.</li>\r\n\t<li>Improved knob&rsquo;s renderings.</li>\r\n\t<li>By frequent user request, the &ldquo;Solo&rdquo; switch&rsquo;s state is now saved together with the preset (a part of the routing parameters). While this opens up a possibility of leaving the &ldquo;Solo&rdquo; switch enabled and forgotten, this provides more flexibility, e.g. when mid/side processing is used.</li>\r\n</ul>\r\n\r\n<p>Available in VST/VST3, AU and AAX plugin formats, SPAN is free to download at&nbsp;<a href="https://www.voxengo.com/product/span/" rel="noopener nofollow" target="_blank">Voxengo</a>&nbsp;and from&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/25-Spectral-Analysis/695-Voxengo-SPAN?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>.</p>	2022-11-09 11:06:59.119001+00	2022-11-09 11:34:57.333931+00	images/2022/11/09/Voxengo-SPAN-free-spectrum-analyzer.jpg	t	6	1	1
+COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_published, views_count, category_id, author_id, slug) FROM stdin;
+58	Save 62% on Infinite Color Bundle for RC-20 by D-Fused Sounds	<p>VST Buzz has launched a two-week promotion on the Infinite Color Bundle by D-Fused Sounds, a collection of 5 preset packs for the&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/44-Saturation/3016-RC-20-Retro-Color?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">RC-20 Retro Color</a>&nbsp;plugin by XLN Audio.</p>\r\n\r\n<p>This is an extra-large collection loaded with 223 presets to cover all of your needs from distortion, lo-fi, fluttering, flanging and chorusing effects. You&rsquo;ll get a palette of infinite colors for add nuance to your drum one shot, guitar riffs or entire bus channels!</p>\r\n\r\n<p>The bundle is priced only 29 EUR until November 22nd, 2022 (regular value 77 EUR). Prices ex. VAT in EU.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://vstbuzz.com/?ref=3" rel="noopener nofollow" target="_blank">VST Buzz</a></p>	2022-11-09 11:08:50.969338+00	2023-03-19 09:59:50.691635+00	images/2022/11/09/VST-Buzz-Infinite-Color-Bundle.jpg	t	10	8	1	save-62-on-infinite-color-bundle-for-rc-20-by-d-fused-sounds
+57	Voxengo updates SPAN to v3.15	<p>Voxengo has announced an update to the popular&nbsp;<strong>SPAN</strong>&nbsp;free real-time &ldquo;fast Fourier transform&rdquo; audio spectrum analyzer plugin for Windows and Mac.</p>\r\n\r\n<p>SPAN provides you with a very flexible &ldquo;mode&rdquo; system which you can use to setup your spectrum analyzer preferences. You may specify Fourier block size in samples, FFT window overlap percentage, spectrum&rsquo;s visual slope. Beside that you can choose to display secondary spectrum of a desired type (e.g. real-time maximum, all-time maximum). Spectrum can be smoothed out visually for an easier examination.</p>\r\n\r\n<p><strong>Changes in SPAN v3.13</strong></p>\r\n\r\n<ul>\r\n\t<li>Added the &ldquo;Large Cursor Readouts&rdquo; plug-in setting which enables larger mouse position readouts, useful when the plug-in is placed on a distant dedicated monitor.</li>\r\n\t<li>Fixed a drawing bug with the &ldquo;Flat Panels&rdquo; global switch disabled.</li>\r\n\t<li>Improved overall graphics drawing performance.</li>\r\n\t<li>Improved anti-aliased line rendering of the secondary spectrum.</li>\r\n\t<li>Improved knob&rsquo;s renderings.</li>\r\n\t<li>By frequent user request, the &ldquo;Solo&rdquo; switch&rsquo;s state is now saved together with the preset (a part of the routing parameters). While this opens up a possibility of leaving the &ldquo;Solo&rdquo; switch enabled and forgotten, this provides more flexibility, e.g. when mid/side processing is used.</li>\r\n</ul>\r\n\r\n<p>Available in VST/VST3, AU and AAX plugin formats, SPAN is free to download at&nbsp;<a href="https://www.voxengo.com/product/span/" rel="noopener nofollow" target="_blank">Voxengo</a>&nbsp;and from&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/25-Spectral-Analysis/695-Voxengo-SPAN?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>.</p>	2022-11-09 11:06:59.119001+00	2023-03-19 09:59:53.261934+00	images/2022/11/09/Voxengo-SPAN-free-spectrum-analyzer.jpg	t	6	1	1	voxengo-updates-span-to-v315
+60	iZotope launches Audiolens track referencing software, FREE for limited time	<p>iZotope has launched a new desktop app that analyzes audio from any streaming platform or audio source, without the need for downloading media files or setting up tedious audio routing setups.</p>\r\n\r\n<p>When paired with iZotope&rsquo;s AI-powered Assistant technology in Neutron and Ozone,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/95-Referencing-Tools/9927-Audiolens?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Audiolens</a>&nbsp;completely transforms your mixing and mastering reference workflow.</p>\r\n\r\n<p>Play your chosen audio through the selected output of your device and the application will collect data on key sonic characteristics, helping you to visualize, compare, and match your favorite reference tracks and sounds.</p>\r\n\r\n<p>Save time by capturing the analysis from Audiolens as a reference track so that you can use it in mixing and mastering without the need for downloading media files or setting up tedious audio routing setups. Integrate seamlessly with iZotope plug-ins Ozone 10 and Neutron 4 where you can match to your references and fine-tune your sound using the AI Assistants.</p>\r\n\r\n<p>Regularly priced $99 USD, Audiolens for Windows and macOS is free to download at&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/95-Referencing-Tools/9927-Audiolens?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://www.izotope.com/en/products/audiolens.html" rel="noopener nofollow" target="_blank">iZotope</a>&nbsp;website until November 22nd, 2022.</p>	2022-11-09 11:20:24.451196+00	2023-03-19 09:59:46.085547+00	images/2022/11/09/iZotope-Audiolens.jpg	t	7	9	2	izotope-launches-audiolens-track-referencing-software-free-for-limited-time
+56	Save 33% on ShaperBox 3 + Lifeline Console Lite Bundle	<p>Plugin Boutique has launched an exclusive bundle offer on&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/39-FX-Bundle/9869-ShaperBox-3-Lifeline-Console-Lite-Bundle?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">ShaperBox 3 + Lifeline Console Lite</a>, offering a 33% discount on the two creative audio plugins by Cableguys and Excite Audio for the next few weeks.</p>\r\n\r\n<p>Push boundaries and find your sound with two incredible effects plugins in one special bundle.</p>\r\n\r\n<p>ShaperBox 3 is the go-to plugin for inspiration, musical motion and mixing magic with power-packed upgrades like Audio Triggering, Sidechain View in VolumeShaper, and the new LiquidShaper flanger/phaser. Lifeline Console Lite brings recordings to life with the warmth and charm of analogue audio processing.</p>\r\n\r\n<p>The bundle is priced $99 USD until November 29th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/159-Exclusive-Bundles-?a_aid=4af297e055206&amp;s=published" rel="noopener nofollow" target="_blank">Plugin Boutique</a></p>	2022-11-09 10:56:44.836107+00	2023-03-19 09:59:56.776495+00	images/2022/11/09/PIB-Shaperbox-3-LifeLine-Console-Lite-Bundle.png	t	46	1	1	save-33-on-shaperbox-3-lifeline-console-lite-bundle
+62	Native Instruments Kontakt 7: New browser & library, now available	<p>Native Instruments has released the latest version of its do-it-all instrument platform.&nbsp;<a href="https://rekkerd.org/out/native-instruments-kontakt/" rel="noopener nofollow" target="_blank">Kontakt 7</a>&nbsp;features a new resizable browser, an overhauled Factory Library, newly added effects, and under-the-hood audio improvements.</p>\r\n\r\n<p>KONTAKT is everything from instant inspiration for music makers to the industry&rsquo;s leading instrument-building tool. More than a sampler, this shapeshifting platform has powered two decades of blockbuster film scores and chart-topping hits, plus thousands of incredible instruments.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>Kontakt 7 features</strong></p>\r\n\r\n<ul>\r\n\t<li>New Factory Library: The revamped Factory Library comes with new sounds, effects, added functionality, plus a HiDPI interface.</li>\r\n\t<li>7 Collections of brand-new instruments in the Factory Library: Anything from orchestral, acoustic, band, beats, choir, synth to vintage.</li>\r\n\t<li>Enhanced browsing experience: You can now search, filter, and audition sounds as well as viewing preset properties and editing tags.</li>\r\n\t<li>Improved engine: Updated time stretching algorithm and 2 new effects from Guitar Rig 6.</li>\r\n\t<li>Simpler instrument creation process: Instrument developers now have access to Creator Tools, a standalone application suite consisting of a Debugger, an Instrument Editor, and a GUI Designer.</li>\r\n</ul>\r\n\r\n<p>Kontakt 7 for Windows and Mac is available to purchase for 299 USD/EUR.</p>\r\n\r\n<p>Owners of a previous version of Kontakt can upgrade for 99 USD/EUR, while registered users of qualifying Kontakt Player products can crossgrade for 199 USD/EUR.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://rekkerd.org/out/native-instruments/" rel="noopener nofollow" target="_blank">Native Instruments</a></p>	2022-11-09 11:25:21.339378+00	2023-03-19 10:06:31.044025+00	images/2022/11/09/Native-Instruments-Kontakt-7.jpg	t	13	10	2	native-instruments-kontakt-7-new-browser-library-now-available
+61	Klevgrand updates Grand Finale audio finalizer to v2.0	<p>Klevgrand has recently released an update to its multi-effect plug-in designed for finalizing complete mixes, stems, buses and/or individual audio tracks. Version 2.0 of&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/50-Mastering-/8706-Grand-Finale?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Grand Finale</a>&nbsp;brings a major facelift and some extra horsepower under the hood.</p>\r\n\r\n<p>Grand Finale is now an even more powerful tool designed for quickly finalizing complete mixes, stems, buses and/or individual audio tracks.</p>\r\n\r\n<p>SO WHAT&rsquo;S NEW? First and foremost we gave the UI a complete overhaul. Our primary aim for this new look has been to make the workflow more fun and intuitive with a clear step by step approach. The new version includes a LUFS-meter with reset, a more full-fledged multiband compressor and a bunch of new presets. AND, in addition to all this, Grand Finale will now be available as an AUv3.</p>\r\n\r\n<p><strong>Grand Finale 2.0 features</strong></p>\r\n\r\n<ul>\r\n\t<li>High quality effects, trimmed for high-precision audio finalizing.</li>\r\n\t<li>LUFS and RMS output metering.</li>\r\n\t<li>Parallel signal in aligned phase.</li>\r\n\t<li>Additive signal path with distortion and/or compression.</li>\r\n\t<li>Revamped UI optimized for a quick and creative workflow.</li>\r\n\t<li>Stereo width enhancer.</li>\r\n\t<li>Multi-band compressor.</li>\r\n\t<li>Fine-tuned limiter.</li>\r\n\t<li>Collection of pre-made presets.</li>\r\n</ul>\r\n\r\n<p>Grand Finale for Windows and Mac (VST/AU/AAX) is available to purchase at&nbsp;<a href="https://www.pluginboutique.com/product/2-Effects/50-Mastering-/8706-Grand-Finale?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Plugin Boutique</a>&nbsp;and from the&nbsp;<a href="https://klevgrand.com/products/grandfinale" rel="noopener nofollow" target="_blank">Klevgrand</a>&nbsp;store for $69.99 USD.</p>\r\n\r\n<p>The iOS version is priced $9.99 USD at the&nbsp;<a href="https://apps.apple.com/us/app/grand-finale-2/id6444091341" rel="noopener nofollow" target="_blank">App Store</a>.</p>	2022-11-09 11:22:07.453211+00	2023-03-19 10:32:02.619655+00	images/2022/11/09/Klevgrand-Grand-Finale.jpg	t	23	1	2	klevgrand-updates-grand-finale-audio-finalizer-to-v20
+59	Excite Audio launches KSHMR Chain plugin chain utility	<p>Excite Audio has announced the release of an innovative utility that instantly copies your plugin chain from one track to countless others, allowing you to spend your time and effort where it matters most while producing.</p>\r\n\r\n<p>Using a forward-thinking Leader / Follower concept,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/72-Utility/9641-KSHMR-Chain?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">KSHMR Chain</a>&nbsp;lets you fine-tune the settings of multiple tracks with a single twist, and then hear the accumulative effect of that change in real time &ndash; great for working with vocal stacks or groups of instruments.</p>\r\n\r\n<p>The plugin has been developed in collaboration with KSHMR, whose philosophy is that &ldquo;an efficient workflow helps you to stay creative&rdquo;. With this in mind, the plugin also doubles up as an intuitive organizational tool, scanning and stocking all your plugins in easy-to-reach categories that make sense for producers.</p>\r\n\r\n<p><strong>KSHMR Chain features</strong></p>\r\n\r\n<ul>\r\n\t<li>Revolutionary Leader Follower Technology.</li>\r\n\t<li>Customizable effects chains.</li>\r\n\t<li>Automatic plugin categorization.</li>\r\n\t<li>Powerful macro control.</li>\r\n\t<li>Parallel processing and gain staging.</li>\r\n\t<li>Individual plugin bypass.</li>\r\n\t<li>Leader and Follower bypass modes.</li>\r\n\t<li>Plugin RMS metering.</li>\r\n</ul>\r\n\r\n<p>Available as a VST3, AU and AAX plugin for Windows and Mac, KSHMR Chain is on sale for the introduction price $29 USD instead of $49 USD of until October 31st, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/322-Excite-Audio?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Excite Audio</a></p>	2022-11-09 11:10:06.05581+00	2023-03-21 18:08:48.111924+00	images/2022/11/09/Excite-Audio-KSHMR-Chain.jpg	t	29	7	1	excite-audio-launches-kshmr-chain-plugin-chain-utility
+63	Save 40% on Smooth Operator effect plugin by Baby Audio	<p>Plugin Boutique has announced an exclusive sale on Baby Audio&rsquo;s intelligent signal balancer plugin designed for bringing out clarity and smoothness across instruments, vocals and mix buses.</p>\r\n\r\n<p>Allowing for creative tone-shaping without artifacts or harsh resonances,&nbsp;<a href="https://www.pluginboutique.com/product/3-Studio-Tools/71-Dynamic-Processor/7565-Smooth-Operator?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Smooth Operator</a>&nbsp;features an intelligent algorithm that automatically detects and resolves fatigued frequencies.</p>\r\n\r\n<p>Smooth Operator combines equalization, spectral compression and resonance suppression into a singular creative experience that&rsquo;s instant and intuitive. Use it to perfect your tonal balance and add a touch of &lsquo;hi-fi&rsquo;.</p>\r\n\r\n<p>BABY Audio&rsquo;s spectral detection algorithm adapts to your audio 44,100 times per second and automatically eliminates fatigued frequencies. This gives you full control to shape your signal and bring out more definition.</p>\r\n\r\n<p>Smooth Operator for Windows and Mac (VST/VST3, AU and AAX) is on sale for $39 USD instead of $69 USD until November 13th, 2022.</p>\r\n\r\n<p>More information:&nbsp;<a href="https://www.pluginboutique.com/manufacturers/263-Baby-Audio?a_aid=4af297e055206" rel="noopener nofollow" target="_blank">Baby Audio</a></p>	2022-11-09 11:26:44.950199+00	2023-03-19 10:08:55.874221+00	images/2022/11/09/Baby-Audio-Smooth-Operator-950x500.jpg	t	10	8	2	save-40-on-smooth-operator-effect-plugin-by-baby-audio
 \.
 
 
@@ -915,8 +945,8 @@ COPY public.newsapp_news (id, title, content, created_at, updated_at, image, is_
 
 COPY public.newsapp_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, bio, avatar, is_subscriber) FROM stdin;
 8	pbkdf2_sha256$390000$o4DsIQXdf4IcwOaeqDngrG$5BFF/BkSKnNxrY+8slLSwyFLJWjxAuOOyRuMNmDqfrM=	2022-10-28 13:03:12.333103+00	f	user			vanobel159@gmail.com	f	t	2022-10-28 11:58:50.815483+00			f
-2	pbkdf2_sha256$390000$9e4fO9Zvy7sHnN5m7aainj$aF7bQE7Xvj2RNjQd8MzWb8LCIgCko4hj78+uy+8Rnow=	2022-11-09 11:23:35.693774+00	f	nightxx			vanobel159@gmail.com	f	t	2022-10-24 14:47:55+00		background_for_BANDCAMP.jpg	t
-1	pbkdf2_sha256$390000$ogLgYH6VHLRRsHskvQZ0ud$dGYrOvnsHEDXMCg9my4gybSfaHsrNZizTZ5gcz0Vp2U=	2022-11-09 11:24:47.382159+00	t	admin			vanyabel13@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo.jpg	f
+1	pbkdf2_sha256$390000$79usp45eKk8n7hQBxo3qOV$Gn0vhI1G4AvS9uRStT8Sr8EkFRUw4i5VF6FpYCSxX+Q=	2023-03-21 20:05:08.897101+00	t	admin			vanyabel13@gmail.com	t	t	2022-10-24 12:15:59+00		ly6sDhI35Yo.jpg	t
+2	pbkdf2_sha256$390000$9e4fO9Zvy7sHnN5m7aainj$aF7bQE7Xvj2RNjQd8MzWb8LCIgCko4hj78+uy+8Rnow=	2023-03-21 20:02:35+00	f	nightxx			vanobel159@gmail.com	f	t	2022-10-24 14:47:55+00		background_for_BANDCAMP.jpg	t
 \.
 
 
@@ -961,7 +991,7 @@ SELECT pg_catalog.setval('public.auth_permission_id_seq', 48, true);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 86, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 108, true);
 
 
 --
@@ -975,35 +1005,35 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 31, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 35, true);
 
 
 --
 -- Name: newsapp_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_category_id_seq', 10, true);
+SELECT pg_catalog.setval('public.newsapp_category_id_seq', 11, true);
 
 
 --
 -- Name: newsapp_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_comment_id_seq', 26, true);
+SELECT pg_catalog.setval('public.newsapp_comment_id_seq', 27, true);
 
 
 --
 -- Name: newsapp_like_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_like_id_seq', 88, true);
+SELECT pg_catalog.setval('public.newsapp_like_id_seq', 101, true);
 
 
 --
 -- Name: newsapp_news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_news_id_seq', 63, true);
+SELECT pg_catalog.setval('public.newsapp_news_id_seq', 142, true);
 
 
 --
@@ -1017,7 +1047,7 @@ SELECT pg_catalog.setval('public.newsapp_user_groups_id_seq', 1, false);
 -- Name: newsapp_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.newsapp_user_id_seq', 8, true);
+SELECT pg_catalog.setval('public.newsapp_user_id_seq', 13, true);
 
 
 --
@@ -1169,6 +1199,14 @@ ALTER TABLE ONLY public.newsapp_like
 
 ALTER TABLE ONLY public.newsapp_news
     ADD CONSTRAINT newsapp_news_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: newsapp_news newsapp_news_slug_a891fa23_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.newsapp_news
+    ADD CONSTRAINT newsapp_news_slug_a891fa23_uniq UNIQUE (slug);
 
 
 --
@@ -1333,10 +1371,17 @@ CREATE INDEX newsapp_news_category_id_4dd5cca6 ON public.newsapp_news USING btre
 
 
 --
+-- Name: newsapp_news_slug_a891fa23_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX newsapp_news_slug_a891fa23_like ON public.newsapp_news USING btree (slug varchar_pattern_ops);
+
+
+--
 -- Name: newsapp_news_user_id_14eddac3; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX newsapp_news_user_id_14eddac3 ON public.newsapp_news USING btree (user_id);
+CREATE INDEX newsapp_news_user_id_14eddac3 ON public.newsapp_news USING btree (author_id);
 
 
 --
@@ -1455,19 +1500,19 @@ ALTER TABLE ONLY public.newsapp_like
 
 
 --
+-- Name: newsapp_news newsapp_news_author_id_7ae1c7b1_fk_newsapp_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.newsapp_news
+    ADD CONSTRAINT newsapp_news_author_id_7ae1c7b1_fk_newsapp_user_id FOREIGN KEY (author_id) REFERENCES public.newsapp_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: newsapp_news newsapp_news_category_id_4dd5cca6_fk_newsapp_category_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.newsapp_news
     ADD CONSTRAINT newsapp_news_category_id_4dd5cca6_fk_newsapp_category_id FOREIGN KEY (category_id) REFERENCES public.newsapp_category(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- Name: newsapp_news newsapp_news_user_id_14eddac3_fk_newsapp_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.newsapp_news
-    ADD CONSTRAINT newsapp_news_user_id_14eddac3_fk_newsapp_user_id FOREIGN KEY (user_id) REFERENCES public.newsapp_user(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

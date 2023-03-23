@@ -25,7 +25,7 @@ RUN pip install --upgrade pip \
     && pip install poetry \
     && poetry install
 
-COPY ./project ./project
+COPY src ./project
 
 COPY ./docker ./docker
 

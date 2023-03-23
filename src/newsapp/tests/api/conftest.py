@@ -1,18 +1,12 @@
 import pytest
 from django.conf import settings
-from rest_framework.test import APIRequestFactory, APIClient
+from django.forms import model_to_dict
+from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
+from django.urls import reverse
 
-from newsapp.models import User
+from newsapp.models import User, Category
 
 """
-run tests (run from project folder): pytest -rs
-
-coverage report (run from project folder): 
-    * coverage html
-    * coverage report -m (report in cli)
-    * pytest --cov=.
-
-
 https://www.django-rest-framework.org/api-guide/testing/
 https://docs.pytest.org/en/latest/index.html
 
@@ -38,6 +32,10 @@ settings.DATABASES['default'] = {
     'NAME': 'external_db',
 }
 """
+
+pytestmark = [pytest.mark.django_db]
+
+
 @pytest.fixture(scope='session')
 def django_db_setup():
     settings.DATABASES['default'] = settings.DATABASES['default']
@@ -50,26 +48,41 @@ def unauthenticated_client():
 
 
 @pytest.fixture(scope='session')
-@pytest.mark.django_db
-def get_admin_user():
+def user_admin():
     yield User.objects.get(username='admin')
 
 
 @pytest.fixture(scope='session')
-@pytest.mark.django_db
-def get_not_admin_user():
+def no_admin_user():
     yield User.objects.get(username='nightxx')
 
 
 @pytest.fixture(scope='session')
-def no_admin_client(get_not_admin_user):
+def no_admin_client(no_admin_user):
     client = APIClient()
-    client.force_authenticate(user=get_not_admin_user)
+    client.force_authenticate(user=no_admin_user)
     yield client
 
 
 @pytest.fixture(scope='session')
-def admin_client(get_admin_user):
+def admin_user_client(user_admin):
     client = APIClient()
-    client.force_authenticate(user=get_admin_user)
+    client.force_authenticate(user=user_admin)
     yield client
+
+
+@pytest.fixture(scope='session')
+def request_factory():
+    yield APIRequestFactory()
+
+
+@pytest.fixture(scope='session')
+def categories_list():
+    yield Category.objects.values()
+
+
+@pytest.fixture
+def exists_category():
+    cat = Category.objects.create(title='Test category')
+    yield cat
+    cat.delete()

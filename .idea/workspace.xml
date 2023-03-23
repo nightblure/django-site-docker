@@ -32,15 +32,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/desktop/dev/django-site-docker/src/manage.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/desktop/dev/django-site-docker/src/newsapp",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\desktop\dev\django-site-docker\project\newsapp\api\like" />
@@ -57,7 +57,7 @@
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
     </key>
   </component>
-  <component name="RunManager" selected="Makefile Target.server">
+  <component name="RunManager" selected="Python tests.pytest in newsapp">
     <configuration name="server" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="server" workingDirectory="" arguments="">
         <envs />
@@ -106,7 +106,7 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="pytest in tests" type="tests" factoryName="py.test" nameIsGenerated="true">
+    <configuration name="pytest in newsapp" type="tests" factoryName="py.test" nameIsGenerated="true">
       <module name="django site" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -119,7 +119,7 @@
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;-rs&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/newsapp/tests&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/newsapp&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
@@ -127,7 +127,7 @@
       <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
       <item itemvalue="Makefile Target.server" />
       <item itemvalue="Python.debug" />
-      <item itemvalue="Python tests.pytest in tests" />
+      <item itemvalue="Python tests.pytest in newsapp" />
     </list>
     <recent_temporary>
       <list>

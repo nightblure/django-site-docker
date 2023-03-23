@@ -8,7 +8,7 @@ from newsapp.models import News, Category
 
 
 class OutputSerializer(serializers.Serializer):
-    title = serializers.CharField()
+    title = serializers.CharField(required=True)
 
 
 class InputSerializer(OutputSerializer):
@@ -33,8 +33,10 @@ class CategoryCreateApi(APIView):
         serializer.is_valid(raise_exception=True)
 
         if Category.objects.filter(title=data['title']).exists():
-            return Response({'message': f"Category with title '{data['title']}' already exists"})
+            return Response(
+                status=400, data={'message': f"Category with title '{data['title']}' already exists"}
+            )
 
         category_obj, _ = serializer.save()
         output_data = OutputSerializer(category_obj)
-        return Response(output_data.data)
+        return Response(status=201, data=output_data.data)

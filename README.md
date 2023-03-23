@@ -10,7 +10,7 @@ This project implements a small Django news site.
 * Web Server - ```NGINX``` & ```Gunicorn```
 * Caching - ```Redis```
 * Deployment - ```Docker Hub``` & ```Github Actions```
-* Tests - ```pytest```
+* Tests - ```pytest``` & ```mixer```
 * Code style - ```flake8```
 
 ## Files:
@@ -21,16 +21,17 @@ This project implements a small Django news site.
   - ```.docker/.env``` - env variables
   - ```.flake8``` - ```flake8``` linter config file
 
-## Local run of the project:
+## Local run:
   1. Install dependencies: ```make deps```
   2. Run ```Celery```: ```make celery```
   3. Run server: ```make server```
   4. Linter checks: ```make linter```
   5. Tests: ```make tests``` 
-     * ```pytest -rs```
-     * ```pytest --cov=.```
+     * run only: ```pytest -rs```
+     * minimalistic coverage report: ```pytest --cov=.```
+     * full coverage report: ```pytest --cov-report term-missing --cov=.```
 
-## Local deployment with Docker:
+## Local run with Docker:
   1. [Clone repository](https://github.com/nightblure/django-site-docker.git)
   2. Define DB name in .env if need custom name (variable ```POSTGRES_DB```)
   3. Deploy with command ```make up```

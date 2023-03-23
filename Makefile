@@ -15,6 +15,7 @@ linter:
 tests:
 	cd src/newsapp
 	pytest -rs -n auto --ff -x --create-db --cov-report=html --cov=. -m 'not single_thread'
+	pytest --cov=.
 
 up:
 	docker-compose up --build -d

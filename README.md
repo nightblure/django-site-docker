@@ -51,9 +51,8 @@ Tests:
 make tests
 ```
 
-* run only: ```pytest -rs```
-* minimalistic coverage report: ```pytest --cov=.```
-* full coverage report: ```pytest --cov-report term-missing --cov=.```
+* cli coverage report: ```pytest -rs --cov=.```
+* cli and html coverage report: ```pytest --cov-report html --cov=.```
 
 ## Local run with Docker:
   1. [Clone repository](https://github.com/nightblure/django-site-docker.git)

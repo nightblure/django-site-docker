@@ -21,10 +21,10 @@ jobs:
         ports:
           - 5430:5432
 
-#      redis:
-#        image: redis:6.2.10-alpine
-#        ports:
-#          - 6379:6379
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
 
     env:
       DOCKER_REPOSITORY: nightblure

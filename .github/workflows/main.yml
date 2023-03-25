@@ -1,13 +1,6 @@
 name: build
 
-on:
-  push:
-    branches:
-      - "*"
-
-  pull_request:
-    branches:
-      - "*"
+on: [push, pull_request]
 
 jobs:
   build:
@@ -22,9 +15,9 @@ jobs:
         python-version: ['3.10']
 
     steps:
-      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4.2.0
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 

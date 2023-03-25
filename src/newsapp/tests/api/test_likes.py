@@ -1,4 +1,3 @@
-from django.forms import model_to_dict
 from django.urls import reverse
 from mixer.backend.django import mixer
 from rest_framework.test import force_authenticate
@@ -7,7 +6,7 @@ from newsapp.api.like.api import LikeNewsApi, UnlikeNewsApi
 from newsapp.models import News, Like
 
 
-def test_like_exists_news(request_factory, no_admin_user):
+def test_like_exists_news(request_factory, no_admin_user, off_signals):
     news = mixer.blend(News)
     view = LikeNewsApi.as_view()
     request = request_factory.post(

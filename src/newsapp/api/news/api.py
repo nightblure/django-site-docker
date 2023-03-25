@@ -94,7 +94,7 @@ class NewsCreateApi(APIView):
         serializer = InputSerializer(data=data)
         serializer.is_valid(raise_exception=True)
 
-        if News.objects.filter(slug=slugify(data['title'])).exists():
+        if News.objects.filter(slug=slugify(data['title']), is_published=True).exists():
             return Response({'message': f"News with title '{data['title']}' already posted"})
 
         news_obj, _ = serializer.save(author=request.user)

@@ -1,5 +1,6 @@
 import pytest
 from django.conf import settings
+from django.db.models.signals import post_save, pre_save
 from django.forms import model_to_dict
 from mixer.backend.django import mixer
 from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
@@ -43,15 +44,15 @@ def django_db_setup():
 
 
 @pytest.fixture
-def unauthenticated_client():
-    client = APIClient()
-    yield client
-
-
-@pytest.fixture
 def admin_user(db):
     user = User.objects.create(username='test_admin', is_staff=True)
     yield user
+
+    # fix from protect mode for user in news model :c
+    for news in News.objects.all():
+        if news.author == user:
+            news.delete()
+
     user.delete()
 
 
@@ -59,21 +60,46 @@ def admin_user(db):
 def no_admin_user(db):
     user = User.objects.create(username='test_user')
     yield user
+
+    # fix from protect mode for user in news model :c
+    for news in News.objects.all():
+        if news.author == user:
+            news.delete()
+
     user.delete()
 
 
 @pytest.fixture
-def no_admin_client(no_admin_user):
+def random_no_admin_user(db):
+    user = mixer.blend(User, is_staff=False)
+    yield user
+
+    # fix from protect mode for user in news model :c
+    for news in News.objects.all():
+        if news.author == user:
+            news.delete()
+
+    user.delete()
+
+
+@pytest.fixture
+def api_client():
+    client = APIClient()
+    yield client
+
+
+@pytest.fixture
+def no_admin_auth_api_client(no_admin_user):
     client = APIClient()
     client.force_authenticate(user=no_admin_user)
     yield client
 
 
-@pytest.fixture(scope='session')
-def admin_user_client(admin_user):
-    client = APIClient()
-    client.force_authenticate(user=admin_user)
-    yield client
+# @pytest.fixture(scope='session')
+# def admin_user_client(admin_user):
+#     client = APIClient()
+#     client.force_authenticate(user=admin_user)
+#     yield client
 
 
 @pytest.fixture(scope='session')
@@ -81,7 +107,7 @@ def request_factory():
     yield APIRequestFactory()
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
 def categories_list(db):
     yield mixer.cycle(15).blend(Category)
 
@@ -94,3 +120,9 @@ def exists_category(db):
 @pytest.fixture
 def random_news(db):
     yield mixer.blend(News, slug=mixer.RANDOM)
+
+
+@pytest.fixture
+def off_signals():
+    post_save.receivers = []
+    pre_save.receivers = []

@@ -15,13 +15,13 @@ pytestmark = [pytest.mark.django_db]
     ('client', 'expected_code'),
     [
         # get fixtures as parameters!
-        ('unauthenticated_client', 401),
-        ('no_admin_client', 200)
+        ('api_client', 401),
+        ('no_admin_auth_api_client', 200)
     ]
 )
 def test_access(client, expected_code, request):
-    client = request.getfixturevalue(client)
-    response = client.get(reverse("get_categories_route"))
+    client_ = request.getfixturevalue(client)
+    response = client_.get(reverse("get_categories_route"))
     assert response.status_code == expected_code
 
 

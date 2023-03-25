@@ -2,3 +2,6 @@
 omit =
     newsapp/migrations/*
     manage.py
+    project/wsgi.py
+    project/urls.py
+    project/asgi.py

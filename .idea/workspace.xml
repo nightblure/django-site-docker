@@ -50,14 +50,14 @@
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\desktop\dev\django-site-docker\src" />
       <recent name="D:\desktop\dev\django-site-docker" />
+      <recent name="D:\desktop\dev\django-site-docker\src" />
       <recent name="D:\desktop\dev\django-site-docker\project\newsapp\tests\api" />
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project" />
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in newsapp">
+  <component name="RunManager" selected="Python tests.pytest in src">
     <configuration name="server" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="server" workingDirectory="" arguments="">
         <envs />
@@ -132,7 +132,7 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="pytest in newsapp" type="tests" factoryName="py.test" nameIsGenerated="true">
+    <configuration name="pytest in src" type="tests" factoryName="py.test" nameIsGenerated="true">
       <module name="django site" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -145,7 +145,7 @@
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;-rs&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/newsapp&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/src/&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
@@ -155,7 +155,7 @@
       <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
       <item itemvalue="Makefile Target.server" />
       <item itemvalue="Python.debug" />
-      <item itemvalue="Python tests.pytest in newsapp" />
+      <item itemvalue="Python tests.pytest in src" />
     </list>
     <recent_temporary>
       <list>
@@ -190,12 +190,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="os.environ.get('PG_PORT')" language="Python" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

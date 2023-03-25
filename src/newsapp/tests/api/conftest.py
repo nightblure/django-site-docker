@@ -5,7 +5,7 @@ from mixer.backend.django import mixer
 from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
 from django.urls import reverse
 
-from newsapp.models import User, Category
+from newsapp.models import User, Category, News
 
 """
 https://www.django-rest-framework.org/api-guide/testing/
@@ -88,6 +88,9 @@ def categories_list(db):
 
 @pytest.fixture
 def exists_category(db):
-    cat = Category.objects.create(title='Test category')
-    yield cat
-    cat.delete()
+    yield mixer.blend(Category, title='Test category')
+
+
+@pytest.fixture
+def random_news(db):
+    yield mixer.blend(News, slug=mixer.RANDOM)

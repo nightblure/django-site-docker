@@ -51,7 +51,6 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update && poetry install
-          poetry install
 
       - name: flake8
         run: |

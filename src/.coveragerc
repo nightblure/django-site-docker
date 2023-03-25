@@ -1,0 +1,4 @@
+[run]
+omit =
+    newsapp/migrations/*
+    manage.py

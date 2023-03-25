@@ -23,7 +23,9 @@ This project implements a small Django news site.
   - ```Dockerfile.yml``` - Dockerfile
   - ```docker-compose.yml``` - file for deployment ```Docker``` containers
   - ```.docker/.env``` - env variables
-  - ```.flake8``` - ```flake8``` linter config file
+  - ```src/.flake8``` - ```flake8``` linter config file
+  - ```src/.coveragerc``` - coverage config file
+  - ```src/pytest.ini``` - ```pytest``` config file
 
 ## Local run:
 
@@ -57,6 +59,7 @@ make tests
 
 * cli coverage report: ```pytest -rs --cov=.```
 * cli and html coverage report: ```pytest --cov-report html --cov=.```
+* define exclude files for coverage in ```src/.coveragerc```
 
 ## Local run with Docker:
   1. [Clone repository](https://github.com/nightblure/django-site-docker.git)

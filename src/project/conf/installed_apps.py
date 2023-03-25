@@ -21,7 +21,8 @@ INSTALLED_APPS = [
 ]
 
 if settings.DEBUG:
-    INSTALLED_APPS.extend([
+    INSTALLED_APPS.extend(
+        [
             'debug_toolbar',
         ]
     )

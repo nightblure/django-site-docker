@@ -1,8 +1,10 @@
 # News Django Site
 
 ![Build Status](https://github.com/nightblure/django-site-docker/actions/workflows/main.yml/badge.svg?branch=main)
-
 [![codecov](https://codecov.io/gh/nightblure/django-site-docker/branch/main/graph/badge.svg?token=7JFXGJJAF3)](https://codecov.io/gh/nightblure/django-site-docker)
+
+
+
 
 This project implements a small Django news site.
 * Data Storage - ```PostgreSQL```

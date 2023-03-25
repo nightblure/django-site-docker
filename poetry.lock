@@ -766,6 +766,30 @@ pytz = "*"
 tornado = ">=5.0.0,<7.0.0"
 
 [[package]]
+name = "genbadge"
+version = "1.1.0"
+description = "Generate badges for tools that do not provide one."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "genbadge-1.1.0-py2.py3-none-any.whl", hash = "sha256:add6a6beea812a8e35c612e0ea0f784bee5b984029b6a4b990721d0901fdb3c8"},
+    {file = "genbadge-1.1.0.tar.gz", hash = "sha256:a061187d49c78fc54c94410af201e873178d1bf1877701846c89341360bf79dc"},
+]
+
+[package.dependencies]
+click = ">7.0"
+defusedxml = {version = "*", optional = true, markers = "extra == \"coverage\" or extra == \"tests\""}
+pillow = "*"
+requests = "*"
+
+[package.extras]
+all = ["defusedxml", "flake8-html"]
+coverage = ["defusedxml"]
+flake8 = ["flake8-html"]
+tests = ["defusedxml"]
+
+[[package]]
 name = "gunicorn"
 version = "20.1.0"
 description = "WSGI HTTP Server for UNIX"
@@ -1597,4 +1621,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1,<4.0"
-content-hash = "56db0fa70a242dd6a93a0e5236c5f9fcf82419f5e8f3e92ddccb26d5d129fcab"
+content-hash = "a52f74f24881caf119ffbff05e60a32ce36f8433488b50b1718cacbd42d8a2c0"

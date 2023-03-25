@@ -62,7 +62,7 @@ jobs:
       - name: Run tests and collect coverage
         run: |
           cd src
-          poetry python manage.py migrate
+          poetry run python manage.py migrate
           poetry run pytest --create-db --cov=. --cov-report=xml
 
       - name: Upload coverage reports to Codecov with GitHub Action

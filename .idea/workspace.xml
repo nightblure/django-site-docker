@@ -57,7 +57,7 @@
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.db: Compose Deployment">
+  <component name="RunManager" selected="Python tests.pytest in newsapp">
     <configuration name="server" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="server" workingDirectory="" arguments="">
         <envs />

@@ -50,12 +50,16 @@ def unauthenticated_client():
 
 @pytest.fixture
 def admin_user(db):
-    yield User.objects.get(username='admin')
+    user = User.objects.create(username='test_admin', is_staff=True)
+    yield user
+    user.delete()
 
 
 @pytest.fixture
 def no_admin_user(db):
-    yield User.objects.get(username='nightxx')
+    user = User.objects.create(username='test_user')
+    yield user
+    user.delete()
 
 
 @pytest.fixture

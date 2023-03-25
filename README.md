@@ -2,6 +2,7 @@
 
 ![Build Status](https://github.com/nightblure/django-site-docker/actions/workflows/main.yml/badge.svg?branch=main)
 [![codecov](https://codecov.io/gh/nightblure/django-site-docker/branch/main/graph/badge.svg?token=7JFXGJJAF3)](https://codecov.io/gh/nightblure/django-site-docker)
+[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 
 ![img.png](img.png)
 

@@ -7,7 +7,7 @@ DB_HOST = 'localhost'
 if settings.FROM_DOCKER_IMAGE:
     DB_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST')
 
-DB_PORT = os.environ.get('PG_PORT')
+DB_PORT = os.environ.get('DB_PORT')
 DB_NAME = os.environ.get('POSTGRES_DB')
 
 DB_USER = os.environ.get('POSTGRES_USER')
@@ -26,3 +26,5 @@ DATABASES = {
         'PORT': DB_PORT,
     }
 }
+
+print(DATABASES['default'])

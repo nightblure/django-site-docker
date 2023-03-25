@@ -16,6 +16,7 @@ services:
 
   web:
     container_name: web
+    env_file: src/.env
     build:
       context: .
       dockerfile: Dockerfile
@@ -32,17 +33,20 @@ services:
     image: redis:alpine
     ports:
      - "6379:6379"
+    restart: unless-stopped
 
   celery:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: celery
+    env_file: src/.env
     command: ["/app/docker/run-celery.sh"]
     volumes:
       - .:/code
     depends_on:
       - redis
+    restart: unless-stopped
 
   nginx:
     container_name: nginx

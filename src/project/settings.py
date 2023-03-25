@@ -2,7 +2,6 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-import split_settings.tools
 from dotenv import load_dotenv
 from split_settings.tools import include
 
@@ -28,8 +27,6 @@ ALLOWED_HOSTS = ['*']
 
 FROM_DOCKER_IMAGE = 'FROM_DOCKER_IMAGE' in os.environ
 
-# HOST = '0.0.0.0' if FROM_DOCKER_IMAGE else 'localhost'
-
 SITE_PORT = os.environ.get('SITE_PORT')
 
 ROOT_URLCONF = 'project.urls'
@@ -54,7 +51,8 @@ include(
 
     'conf/debug_toolbar.py',
     'conf/redis_config.py',
-    'conf/rabbitmq_config.py'
+    'conf/rabbitmq_config.py',
 )
 
+# wildcard import!
 # include('conf/integrations/*.py')

@@ -3,7 +3,7 @@ from django.core.cache import cache
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
-from project import celery_app
+from project.celery import celery_app
 from newsapp.tasks import send_mails
 
 
@@ -29,9 +29,8 @@ def _send_mails(instance):
     celery_info = celery_app.control.inspect()
     celery_stats = celery_info.stats()
 
-    """ если celery недоступен, выходим из метода """
     if not celery_stats:
-        print('celery is not available')
+        print('CELERY IS NOT AVAILABLE')
         return
 
     users = [(obj.username, obj.email) for obj in user_model.objects.filter(is_subscriber=True)]

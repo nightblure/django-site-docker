@@ -25,12 +25,11 @@ RUN pip install --upgrade pip \
     && pip install poetry \
     && poetry install
 
-COPY src ./project
+COPY src src
 
-COPY ./docker ./docker
+COPY docker docker
 
 RUN chmod a+x ./docker/*.sh
 
 EXPOSE 80
-EXPOSE 8000
 CMD docker/run-app.sh

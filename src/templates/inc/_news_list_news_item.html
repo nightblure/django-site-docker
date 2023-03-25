@@ -23,6 +23,6 @@
 
 <div class="card-footer text-muted">
     {{ news_item.author }}, {{ news_item.created_at|date:"d M, Y H:i" }}
-    <span style="float:right" class="badge rounded-pill text-bg-primary"> {{ news_item.views_count }} views </span>
-    <span style="float:right; margin-right: 10px" class="badge rounded-pill text-bg-danger"> {{ news_likes|dict_value:news_item.pk }} likes </span>
+    <span style="float:right" class="badge rounded-pill text-bg-primary"> {{ news_item.views_count }} 👁 </span>
+    <span style="float:right; margin-right: 10px" class="badge rounded-pill text-bg-danger"> {{ news_likes|dict_value:news_item.pk }} 👍 </span>
 </div>

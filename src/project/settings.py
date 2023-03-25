@@ -25,7 +25,7 @@ DEBUG = os.environ.get('DEBUG')
 LOGGING_ON = True
 ALLOWED_HOSTS = ['*']
 
-FROM_DOCKER_IMAGE = 'FROM_DOCKER_IMAGE' in os.environ
+PROD = 'PROD' in os.environ
 
 SITE_PORT = os.environ.get('SITE_PORT')
 

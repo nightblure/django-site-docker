@@ -4,10 +4,14 @@ from django.conf import settings
 
 DB_HOST = 'localhost'
 
-if settings.FROM_DOCKER_IMAGE:
+if settings.PROD:
     DB_HOST = os.environ.get('PG_DOCKER_IMAGE_HOST')
 
-DB_PORT = os.environ.get('DB_PORT')
+DB_PORT = os.environ.get('DB_LOCAL_PORT')
+
+if settings.PROD:
+    DB_PORT = os.environ.get('DB_PORT')
+
 DB_NAME = os.environ.get('POSTGRES_DB')
 
 DB_USER = os.environ.get('POSTGRES_USER')
@@ -26,5 +30,3 @@ DATABASES = {
         'PORT': DB_PORT,
     }
 }
-
-print(DATABASES['default'])

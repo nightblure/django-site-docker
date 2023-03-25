@@ -22,14 +22,38 @@ This project implements a small Django news site.
   - ```.flake8``` - ```flake8``` linter config file
 
 ## Local run:
-  1. Install dependencies: ```make deps```
-  2. Run ```Celery```: ```make celery```
-  3. Run server: ```make server```
-  4. Linter checks: ```make linter```
-  5. Tests: ```make tests``` 
-     * run only: ```pytest -rs```
-     * minimalistic coverage report: ```pytest --cov=.```
-     * full coverage report: ```pytest --cov-report term-missing --cov=.```
+
+Install dependencies:
+
+```bash
+make deps
+```
+
+Run ```Celery```:
+
+```bash
+make celery
+```
+
+Run server:
+```bash
+make server
+```
+
+Linter checks:
+```bash
+make linter
+```
+
+Tests:
+
+```bash
+make tests
+```
+
+* run only: ```pytest -rs```
+* minimalistic coverage report: ```pytest --cov=.```
+* full coverage report: ```pytest --cov-report term-missing --cov=.```
 
 ## Local run with Docker:
   1. [Clone repository](https://github.com/nightblure/django-site-docker.git)

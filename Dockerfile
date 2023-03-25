@@ -3,7 +3,7 @@ FROM python:${PY_VER}
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    FROM_DOCKER_IMAGE=True
+    PROD=True
 
 RUN apk update \
     && apk add --no-cache \

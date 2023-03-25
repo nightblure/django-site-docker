@@ -1,6 +1,7 @@
 import pytest
 from django.conf import settings
 from django.forms import model_to_dict
+from mixer.backend.django import mixer
 from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
 from django.urls import reverse
 
@@ -41,23 +42,23 @@ def django_db_setup():
     settings.DATABASES['default'] = settings.DATABASES['default']
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture
 def unauthenticated_client():
     client = APIClient()
     yield client
 
 
-@pytest.fixture(scope='session')
-def user_admin():
+@pytest.fixture
+def admin_user(db):
     yield User.objects.get(username='admin')
 
 
-@pytest.fixture(scope='session')
-def no_admin_user():
+@pytest.fixture
+def no_admin_user(db):
     yield User.objects.get(username='nightxx')
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture
 def no_admin_client(no_admin_user):
     client = APIClient()
     client.force_authenticate(user=no_admin_user)
@@ -65,9 +66,9 @@ def no_admin_client(no_admin_user):
 
 
 @pytest.fixture(scope='session')
-def admin_user_client(user_admin):
+def admin_user_client(admin_user):
     client = APIClient()
-    client.force_authenticate(user=user_admin)
+    client.force_authenticate(user=admin_user)
     yield client
 
 
@@ -77,12 +78,12 @@ def request_factory():
 
 
 @pytest.fixture(scope='session')
-def categories_list():
-    yield Category.objects.values()
+def categories_list(db):
+    yield mixer.cycle(15).blend(Category)
 
 
 @pytest.fixture
-def exists_category():
+def exists_category(db):
     cat = Category.objects.create(title='Test category')
     yield cat
     cat.delete()

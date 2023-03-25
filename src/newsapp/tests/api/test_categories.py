@@ -76,14 +76,14 @@ def test_category_create_api_forbidden(request_factory, no_admin_user):
     assert response.status_code == 403
 
 
-def test_category_create_api_success(request_factory):
+def test_category_create_api_success(request_factory, admin_user):
     view = category_api.CategoryCreateApi.as_view()
 
     request = request_factory.post(
         reverse('create_category_route'),
         {'title': 'random category'}
     )
-    force_authenticate(request, User.objects.get(username='admin'))
+    force_authenticate(request, admin_user)
     response = view(request)
     assert response.status_code == 201
     assert len(response.data) == 1

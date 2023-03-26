@@ -43,7 +43,7 @@ def test_category_input_serializer_correct_data():
         model_to_dict(obj)
         for obj in mixer.cycle(15).blend(Category)
     ]
-    serializer = InputSerializer( data=data, many=True)
+    serializer = InputSerializer(data=data, many=True)
     serializer.is_valid(raise_exception=True)
 
     assert len(serializer.validated_data) == 15

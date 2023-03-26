@@ -3,7 +3,7 @@ from rest_framework.test import force_authenticate, APIRequestFactory
 
 
 def get_url(url, kwargs=None):
-    return reverse(url, kwargs=kwargs )
+    return reverse(url, kwargs=kwargs)
 
 
 def send_no_auth_request(url, view, view_args: tuple = None, method='get', body=None):

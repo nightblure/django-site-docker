@@ -57,13 +57,7 @@
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in src">
-    <configuration name="server" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$PROJECT_DIR$/Makefile" target="server" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Docker.docker-compose.yml.prometheus: Compose Deployment">
     <configuration name="debug" type="PythonConfigurationType" factoryName="Python">
       <module name="django site" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -119,6 +113,32 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="docker-compose.yml.grafana: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="grafana" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.prometheus: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="prometheus" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="docker-compose.yml.web: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -150,19 +170,21 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Docker.docker-compose.yml.grafana: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.prometheus: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.celery: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.web: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
-      <item itemvalue="Makefile Target.server" />
       <item itemvalue="Python.debug" />
       <item itemvalue="Python tests.pytest in src" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yml.prometheus: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.grafana: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.web: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.celery: Compose Deployment" />
-        <item itemvalue="Makefile Target.server" />
       </list>
     </recent_temporary>
   </component>

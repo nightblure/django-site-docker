@@ -9,6 +9,9 @@ server:
 celery:
 	cd src && celery -A project worker -l info -P solo
 
+flower:
+	cd src && celery -A project flower
+
 linter:
 	flake8 src
 

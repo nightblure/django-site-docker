@@ -46,7 +46,7 @@
     </div>
 
     <div class="card-footer text-muted">
-        {{ news_item.user }}, {{ news_item.created_at|date:"Y-m-d H:i" }}
+        {{ news_item.author }}, {{ news_item.created_at|date:"Y-m-d H:i" }}
         <span style="float:right" class="badge rounded-pill text-bg-primary"> {{ news_item.views_count }} views </span>
     </div>
 

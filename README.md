@@ -16,6 +16,7 @@ This project implements a small Django news site.
 * Deployment - ```Docker Hub``` & ```Github Actions```
 * Tests - ```pytest``` & ```mixer```
 * Code style - ```flake8```
+* Monitoring: ```flower```, ```Grafana``` & ```Prometheus```
 
 ## Files:
   - ```Makefile``` - file with all commands
@@ -39,6 +40,11 @@ Run ```Celery```:
 
 ```bash
 make celery
+```
+
+```flower```:
+```bash
+make flower
 ```
 
 Run server:

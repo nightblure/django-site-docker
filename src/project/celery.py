@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from celery import Celery
 
-BROKER = os.environ.get('BROKER')
+BROKER = os.environ.get('BROKER') or 'redis'
 
 if BROKER not in ('rabbitmq', 'redis'):
     raise Exception('env var BROKER must be one from `redis` or `rabbitmq`')

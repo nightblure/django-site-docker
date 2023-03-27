@@ -13,7 +13,7 @@ linter:
 	flake8 src
 
 tests:
-	cd src/newsapp
+	cd src
 	pytest -rs -n auto --ff -x --create-db --cov-report=html --cov=. -m 'not single_thread'
 
 up:

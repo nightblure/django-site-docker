@@ -10,16 +10,14 @@ RUN apk update \
         python3-dev \
         postgresql-dev \
         gcc \
-        musl-dev \
-    # clear apt cache
-    && rm -rf /var/lib/apt/lists/*
+        musl-dev
 
 RUN mkdir /app
 
 # задаем рабочую директорию в контексте Dockerfile. далее можно пользоваться "." и писать относительные пути (относительно директории /app)
 WORKDIR /app
 
-COPY ["pyproject.toml", "poetry.lock", "./"]
+COPY pyproject.toml poetry.lock ./
 
 RUN pip install --upgrade pip \
     && pip install poetry \

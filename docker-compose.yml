@@ -48,11 +48,23 @@ services:
       - redis
     restart: unless-stopped
 
+#  nginx:
+#    container_name: nginx
+#    build:
+#      context: .
+#      dockerfile: Dockerfile_nginx
+#    ports:
+#     - "80:80"
+#    depends_on:
+#      - web
+
   nginx:
     container_name: nginx
-    build:
-      context: .
-      dockerfile: Dockerfile_nginx
+    image: nginx:stable-alpine
+    volumes:
+      - ./src/media:/app/media
+      - ./src/static:/app/static
+      - ./nginx-conf.d:/etc/nginx/conf.d/default.conf
     ports:
      - "80:80"
     depends_on:

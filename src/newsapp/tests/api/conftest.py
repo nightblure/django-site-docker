@@ -1,10 +1,9 @@
 import pytest
 from django.conf import settings
 from django.db.models.signals import post_save, pre_save
-from django.forms import model_to_dict
+from django.test import RequestFactory
 from mixer.backend.django import mixer
-from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
-from django.urls import reverse
+from rest_framework.test import APIRequestFactory, APIClient
 
 from newsapp.models import User, Category, News
 
@@ -126,3 +125,8 @@ def random_news(db):
 def off_signals():
     post_save.receivers = []
     pre_save.receivers = []
+
+
+@pytest.fixture
+def django_request_factory():
+    yield RequestFactory()

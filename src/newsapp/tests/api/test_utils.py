@@ -10,14 +10,15 @@ from newsapp.api.pagination import StandardPagination
 from newsapp.api.utils import get_paginated_response
 
 
-@pytest.mark.xfail(reason='dont understand what request want get_paginated_response')
-def test_paginated_response(request_factory, no_admin_user):
+@pytest.mark.xfail
+def test_paginated_response(django_request_factory, no_admin_user):
     view = NewsGetApi.as_view()
     news = mixer.cycle(20).blend(News)
 
     def get_response(url):
-        request = request_factory.get(url)
-        force_authenticate(request, no_admin_user)
+        request = django_request_factory.get(url)
+        request.user = no_admin_user
+        request.query_param = {}
         return get_paginated_response(
             pagination_class=StandardPagination,
             serializer_class=OutputSerializer,
@@ -26,10 +27,12 @@ def test_paginated_response(request_factory, no_admin_user):
             view=view
         )
 
-    base_url = reverse('news_get_api_route')
+    base_url = reverse('news_api_route')
     response = get_response(base_url)
+
     assert response.data['previous'] is None
     assert len(response.data) == StandardPagination.page_size
+
     last_page = 20 // StandardPagination.page_size
 
     for i in range(2, last_page + 1):

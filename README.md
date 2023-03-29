@@ -63,7 +63,7 @@ Tests:
 make tests
 ```
 
-* cli coverage report: ```pytest -rs --cov=.```
+* cli coverage report: ```pytest --cov-report term-missing -rs --cov=.```
 * cli and html coverage report: ```pytest --cov-report html --cov=.```
 * define exclude files for coverage in ```src/.coveragerc```
 

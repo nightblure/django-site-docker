@@ -3,7 +3,7 @@ from rest_framework import permissions
 
 class IsNewsAuthorOrAdminAndAuthenticated(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        if not request.user.is_authenticated:
+        if request.user.is_anonymous:
             return False
 
         # if request.method in permissions.SAFE_METHODS:

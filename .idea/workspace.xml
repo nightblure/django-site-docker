@@ -50,11 +50,11 @@
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\desktop\dev\django-site-docker\src\newsapp\tests" />
       <recent name="D:\desktop\dev\django-site-docker" />
       <recent name="D:\desktop\dev\django-site-docker\src" />
       <recent name="D:\desktop\dev\django-site-docker\project\newsapp\tests\api" />
       <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker\project" />
-      <recent name="C:\Users\nightblure\Desktop\dev\django-site-docker" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.pytest in src">
@@ -170,11 +170,11 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Docker.docker-compose.yml.celery: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.grafana: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.prometheus: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.celery: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.web: Compose Deployment" />
-      <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
       <item itemvalue="Python.debug" />
       <item itemvalue="Python tests.pytest in src" />
     </list>

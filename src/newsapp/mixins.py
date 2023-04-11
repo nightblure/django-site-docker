@@ -9,7 +9,7 @@ from project.conf.redis_config import CACHE_TTL
 class ResetPasswordMixin:
     @staticmethod
     def reset_password(user):
-        user = User.objects.filter(pk=user.pk).first()
+        # user = User.objects.filter(pk=user.pk).first()
         user.password = make_password('1234User')
         user.save()
 
@@ -22,7 +22,7 @@ class ResetPasswordMixin:
 в debug-toolbar будет видно, что не улетает ни одного запроса, если кэш работает
 
 """
-class CacheMixin(object):
+class CacheMixin(object):  # pragma: no cover
     cache_timeout = CACHE_TTL
 
     def get_cache_timeout(self):

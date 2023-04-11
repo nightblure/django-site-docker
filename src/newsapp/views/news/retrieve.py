@@ -1,3 +1,5 @@
+import logging
+
 from django.core.cache import cache
 from django.db.models import Q
 from django.views.generic import ListView
@@ -52,7 +54,6 @@ class NewsList(ListView):
         return context
 
     def get_queryset(self):
-
         # if 'news' in cache:
         #     return cache.get('news')
 

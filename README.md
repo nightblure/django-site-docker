@@ -17,6 +17,7 @@ This project implements a small Django news site.
 * Tests - ```pytest``` & ```mixer```
 * Code style - ```flake8```
 * Monitoring: ```flower```, ```Grafana``` & ```Prometheus```
+* Logging: ```Sentry```
 
 ## Files:
   - ```Makefile``` - file with all commands

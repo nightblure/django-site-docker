@@ -52,6 +52,7 @@ include(
     'conf/debug_toolbar.py',
     'conf/redis_config.py',
     'conf/rabbitmq_config.py',
+    'conf/sentry.py'
 )
 
 # wildcard import!

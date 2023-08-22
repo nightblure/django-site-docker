@@ -25,7 +25,7 @@ jwt_patterns = [
 ]
 
 urlpatterns = [
-    path('api/v1/', include('newsapp.api.like.urls')),
+    path('api/v1/likes/', include('newsapp.api.like.urls')),
     path('api/v1/news/', include('newsapp.api.news.urls')),
     path('api/v1/categories/', include('newsapp.api.category.urls')),
 

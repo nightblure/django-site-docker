@@ -2,7 +2,7 @@ from collections import defaultdict
 
 import requests
 
-from newsapp.models import Like
+from likesapp.models import Like
 
 
 def get_user_liked_posts(user_id):

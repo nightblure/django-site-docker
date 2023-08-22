@@ -11,8 +11,10 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
-    # регистрация приложения newsapp
+    'commentsapp.apps.RegisterCommentsapp',
     'newsapp.apps.RegisterNewsapp',
+    'categoriesapp.apps.RegisterCategoriesapp',
+    'likesapp.apps.RegisterLikesapp',
 
     'rest_framework',
     'rest_framework.authtoken',

@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import News, Category, Like, Comment, User
+
+from categoriesapp.models import Category
+from commentsapp.models import Comment
+from likesapp.models import Like
+from newsapp.models import News, User
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 

@@ -1,13 +1,11 @@
-from rest_framework import serializers
+from django.forms import model_to_dict
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from newsapp.models import News, Like
-
-
-class InputSerializer(serializers.Serializer):
-    news = serializers.SlugRelatedField(slug_field='slug', queryset=News.objects)
+from newsapp.api.like.serializers import LikeResponse, LikeSerializer
+from newsapp.models import News
+from likesapp.models import Like
 
 
 class LikeNewsApi(APIView):
@@ -20,7 +18,8 @@ class LikeNewsApi(APIView):
             return Response({'message': 'already liked'})
 
         Like.objects.create(user=request.user, news=news_obj)
-        return Response({'message': 'success like'})
+        r = LikeResponse(message='success like')
+        return Response(r.data)
 
 
 class UnlikeNewsApi(APIView):
@@ -28,4 +27,12 @@ class UnlikeNewsApi(APIView):
         news_obj = get_object_or_404(News, slug=news_slug_title)
         like_obj = get_object_or_404(Like, user=request.user, news=news_obj)
         like_obj.delete()
-        return Response({'message': 'success unlike'})
+        r = LikeResponse(message='success unlike')
+        return Response(r.data)
+
+
+class LikesApi(APIView):
+    def get(self, request):
+        likes = Like.objects.all()
+        r = LikeSerializer(likes, many=True)
+        return Response(r.data)

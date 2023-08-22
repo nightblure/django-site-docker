@@ -2,7 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
-from newsapp.models import News, User, Comment
+from newsapp.models import News, User
+from commentsapp.models import Comment
 
 
 @login_required

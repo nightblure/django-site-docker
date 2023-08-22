@@ -1,11 +1,52 @@
 from django.contrib import messages
 from django.contrib.auth import logout, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic import FormView
 
+from newsapp.forms import AuthTokenForm
 from newsapp.forms import UserRegisterForm, UserLoginForm
-from newsapp.models import User
 from newsapp.mixins import ResetPasswordMixin
+from newsapp.models import User
+from newsapp.utils import get_auth_token_message
+
+
+class AuthTokenView(LoginRequiredMixin, FormView):
+    form_class = AuthTokenForm
+    template_name = 'auth/auth_token.html'
+
+    def post(self, request, *args, **kwargs):
+        # вытаскиваем значения текстовых полей по html-атрибуту name
+        login = request.POST['login']
+        password = request.POST['password']
+
+        message = get_auth_token_message(login, password)
+
+        if 'auth_token' in message:
+            messages.info(request, message)
+        else:
+            messages.error(request, message)
+
+        return redirect('token_route')
+
+
+class JWTTokenView(LoginRequiredMixin, FormView):
+    form_class = AuthTokenForm
+    template_name = 'auth/jwt_token.html'
+
+    def post(self, request, *args, **kwargs):
+        # вытаскиваем значения текстовых полей по html-атрибуту name
+        login = request.POST['login']
+        password = request.POST['password']
+
+        message = get_auth_token_message(login, password, 'jwt')
+
+        if 'refresh' in message:
+            messages.info(request, message)
+        else:
+            messages.error(request, message)
+
+        return redirect('jwt_token_route')
 
 
 class SignupView(FormView):

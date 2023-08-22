@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect
 
-from newsapp.models import News, Like
+from newsapp.models import News
+from likesapp.models import Like
 
 
 @login_required(login_url='login_route')

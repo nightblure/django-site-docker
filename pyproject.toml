@@ -32,6 +32,7 @@ mixer = "^7.2.2"
 genbadge = {extras = ["coverage", "tests"], version = "^1.1.0"}
 pytest-mock = "^3.10.0"
 sentry-sdk = {extras = ["django"], version = "^1.19.1"}
+pre-commit = "^3.3.3"
 
 
 [build-system]
